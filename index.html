@@ -313,7 +313,7 @@ function mostrarHortensia() {
     void flor.getBoundingClientRect();
     flor.style.animation="";
   });
-  setTimeout(()=>pantalla.classList.add("hidden"),3300);
+  setTimeout(()=>pantalla.classList.add("hidden"),20000);
 }
 
 // CONEXIÓN SUPABASE
@@ -388,9 +388,11 @@ function mezclar(array) {
 
 function mostrar(id) {
   ["bienvenida","juego","final"].forEach(x=>{
-    document.getElementById(x).classList.add("hidden");
+    const seccion=document.getElementById(x);
+    if(seccion) seccion.classList.add("hidden");
   });
-  document.getElementById(id).classList.remove("hidden");
+  const destino=document.getElementById(id);
+  if(destino) destino.classList.remove("hidden");
 }
 
 function comenzar() {
