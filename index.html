@@ -866,20 +866,56 @@ function normalizar(texto) {
 }
 
 function evaluar(respuesta, opciones) {
-  const r = normalizar(respuesta);
 
-  if (!r) return "pendiente";
+/* PALABRAS CLAVE PARA LAS 20 PREGUNTAS */
 
+const palabrasClave = [
+  [["azul"]],
+  [["28", "noviembre"]],
+  [["carne"]],
+  [["noche"]],
+  [["generos", "musicales"], ["todo", "musica"]],
+  [["animales"], ["familia"], ["conmigo"]],
+  [["lloro"], ["videos", "graciosos"]],
+  [["casa"]],
+  [["cafeteria", "gatos"], ["cafeteria", "gatitos"]],
+  [["presumidas"], ["creidas"], ["arrogantes"]],
+  [["sola", "acciones"]],
+  [["abrazos"], ["detalles"], ["tiempo", "personas"]],
+  [["fisico"], ["apariencia"]],
+  [["honestidad"], ["lealtad"]],
+  [["comida"], ["escuchan"]],
+  [["ley", "hielo"]],
+  [["traicion"], ["decepcion"]],
+  [["detalle"], ["detalles"]],
+  [["dinero"], ["plata"]],
+  [["apoyo"], ["helado"], ["heladito"]]
+];
+
+/* COMPROBAR SI CONTIENE LAS PALABRAS CLAVE */
+
+function evaluar(respuesta, opciones, indice) {
+  const texto = normalizar(respuesta);
+
+  if (!texto) return "pendiente";
+
+  // Primero comprobar respuestas completas aceptadas.
   for (const opcion of opciones) {
-    const o = normalizar(opcion);
+    if (texto === normalizar(opcion)) {
+      return "correcta";
+    }
+  }
 
-    if (r === o) return "correcta";
+  // Después comprobar palabras clave.
+  const grupos = palabrasClave[indice] || [];
+  const palabras = texto.split(" ");
 
-    if (
-      o.length >= 5 &&
-      r.includes(o) &&
-      r.length <= o.length + 65
-    ) {
+  for (const grupo of grupos) {
+    const coincide = grupo.every(clave =>
+      palabras.includes(normalizar(clave))
+    );
+
+    if (coincide) {
       return "correcta";
     }
   }
