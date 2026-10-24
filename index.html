@@ -139,6 +139,26 @@ button:disabled {
   .hortensia .ramo,.hortensia .brillo { animation:none; }
   .hortensia .florecita { animation:none; opacity:1; }
 }
+  
+.corazonAzul {
+  font-size: 65px;
+  margin: 12px auto;
+  filter: drop-shadow(0 0 16px #65b9ff);
+  animation: latidoCorazon 1.5s ease-in-out infinite;
+}
+
+@keyframes latidoCorazon {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 8px #80caff);
+  }
+
+  50% {
+    transform: scale(1.25);
+    filter: drop-shadow(0 0 24px #369bff);
+  }
+}
+
 </style>
 </head>
 
@@ -244,6 +264,7 @@ button:disabled {
         <g id="racimoHortensia"></g>
       </g>
     </svg>
+    <div class="corazonAzul">💙</div>
     <h2>¡Gracias por responder!</h2>
     <p>Una hortensia azul para ti. Preparando tu resultado...</p>
   </div>
