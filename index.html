@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>¿Qué tanto me conoces?</title>
 
 <style>
@@ -21,7 +22,7 @@ body {
 }
 
 main {
-  max-width: 650px;
+  max-width: 680px;
   margin: 30px auto;
   padding: 30px;
   background: white;
@@ -119,7 +120,7 @@ button:disabled {
   border-left: 5px solid #71b18a;
 }
 
-.review {
+.incorrect {
   border-left: 5px solid #d46b75;
 }
 
@@ -130,6 +131,10 @@ button:disabled {
 
 .error {
   color: #b63759;
+}
+
+.success {
+  color: #388657;
 }
 
 .calificacion-correcta {
@@ -153,7 +158,24 @@ summary {
   font-weight: bold;
 }
 
-/* ANIMACIÓN DE HORTENSIA */
+.registro {
+  margin: 18px 0;
+  padding: 18px;
+  border: 1px solid #e7d9ef;
+  border-radius: 16px;
+  background: #fcf9ff;
+}
+
+.registro h3 {
+  margin-top: 0;
+  color: #68448a;
+}
+
+#admin {
+  margin-top: 20px;
+}
+
+/* ANIMACIÓN DE LA HORTENSIA */
 
 #florPantalla {
   position: fixed;
@@ -180,9 +202,11 @@ summary {
   0% {
     background-position: 0% 0%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 100%;
   }
@@ -219,6 +243,7 @@ summary {
   0%, 100% {
     transform: rotate(-1.5deg);
   }
+
   50% {
     transform: rotate(1.5deg);
   }
@@ -237,10 +262,12 @@ summary {
     opacity: 0;
     transform: scale(.05) rotate(-25deg);
   }
+
   60% {
     opacity: 1;
     transform: scale(1.08);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -255,6 +282,7 @@ summary {
   from {
     opacity: .4;
   }
+
   to {
     opacity: 1;
   }
@@ -272,6 +300,7 @@ summary {
     transform: scale(1);
     filter: drop-shadow(0 0 8px #80caff);
   }
+
   50% {
     transform: scale(1.22);
     filter: drop-shadow(0 0 24px #369bff);
@@ -288,6 +317,26 @@ summary {
   .florecita {
     animation: none;
     opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  main {
+    margin: 10px auto;
+    padding: 18px;
+  }
+
+  button {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  .question {
+    font-size: 19px;
   }
 }
 </style>
@@ -322,6 +371,7 @@ summary {
 <!-- PREGUNTAS -->
 
 <section id="juego" class="hidden">
+
   <p id="contador" class="center"></p>
 
   <div class="progress">
@@ -356,21 +406,27 @@ summary {
   </div>
 
   <p id="estado" class="center"></p>
+
 </section>
 
-<!-- RESULTADOS -->
+<!-- RESULTADOS DEL PARTICIPANTE -->
 
 <section id="final" class="hidden">
+
   <h1>Tu resultado</h1>
+
   <div id="resultado"></div>
+
 </section>
 
 <!-- ADMINISTRACIÓN -->
 
 <section id="admin" class="hidden">
+
   <h2>Panel de administración</h2>
 
   <div id="login">
+
     <input
       id="correo"
       type="email"
@@ -386,11 +442,13 @@ summary {
     <button type="button" onclick="iniciarSesion()">
       Iniciar sesión
     </button>
+
   </div>
 
   <div id="panel" class="hidden">
+
     <button type="button" onclick="cargarResultados()">
-      Actualizar resultados
+      Actualizar y recalificar resultados
     </button>
 
     <button
@@ -402,14 +460,16 @@ summary {
     </button>
 
     <div id="lista"></div>
+
   </div>
 
   <p id="estadoAdmin"></p>
+
 </section>
 
 </main>
 
-<!-- HORTENSIA AZUL -->
+<!-- PANTALLA DE HORTENSIA -->
 
 <section
   id="florPantalla"
@@ -417,6 +477,7 @@ summary {
   role="status"
   aria-live="polite"
 >
+
   <div class="florTarjeta">
 
     <svg
@@ -425,7 +486,9 @@ summary {
       role="img"
       aria-label="Hortensia azul floreciendo"
     >
+
       <defs>
+
         <radialGradient id="petaloAzul">
           <stop offset="0%" stop-color="#e5f3ff"/>
           <stop offset="40%" stop-color="#a6ceff"/>
@@ -437,6 +500,7 @@ summary {
           <stop offset="0%" stop-color="#88c8ad"/>
           <stop offset="100%" stop-color="#3e967c"/>
         </linearGradient>
+
       </defs>
 
       <g class="ramo">
@@ -460,7 +524,9 @@ summary {
         />
 
         <g id="racimoHortensia"></g>
+
       </g>
+
     </svg>
 
     <div class="corazonAzul">💙</div>
@@ -473,11 +539,14 @@ summary {
     </p>
 
   </div>
+
 </section>
 
 <script>
 
-/* SUPABASE */
+/* ==========================================
+   CONFIGURACIÓN DE SUPABASE
+========================================== */
 
 const URL_BASE =
   "https://ehxrmqbthxndcfmwjhmq.supabase.co";
@@ -487,8 +556,11 @@ const API_KEY =
 
 let tokenAdmin = null;
 let enviando = false;
+let cargandoAdmin = false;
 
-/* PREGUNTAS Y RESPUESTAS */
+/* ==========================================
+   PREGUNTAS Y RESPUESTAS CORRECTAS
+========================================== */
 
 const datos = [
   [
@@ -536,7 +608,11 @@ const datos = [
   ],
   [
     "¿Soy más de salir o quedarme en casa?",
-    ["quedarme en casa", "estar en casa", "casa"]
+    [
+      "quedarme en casa",
+      "estar en casa",
+      "casa"
+    ]
   ],
   [
     "¿Cuál es uno de mis mayores sueños?",
@@ -572,7 +648,11 @@ const datos = [
   ],
   [
     "¿Qué inseguridad tengo?",
-    ["mi físico", "físico", "mi apariencia física"]
+    [
+      "mi físico",
+      "físico",
+      "mi apariencia física"
+    ]
   ],
   [
     "¿Qué es lo que más valoro en una amistad?",
@@ -614,7 +694,11 @@ const datos = [
   ],
   [
     "¿Qué es lo que más deseo conseguir en mi vida?",
-    ["dinero", "plata", "mucho dinero"]
+    [
+      "dinero",
+      "plata",
+      "mucho dinero"
+    ]
   ],
   [
     "Si estoy pasando un mal momento, ¿qué necesitaría de ti?",
@@ -626,15 +710,23 @@ const datos = [
   ]
 ];
 
-/* PALABRAS CLAVE */
+/* ==========================================
+   PALABRAS CLAVE
+========================================== */
 
 const palabrasClave = [
   [["azul"]],
+
   [["28", "noviembre"], ["28", "11"]],
+
   [["carne"], ["pollo"], ["dulces"]],
+
   [["noche"]],
+
   [["todos"], ["todas"], ["generos", "musicales"]],
+
   [["animales"], ["familia"], ["conmigo"]],
+
   [
     ["lloro"],
     ["llorar"],
@@ -642,22 +734,65 @@ const palabrasClave = [
     ["dulces"],
     ["comer", "dulces"]
   ],
+
   [["casa"]],
-  [["cafeteria", "gatos"], ["cafeteria", "gatitos"]],
-  [["presumidas"], ["creidas"], ["arrogantes"]],
-  [["sola", "acciones"], ["sola"]],
-  [["abrazos"], ["detalles"], ["tiempo", "personas"]],
+
+  [
+    ["cafeteria", "gatos"],
+    ["cafeteria", "gatitos"]
+  ],
+
+  [
+    ["presumidas"],
+    ["creidas"],
+    ["arrogantes"]
+  ],
+
+  [
+    ["sola", "acciones"],
+    ["sola"]
+  ],
+
+  [
+    ["abrazos"],
+    ["detalles"],
+    ["tiempo", "personas"]
+  ],
+
   [["fisico"], ["apariencia"]],
+
   [["honestidad"], ["lealtad"]],
-  [["esconden", "comida"], ["no", "escuchan"]],
+
+  [
+    ["esconden", "comida"],
+    ["no", "escuchan"]
+  ],
+
   [["ley", "hielo"]],
+
   [["traicion"], ["decepcion"], ["nada"]],
-  [["detalle"], ["detalles"], ["flores"], ["chocolates"]],
+
+  [
+    ["detalle"],
+    ["detalles"],
+    ["flores"],
+    ["chocolates"]
+  ],
+
   [["dinero"], ["plata"]],
-  [["apoyo"], ["helado"], ["heladito"], ["comida"], ["chocolates"]]
+
+  [
+    ["apoyo"],
+    ["helado"],
+    ["heladito"],
+    ["comida"],
+    ["chocolates"]
+  ]
 ];
 
-/* GÉNEROS MUSICALES */
+/* ==========================================
+   GÉNEROS MUSICALES
+========================================== */
 
 const generosMusicales = [
   "pop", "pop rock", "indie pop", "electropop",
@@ -709,14 +844,18 @@ const respuestasGeneralesMusica = [
   "escucho de todo"
 ];
 
-/* VARIABLES */
+/* ==========================================
+   VARIABLES DEL TEST
+========================================== */
 
 let orden = [];
 let respuestas = Array(datos.length).fill("");
 let posicion = 0;
 let participante = "";
 
-/* CREAR HORTENSIA */
+/* ==========================================
+   CREAR HORTENSIA
+========================================== */
 
 function crearHortensia() {
   const ns = "http://www.w3.org/2000/svg";
@@ -784,7 +923,9 @@ function crearHortensia() {
 
 crearHortensia();
 
-/* ANIMACIÓN */
+/* ==========================================
+   ANIMACIÓN DE 20 SEGUNDOS
+========================================== */
 
 function mostrarHortensia() {
   const pantalla = document.getElementById("florPantalla");
@@ -809,7 +950,9 @@ function mostrarHortensia() {
   });
 }
 
-/* PANTALLAS */
+/* ==========================================
+   CAMBIAR PANTALLAS
+========================================== */
 
 function mostrar(id) {
   ["bienvenida", "juego", "final"].forEach(seccion => {
@@ -819,18 +962,23 @@ function mostrar(id) {
   document.getElementById(id).classList.remove("hidden");
 }
 
-/* MEZCLAR */
+/* ==========================================
+   MEZCLAR PREGUNTAS
+========================================== */
 
 function mezclar(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
+
     [array[i], array[j]] = [array[j], array[i]];
   }
 
   return array;
 }
 
-/* COMENZAR */
+/* ==========================================
+   COMENZAR TEST
+========================================== */
 
 function comenzar() {
   participante = document.getElementById("nombre").value.trim();
@@ -848,7 +996,9 @@ function comenzar() {
   mostrarPregunta();
 }
 
-/* MOSTRAR PREGUNTA */
+/* ==========================================
+   MOSTRAR PREGUNTA
+========================================== */
 
 function mostrarPregunta() {
   const indice = orden[posicion];
@@ -873,14 +1023,18 @@ function mostrarPregunta() {
   document.getElementById("estado").textContent = "";
 }
 
-/* GUARDAR RESPUESTA */
+/* ==========================================
+   GUARDAR RESPUESTA TEMPORAL
+========================================== */
 
 function guardarTemporal() {
   respuestas[orden[posicion]] =
     document.getElementById("respuesta").value;
 }
 
-/* ANTERIOR */
+/* ==========================================
+   PREGUNTA ANTERIOR
+========================================== */
 
 function anterior() {
   if (enviando) return;
@@ -893,7 +1047,9 @@ function anterior() {
   }
 }
 
-/* SIGUIENTE */
+/* ==========================================
+   SIGUIENTE PREGUNTA
+========================================== */
 
 async function siguiente() {
   if (enviando) return;
@@ -919,7 +1075,9 @@ async function siguiente() {
   await finalizar();
 }
 
-/* NORMALIZAR */
+/* ==========================================
+   NORMALIZAR TEXTO
+========================================== */
 
 function normalizar(texto) {
   return String(texto)
@@ -931,7 +1089,9 @@ function normalizar(texto) {
     .trim();
 }
 
-/* COMPROBAR FRASES */
+/* ==========================================
+   COMPROBAR FRASES
+========================================== */
 
 function contieneFrase(texto, frase) {
   const clave = normalizar(frase);
@@ -941,19 +1101,23 @@ function contieneFrase(texto, frase) {
   return (` ${texto} `).includes(` ${clave} `);
 }
 
-/* CALIFICACIÓN AUTOMÁTICA */
+/* ==========================================
+   CALIFICACIÓN AUTOMÁTICA
+========================================== */
 
 function evaluar(respuesta, opciones, indice) {
   const texto = normalizar(respuesta);
 
   if (!texto) return "incorrecta";
 
+  // Respuestas completas.
   for (const opcion of opciones) {
     if (texto === normalizar(opcion)) {
       return "correcta";
     }
   }
 
+  // Géneros musicales.
   if (indice === 4) {
     const coincideGenero = generosMusicales.some(genero =>
       contieneFrase(texto, genero)
@@ -968,6 +1132,7 @@ function evaluar(respuesta, opciones, indice) {
     }
   }
 
+  // Palabras clave.
   const grupos = palabrasClave[indice] || [];
   const palabras = texto.split(" ");
 
@@ -988,7 +1153,34 @@ function evaluar(respuesta, opciones, indice) {
   return "incorrecta";
 }
 
-/* CREAR TARJETA DE RESPUESTA */
+/* ==========================================
+   CALCULAR PUNTUACIÓN
+========================================== */
+
+function calcularPuntuacion(respuestasUsuario) {
+  if (
+    !Array.isArray(respuestasUsuario) ||
+    respuestasUsuario.length !== datos.length
+  ) {
+    return null;
+  }
+
+  let puntos = 0;
+
+  respuestasUsuario.forEach((respuesta, i) => {
+    if (
+      evaluar(respuesta, datos[i][1], i) === "correcta"
+    ) {
+      puntos++;
+    }
+  });
+
+  return puntos;
+}
+
+/* ==========================================
+   CREAR TARJETA DE RESPUESTA
+========================================== */
 
 function crearTarjetaRespuesta(respuesta, indice) {
   const evaluacion = evaluar(
@@ -1000,22 +1192,27 @@ function crearTarjetaRespuesta(respuesta, indice) {
   const esCorrecta = evaluacion === "correcta";
 
   const tarjeta = document.createElement("div");
+
   tarjeta.className =
-    "result " + (esCorrecta ? "good" : "review");
+    "result " + (esCorrecta ? "good" : "incorrect");
 
   const pregunta = document.createElement("strong");
+
   pregunta.textContent =
     `${indice + 1}. ${datos[indice][0]}`;
 
   const respuestaUsuario = document.createElement("p");
+
   respuestaUsuario.textContent =
     "Tu respuesta: " + respuesta;
 
   const respuestaCorrecta = document.createElement("p");
+
   respuestaCorrecta.textContent =
     "Respuesta correcta: " + datos[indice][1][0];
 
   const calificacion = document.createElement("p");
+
   calificacion.className = esCorrecta
     ? "calificacion-correcta"
     : "calificacion-incorrecta";
@@ -1034,7 +1231,9 @@ function crearTarjetaRespuesta(respuesta, indice) {
   return tarjeta;
 }
 
-/* SUPABASE */
+/* ==========================================
+   CABECERAS DE SUPABASE
+========================================== */
 
 function headers(token) {
   return {
@@ -1044,7 +1243,9 @@ function headers(token) {
   };
 }
 
-/* FINALIZAR */
+/* ==========================================
+   FINALIZAR TEST
+========================================== */
 
 async function finalizar() {
   if (enviando) return;
@@ -1057,13 +1258,7 @@ async function finalizar() {
   boton.disabled = true;
   estado.textContent = "Calificando y guardando respuestas...";
 
-  let puntos = 0;
-
-  respuestas.forEach((respuesta, i) => {
-    if (evaluar(respuesta, datos[i][1], i) === "correcta") {
-      puntos++;
-    }
-  });
+  const puntos = calcularPuntuacion(respuestas);
 
   try {
     const response = await fetch(
@@ -1088,9 +1283,11 @@ async function finalizar() {
     }
 
     const zona = document.getElementById("resultado");
+
     zona.replaceChildren();
 
     const titulo = document.createElement("h2");
+
     titulo.textContent =
       `${participante}: ${puntos}/${datos.length} puntos`;
 
@@ -1103,6 +1300,7 @@ async function finalizar() {
     });
 
     await mostrarHortensia();
+
     mostrar("final");
 
   } catch (error) {
@@ -1119,14 +1317,18 @@ async function finalizar() {
   }
 }
 
-/* ABRIR ADMINISTRACIÓN */
+/* ==========================================
+   ABRIR O CERRAR ADMINISTRACIÓN
+========================================== */
 
 function mostrarAdmin() {
   document.getElementById("admin")
     .classList.toggle("hidden");
 }
 
-/* INICIAR SESIÓN */
+/* ==========================================
+   INICIAR SESIÓN ADMINISTRADOR
+========================================== */
 
 async function iniciarSesion() {
   const email = document.getElementById("correo").value.trim();
@@ -1145,7 +1347,10 @@ async function iniciarSesion() {
           "apikey": API_KEY,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({
+          email,
+          password
+        })
       }
     );
 
@@ -1173,63 +1378,204 @@ async function iniciarSesion() {
   }
 }
 
-/* CARGAR RESULTADOS CON TARJETAS */
+/* ==========================================
+   GUARDAR PUNTUACIÓN CORREGIDA
+========================================== */
+
+async function actualizarPuntuacion(registro, puntos) {
+  if (!tokenAdmin) {
+    throw new Error("No hay sesión de administración.");
+  }
+
+  const response = await fetch(
+    URL_BASE +
+    "/rest/v1/resultados_test?id=eq." +
+    encodeURIComponent(registro.id),
+    {
+      method: "PATCH",
+      headers: {
+        ...headers(tokenAdmin),
+        "Prefer": "return=representation"
+      },
+      body: JSON.stringify({
+        puntuacion: puntos,
+        pendientes_revision: 0
+      })
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+
+  const filas = await response.json();
+
+  if (!Array.isArray(filas) || filas.length !== 1) {
+    throw new Error(
+      "Supabase no permitió actualizar la puntuación."
+    );
+  }
+
+  return filas[0];
+}
+
+/* ==========================================
+   CARGAR Y RECALIFICAR RESULTADOS
+========================================== */
 
 async function cargarResultados() {
+  if (cargandoAdmin) return;
+
+  if (!tokenAdmin) {
+    document.getElementById("estadoAdmin").textContent =
+      "Primero inicia sesión.";
+    return;
+  }
+
+  cargandoAdmin = true;
+
   const lista = document.getElementById("lista");
   const estado = document.getElementById("estadoAdmin");
 
   lista.replaceChildren();
-  estado.textContent = "Cargando resultados...";
+
+  estado.textContent =
+    "Cargando y recalificando resultados...";
+
   estado.className = "";
 
   try {
-    const response = await fetch(
-      URL_BASE +
-      "/rest/v1/resultados_test?select=*&order=creado_en.desc&limit=500",
-      {
-        headers: headers(tokenAdmin)
-      }
-    );
+    const registros = [];
+    const limite = 500;
+    let offset = 0;
 
-    if (!response.ok) {
-      throw new Error("Error al consultar resultados.");
+    // Cargar todas las participaciones.
+    while (true) {
+      const response = await fetch(
+        URL_BASE +
+        "/rest/v1/resultados_test" +
+        "?select=*&order=creado_en.desc,id.desc" +
+        "&limit=" + limite +
+        "&offset=" + offset,
+        {
+          headers: headers(tokenAdmin)
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          "No se pudieron consultar los resultados: " +
+          await response.text()
+        );
+      }
+
+      const pagina = await response.json();
+
+      registros.push(...pagina);
+
+      if (pagina.length < limite) break;
+
+      offset += pagina.length;
     }
 
-    const registros = await response.json();
-
     const titulo = document.createElement("h3");
+
     titulo.textContent =
       "Participaciones: " + registros.length;
 
     lista.appendChild(titulo);
 
-    registros.forEach(registro => {
+    let actualizados = 0;
+    let errores = 0;
+
+    for (const registro of registros) {
       const div = document.createElement("div");
-      div.className = "result";
+      div.className = "registro";
 
       const nombre = document.createElement("h3");
-      nombre.textContent = registro.nombre;
+
+      nombre.textContent =
+        registro.nombre || "Sin nombre";
+
+      const respuestasGuardadas =
+        Array.isArray(registro.respuestas)
+          ? registro.respuestas
+          : [];
+
+      const puntuacionCorregida =
+        calcularPuntuacion(respuestasGuardadas);
 
       const puntos = document.createElement("p");
-      puntos.textContent =
-        `Puntuación guardada: ${registro.puntuacion}/20`;
+      const mensajeGuardado = document.createElement("p");
+
+      mensajeGuardado.className = "small";
+
+      if (puntuacionCorregida === null) {
+        puntos.textContent =
+          "No se puede recalificar: faltan respuestas.";
+
+        mensajeGuardado.textContent =
+          "Se conserva la puntuación anterior.";
+
+      } else {
+        puntos.textContent =
+          `Puntuación corregida: ${puntuacionCorregida}/20`;
+
+        const necesitaActualizar =
+          Number(registro.puntuacion) !== puntuacionCorregida ||
+          Number(registro.pendientes_revision) !== 0;
+
+        if (necesitaActualizar) {
+          try {
+            await actualizarPuntuacion(
+              registro,
+              puntuacionCorregida
+            );
+
+            actualizados++;
+
+            mensajeGuardado.textContent =
+              "Puntuación actualizada en Supabase.";
+
+            mensajeGuardado.className = "success";
+
+          } catch (error) {
+            errores++;
+
+            mensajeGuardado.textContent =
+              "No se pudo guardar la puntuación corregida. " +
+              "Puntuación anterior en Supabase: " +
+              registro.puntuacion + "/20.";
+
+            mensajeGuardado.className = "error";
+
+            console.error(
+              "Error al actualizar registro:",
+              registro.id,
+              error
+            );
+          }
+
+        } else {
+          mensajeGuardado.textContent =
+            "La puntuación guardada coincide con la corregida.";
+        }
+      }
 
       const fecha = document.createElement("p");
       fecha.className = "small";
-      fecha.textContent =
-        new Date(registro.creado_en).toLocaleString("es-EC");
+
+      fecha.textContent = registro.creado_en
+        ? new Date(registro.creado_en).toLocaleString("es-EC")
+        : "Fecha no disponible";
 
       const detalles = document.createElement("details");
 
       const resumen = document.createElement("summary");
+
       resumen.textContent = "Ver las 20 respuestas";
 
       detalles.appendChild(resumen);
-
-      const respuestasGuardadas = Array.isArray(registro.respuestas)
-        ? registro.respuestas
-        : [];
 
       respuestasGuardadas.forEach((respuesta, i) => {
         if (!datos[i]) return;
@@ -1240,6 +1586,7 @@ async function cargarResultados() {
       });
 
       const eliminar = document.createElement("button");
+
       eliminar.type = "button";
       eliminar.className = "danger";
       eliminar.textContent = "Eliminar registro";
@@ -1253,22 +1600,38 @@ async function cargarResultados() {
         puntos,
         fecha,
         detalles,
+        mensajeGuardado,
         eliminar
       );
 
       lista.appendChild(div);
-    });
+    }
 
-    estado.textContent = "Resultados cargados.";
+    estado.textContent =
+      `Participaciones: ${registros.length}. ` +
+      `Puntuaciones actualizadas: ${actualizados}. ` +
+      `Errores: ${errores}.`;
+
+    if (errores > 0) {
+      estado.className = "error";
+    }
 
   } catch (error) {
     console.error(error);
-    estado.textContent = error.message;
+
+    estado.textContent =
+      "Error al cargar resultados: " + error.message;
+
     estado.className = "error";
+
+  } finally {
+    cargandoAdmin = false;
   }
 }
 
-/* ELIMINAR REGISTRO */
+/* ==========================================
+   ELIMINAR REGISTRO
+========================================== */
 
 async function eliminarRegistro(registro, boton) {
   if (!tokenAdmin) {
@@ -1276,7 +1639,14 @@ async function eliminarRegistro(registro, boton) {
     return;
   }
 
-  const nombre = String(registro.nombre || "Sin nombre");
+  if (cargandoAdmin) {
+    alert("Espera a que termine la actualización.");
+    return;
+  }
+
+  const nombre = String(
+    registro.nombre || "Sin nombre"
+  );
 
   const confirmar = confirm(
     `¿Eliminar definitivamente las respuestas de "${nombre}"? ` +
@@ -1339,9 +1709,16 @@ async function eliminarRegistro(registro, boton) {
   }
 }
 
-/* CERRAR SESIÓN */
+/* ==========================================
+   CERRAR SESIÓN
+========================================== */
 
 function cerrarSesion() {
+  if (cargandoAdmin) {
+    alert("Espera a que termine la actualización.");
+    return;
+  }
+
   tokenAdmin = null;
 
   document.getElementById("panel")
@@ -1351,17 +1728,20 @@ function cerrarSesion() {
     .classList.remove("hidden");
 
   document.getElementById("lista").replaceChildren();
+
   document.getElementById("clave").value = "";
 
   document.getElementById("estadoAdmin").textContent =
     "Sesión cerrada.";
 }
 
-/* ATAJOS */
+/* ==========================================
+   ATAJOS DEL TECLADO
+========================================== */
 
 document.addEventListener("keydown", function(event) {
 
-  // Enter: siguiente pregunta.
+  // Enter para avanzar de pregunta.
   if (
     event.key === "Enter" &&
     !event.repeat &&
@@ -1375,11 +1755,11 @@ document.addEventListener("keydown", function(event) {
     return;
   }
 
-  // Ctrl + A: abrir o cerrar administración.
+  // Ctrl + A para abrir o cerrar administración.
   if (
     (event.ctrlKey || event.metaKey) &&
     event.key.toLowerCase() === "a" &&
-    !event.target.matches(
+    !event.target.closest(
       "input, textarea, [contenteditable]"
     )
   ) {
@@ -1389,5 +1769,6 @@ document.addEventListener("keydown", function(event) {
 });
 
 </script>
+
 </body>
 </html>
