@@ -1,0 +1,1024 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Qué tanto me conoces?</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #493951;
+  background: linear-gradient(
+    135deg,
+    #fce8f5,
+    #e8e5ff,
+    #e5f5fa
+  );
+}
+
+main {
+  max-width: 700px;
+  margin: 28px auto;
+  padding: 28px;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 12px 35px #654b8420;
+}
+
+h1, h2 {
+  color: #885eac;
+  text-align: center;
+}
+
+h3 {
+  color: #684789;
+}
+
+p {
+  line-height: 1.5;
+}
+
+.center {
+  text-align: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 1px solid #cbb4dc;
+  border-radius: 12px;
+  outline-color: #a77bd0;
+}
+
+button {
+  padding: 13px 19px;
+  margin: 5px;
+  border: none;
+  border-radius: 12px;
+  background: #9068b4;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(.96);
+}
+
+button:disabled {
+  opacity: .5;
+  cursor: wait;
+}
+
+.secondary {
+  background: #e9ddf3;
+  color: #563a70;
+}
+
+.progress {
+  height: 12px;
+  background: #eee4f5;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 22px 0;
+}
+
+.bar {
+  height: 100%;
+  width: 0;
+  background: #ab80d0;
+  transition: width .25s;
+}
+
+.question {
+  margin: 30px 0;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.result {
+  background: #f8f2fc;
+  border-radius: 14px;
+  padding: 16px;
+  margin: 13px 0;
+}
+
+.good {
+  border-left: 5px solid #76b28e;
+}
+
+.bad {
+  border-left: 5px solid #d77b8a;
+}
+
+.small {
+  font-size: 13px;
+  color: #766880;
+}
+
+.error {
+  color: #b63857;
+}
+
+.success {
+  color: #34794f;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: bold;
+  padding: 8px 0;
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+@media(max-width:480px) {
+  main {
+    padding: 18px;
+    margin: 10px auto;
+  }
+
+  .question {
+    font-size: 19px;
+  }
+
+  button {
+    padding: 12px;
+  }
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<!-- BIENVENIDA -->
+<section id="bienvenida">
+  <h1>💜 ¿Qué tanto me conoces?</h1>
+
+  <p class="center">
+    Responde 20 preguntas y descubre cuánto sabes de mí.
+    Cada participante recibirá las preguntas
+    en un orden diferente.
+  </p>
+
+  <input
+    id="nombre"
+    maxlength="80"
+    placeholder="Escribe tu nombre"
+  >
+
+  <div class="center">
+    <button onclick="comenzar()">
+      Comenzar test
+    </button>
+  </div>
+</section>
+
+<!-- PREGUNTAS -->
+<section id="juego" class="hidden">
+  <p id="contador" class="center"></p>
+
+  <div class="progress">
+    <div id="barra" class="bar"></div>
+  </div>
+
+  <div id="pregunta" class="question"></div>
+
+  <input
+    id="respuesta"
+    maxlength="500"
+    placeholder="Escribe tu respuesta..."
+    oninput="guardarTemporal()"
+  >
+
+  <div class="navigation">
+    <button
+      id="anteriorBtn"
+      class="secondary"
+      onclick="anterior()"
+    >
+      Anterior
+    </button>
+
+    <button
+      id="siguiente"
+      onclick="siguiente()"
+    >
+      Siguiente
+    </button>
+  </div>
+
+  <p class="small center">
+    Presiona Enter para continuar.
+  </p>
+
+  <p id="estado" class="center"></p>
+</section>
+
+<!-- RESULTADO DEL PARTICIPANTE -->
+<section id="final" class="hidden">
+  <h1>Tu resultado</h1>
+  <div id="resultado"></div>
+</section>
+
+<!-- ADMINISTRACIÓN OCULTA -->
+<section id="admin" class="hidden">
+  <h2>Panel de administración</h2>
+
+  <div id="login">
+    <input
+      id="correo"
+      type="email"
+      placeholder="Correo electrónico"
+    >
+
+    <input
+      id="clave"
+      type="password"
+      placeholder="Contraseña"
+    >
+
+    <button onclick="iniciarSesion()">
+      Iniciar sesión
+    </button>
+  </div>
+
+  <div id="panel" class="hidden">
+    <div class="admin-actions">
+      <button onclick="cargarResultados()">
+        Actualizar resultados
+      </button>
+
+      <button
+        class="secondary"
+        onclick="cerrarSesion()"
+      >
+        Cerrar sesión
+      </button>
+    </div>
+
+    <div id="lista"></div>
+  </div>
+
+  <p id="estadoAdmin"></p>
+</section>
+
+</main>
+
+<script>
+
+// CONFIGURACIÓN SUPABASE
+const URL_BASE =
+  "https://ehxrmqbthxndcfmwjhmq.supabase.co";
+
+const API_KEY =
+  "sb_publishable_LRVbj9lMIeAzTVJ-OxzIFA_2iHKkzRp";
+
+// PREGUNTAS Y RESPUESTAS ACEPTADAS
+const datos = [
+  [
+    "¿Cuál es mi color favorito?",
+    ["azul"]
+  ],
+  [
+    "¿Cuándo es mi cumpleaños?",
+    [
+      "28 de noviembre",
+      "28 noviembre",
+      "28/11",
+      "noviembre 28"
+    ]
+  ],
+  [
+    "¿Cuál es mi comida favorita?",
+    ["pollo frito"]
+  ],
+  [
+    "¿Prefiero el día o la noche?",
+    ["noche", "la noche"]
+  ],
+  [
+    "¿Cuál es mi canción favorita?",
+    [
+      "todas",
+      "cualquiera",
+      "no tengo favorita",
+      "no tengo una favorita",
+      "la que se me ocurra"
+    ]
+  ],
+  [
+    "¿Qué es lo que más me hace enojar?",
+    [
+      "que me quiten mi comida",
+      "que me roben mi comida",
+      "que agarren mi comida",
+      "que me quiten la comida"
+    ]
+  ],
+  [
+    "¿Qué hago cuando estoy triste?",
+    [
+      "lloro y scrolleo",
+      "lloro y veo redes",
+      "lloro y veo el celular",
+      "llorar y scrollear"
+    ]
+  ],
+  [
+    "¿Soy más de salir o quedarme en casa?",
+    [
+      "quedarme en casa",
+      "estar en casa",
+      "en casa",
+      "casa"
+    ]
+  ],
+  [
+    "¿Cuál es uno de mis mayores sueños?",
+    [
+      "tener una cafeteria de gatitos",
+      "cafeteria de gatos",
+      "cafeteria con gatitos",
+      "cafe de gatos"
+    ]
+  ],
+  [
+    "¿Qué tipo de personas me caen mal?",
+    [
+      "presumidas y creidas",
+      "presumidas",
+      "creidas",
+      "arrogantes",
+      "engreidas"
+    ]
+  ],
+  [
+    "¿Cuál es mi mayor miedo?",
+    [
+      "caerle mal a todo el mundo",
+      "caer mal a todos",
+      "que todos me odien",
+      "no agradarle a nadie"
+    ]
+  ],
+  [
+    "¿Cómo demuestro cariño?",
+    [
+      "de varias formas",
+      "de muchas formas",
+      "a veces cariñosa y a veces no",
+      "depende",
+      "de diferentes maneras"
+    ]
+  ],
+  [
+    "¿Qué inseguridad tengo?",
+    [
+      "mi cuerpo",
+      "cuerpo",
+      "fisico",
+      "apariencia fisica"
+    ]
+  ],
+  [
+    "¿Qué es lo que más valoro en una amistad?",
+    [
+      "honestidad y lealtad",
+      "lealtad y honestidad",
+      "ser honesto y leal"
+    ]
+  ],
+  [
+    "¿Qué cosa me puede hacer llorar fácilmente?",
+    [
+      "que me roben mi comida",
+      "que me quiten mi comida",
+      "que se coman mi comida",
+      "que me roben la comida que hice"
+    ]
+  ],
+  [
+    "¿Qué hago cuando alguien me decepciona?",
+    [
+      "le dejo de hablar por cinco minutos",
+      "le dejo de hablar por 5 minutos",
+      "no le hablo por cinco minutos",
+      "le dejo de hablar un rato"
+    ]
+  ],
+  [
+    "¿Qué es algo que nunca perdonaría?",
+    [
+      "nada",
+      "no hay nada",
+      "todo lo perdono"
+    ]
+  ],
+  [
+    "¿Qué pequeño detalle me hace muy feliz?",
+    [
+      "que me den comida",
+      "que me regalen comida",
+      "que me inviten a comer",
+      "comida"
+    ]
+  ],
+  [
+    "¿Qué es lo que más deseo conseguir en mi vida?",
+    [
+      "dinero",
+      "plata",
+      "mucho dinero"
+    ]
+  ],
+  [
+    "Si estoy pasando un mal momento, ¿qué necesitaría de ti?",
+    [
+      "palabras de apoyo y un heladito",
+      "apoyo y helado",
+      "palabras de apoyo y helado",
+      "que me apoyen y me den un helado"
+    ]
+  ]
+];
+
+let tokenAdmin = null;
+let orden = [];
+let respuestas = Array(20).fill("");
+let posicion = 0;
+let participante = "";
+let enviando = false;
+
+function elemento(id) {
+  return document.getElementById(id);
+}
+
+function crearElemento(etiqueta, texto, clase) {
+  const el = document.createElement(etiqueta);
+
+  if (texto !== undefined) {
+    el.textContent = texto;
+  }
+
+  if (clase) {
+    el.className = clase;
+  }
+
+  return el;
+}
+
+// MOSTRAR PANTALLAS
+function mostrar(id) {
+  ["bienvenida", "juego", "final"].forEach(x => {
+    elemento(x).classList.add("hidden");
+  });
+
+  elemento(id).classList.remove("hidden");
+}
+
+// MEZCLAR PREGUNTAS
+function mezclar(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+
+  return array;
+}
+
+// COMENZAR TEST
+function comenzar() {
+  participante = elemento("nombre").value.trim();
+
+  if (!participante) {
+    alert("Escribe tu nombre.");
+    return;
+  }
+
+  orden = mezclar([...Array(datos.length).keys()]);
+  respuestas = Array(datos.length).fill("");
+  posicion = 0;
+
+  mostrar("juego");
+  mostrarPregunta();
+}
+
+// MOSTRAR UNA PREGUNTA
+function mostrarPregunta() {
+  const indice = orden[posicion];
+
+  elemento("contador").textContent =
+    "Pregunta " + (posicion + 1) +
+    " de " + datos.length;
+
+  elemento("barra").style.width =
+    ((posicion + 1) / datos.length * 100) + "%";
+
+  elemento("pregunta").textContent =
+    datos[indice][0];
+
+  elemento("respuesta").value =
+    respuestas[indice];
+
+  elemento("siguiente").textContent =
+    posicion === datos.length - 1
+      ? "Terminar"
+      : "Siguiente";
+
+  elemento("anteriorBtn").disabled =
+    posicion === 0;
+
+  elemento("estado").textContent = "";
+  elemento("respuesta").focus();
+}
+
+// GUARDAR RESPUESTA TEMPORAL
+function guardarTemporal() {
+  if (orden.length) {
+    respuestas[orden[posicion]] =
+      elemento("respuesta").value;
+  }
+}
+
+// ANTERIOR
+function anterior() {
+  if (enviando) return;
+
+  guardarTemporal();
+
+  if (posicion > 0) {
+    posicion--;
+    mostrarPregunta();
+  }
+}
+
+// SIGUIENTE
+async function siguiente() {
+  if (enviando) return;
+
+  guardarTemporal();
+
+  if (!respuestas[orden[posicion]].trim()) {
+    alert("Responde antes de continuar.");
+    elemento("respuesta").focus();
+    return;
+  }
+
+  if (posicion < datos.length - 1) {
+    posicion++;
+    mostrarPregunta();
+    return;
+  }
+
+  if (respuestas.some(r => !r.trim())) {
+    alert("Faltan preguntas por responder.");
+    return;
+  }
+
+  await finalizar();
+}
+
+// NORMALIZAR RESPUESTAS
+function normalizar(texto) {
+  return String(texto || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9 ]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+// CORRECCIÓN AUTOMÁTICA
+function evaluar(respuesta, opciones) {
+  const r = normalizar(respuesta);
+
+  if (!r) {
+    return "incorrecta";
+  }
+
+  for (const opcion of opciones) {
+    const o = normalizar(opcion);
+
+    if (r === o) {
+      return "correcta";
+    }
+
+    // Aceptar variantes dentro de una frase.
+    if (
+      o.length >= 5 &&
+      r.includes(o) &&
+      r.length <= o.length + 40
+    ) {
+      return "correcta";
+    }
+  }
+
+  return "incorrecta";
+}
+
+// CONTAR ACIERTOS
+function calcularPuntos(listaRespuestas) {
+  let puntos = 0;
+
+  listaRespuestas.forEach((respuesta, i) => {
+    if (
+      evaluar(respuesta, datos[i][1]) === "correcta"
+    ) {
+      puntos++;
+    }
+  });
+
+  return puntos;
+}
+
+// CABECERAS SUPABASE
+function headers(token) {
+  return {
+    "apikey": API_KEY,
+    "Authorization": "Bearer " + (token || API_KEY),
+    "Content-Type": "application/json"
+  };
+}
+
+// GUARDAR RESULTADOS
+async function finalizar() {
+  if (enviando) return;
+
+  enviando = true;
+
+  const boton = elemento("siguiente");
+  boton.disabled = true;
+
+  elemento("estado").textContent =
+    "Guardando respuestas...";
+
+  const puntos = calcularPuntos(respuestas);
+
+  try {
+    const response = await fetch(
+      URL_BASE + "/rest/v1/resultados_test",
+      {
+        method: "POST",
+        headers: {
+          ...headers(),
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify({
+          nombre: participante,
+          respuestas: respuestas,
+          puntuacion: puntos,
+          pendientes_revision: 0
+        })
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    mostrar("final");
+
+    const zona = elemento("resultado");
+    zona.replaceChildren();
+
+    zona.append(
+      crearElemento(
+        "h2",
+        participante + ": " + puntos + "/20"
+      ),
+      crearElemento(
+        "p",
+        "Correctas: " + puntos +
+        " | Incorrectas: " + (20 - puntos)
+      )
+    );
+
+    respuestas.forEach((r, i) => {
+      const estado = evaluar(r, datos[i][1]);
+
+      const div = crearElemento(
+        "div",
+        undefined,
+        "result " +
+        (estado === "correcta" ? "good" : "bad")
+      );
+
+      div.append(
+        crearElemento(
+          "strong",
+          (i + 1) + ". " + datos[i][0]
+        ),
+        crearElemento("p", "Tu respuesta: " + r),
+        crearElemento(
+          "p",
+          estado === "correcta"
+            ? "Correcta"
+            : "Incorrecta"
+        )
+      );
+
+      zona.append(div);
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    elemento("estado").textContent =
+      "No se pudo guardar. Inténtalo nuevamente.";
+
+  } finally {
+    enviando = false;
+    boton.disabled = false;
+  }
+}
+
+// ABRIR ADMINISTRACIÓN
+function mostrarAdmin() {
+  elemento("admin").classList.toggle("hidden");
+
+  if (!elemento("admin").classList.contains("hidden")) {
+    elemento("admin").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+}
+
+// INICIAR SESIÓN ADMIN
+async function iniciarSesion() {
+  const email = elemento("correo").value.trim();
+  const password = elemento("clave").value;
+  const estado = elemento("estadoAdmin");
+
+  estado.className = "";
+  estado.textContent = "Iniciando sesión...";
+
+  try {
+    const r = await fetch(
+      URL_BASE + "/auth/v1/token?grant_type=password",
+      {
+        method: "POST",
+        headers: {
+          "apikey": API_KEY,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
+      }
+    );
+
+    const d = await r.json();
+
+    if (!r.ok || !d.access_token) {
+      throw new Error(
+        "Correo o contraseña incorrectos."
+      );
+    }
+
+    tokenAdmin = d.access_token;
+
+    elemento("login").classList.add("hidden");
+    elemento("panel").classList.remove("hidden");
+
+    estado.textContent = "Sesión iniciada.";
+
+    await cargarResultados();
+
+  } catch (error) {
+    estado.className = "error";
+    estado.textContent = error.message;
+  }
+}
+
+// MOSTRAR RESPUESTAS EN ADMINISTRACIÓN
+function crearResultadoAdmin(registro) {
+  const div = crearElemento(
+    "div",
+    undefined,
+    "result"
+  );
+
+  const respuestasGuardadas =
+    Array.isArray(registro.respuestas)
+      ? registro.respuestas
+      : [];
+
+  const puntos =
+    calcularPuntos(respuestasGuardadas);
+
+  div.append(
+    crearElemento("h3", registro.nombre),
+    crearElemento(
+      "p",
+      "Correctas: " + puntos +
+      "/20 | Incorrectas: " + (20 - puntos)
+    ),
+    crearElemento(
+      "p",
+      new Date(registro.creado_en)
+        .toLocaleString("es-EC"),
+      "small"
+    )
+  );
+
+  const detalles = document.createElement("details");
+
+  detalles.append(
+    crearElemento(
+      "summary",
+      "Ver las 20 respuestas"
+    )
+  );
+
+  for (let i = 0; i < datos.length; i++) {
+    const respuesta =
+      respuestasGuardadas[i] || "";
+
+    const estado =
+      evaluar(respuesta, datos[i][1]);
+
+    const item = crearElemento(
+      "div",
+      undefined,
+      "result " +
+      (estado === "correcta" ? "good" : "bad")
+    );
+
+    item.append(
+      crearElemento(
+        "strong",
+        (i + 1) + ". " + datos[i][0]
+      ),
+      crearElemento(
+        "p",
+        "Respuesta: " + respuesta
+      ),
+      crearElemento(
+        "p",
+        estado === "correcta"
+          ? "Correcta"
+          : "Incorrecta"
+      )
+    );
+
+    detalles.append(item);
+  }
+
+  div.append(detalles);
+
+  return div;
+}
+
+// CARGAR RESULTADOS DE SUPABASE
+async function cargarResultados() {
+  const lista = elemento("lista");
+  const estado = elemento("estadoAdmin");
+
+  lista.replaceChildren();
+  estado.className = "";
+  estado.textContent = "Cargando resultados...";
+
+  if (!tokenAdmin) {
+    estado.textContent =
+      "Primero inicia sesión como administrador.";
+    return;
+  }
+
+  try {
+    const r = await fetch(
+      URL_BASE +
+      "/rest/v1/resultados_test" +
+      "?select=*&order=creado_en.desc&limit=500",
+      {
+        headers: headers(tokenAdmin)
+      }
+    );
+
+    if (!r.ok) {
+      throw new Error(await r.text());
+    }
+
+    const registros = await r.json();
+
+    lista.append(
+      crearElemento(
+        "h3",
+        "Participaciones: " + registros.length
+      )
+    );
+
+    registros.forEach(registro => {
+      lista.append(
+        crearResultadoAdmin(registro)
+      );
+    });
+
+    estado.textContent =
+      "Resultados cargados correctamente.";
+
+  } catch (error) {
+    console.error(error);
+
+    estado.className = "error";
+    estado.textContent =
+      "Error al cargar: " + error.message;
+  }
+}
+
+// CERRAR SESIÓN
+function cerrarSesion() {
+  tokenAdmin = null;
+
+  elemento("panel").classList.add("hidden");
+  elemento("login").classList.remove("hidden");
+
+  elemento("lista").replaceChildren();
+  elemento("clave").value = "";
+
+  elemento("estadoAdmin").textContent =
+    "Sesión cerrada.";
+}
+
+// ATAJOS DE TECLADO
+document.addEventListener("keydown", function(event) {
+
+  // Ctrl + A abre u oculta administración
+  // cuando no estás escribiendo.
+  if (
+    event.ctrlKey &&
+    !event.altKey &&
+    !event.metaKey &&
+    event.key.toLowerCase() === "a"
+  ) {
+    const etiqueta =
+      document.activeElement.tagName;
+
+    if (
+      etiqueta !== "INPUT" &&
+      etiqueta !== "TEXTAREA"
+    ) {
+      event.preventDefault();
+      mostrarAdmin();
+    }
+
+    return;
+  }
+
+  // Enter avanza a la siguiente pregunta.
+  if (
+    event.key === "Enter" &&
+    !event.repeat &&
+    !event.ctrlKey &&
+    !event.altKey &&
+    !event.metaKey
+  ) {
+    const juego = elemento("juego");
+
+    if (
+      !juego.classList.contains("hidden") &&
+      document.activeElement === elemento("respuesta")
+    ) {
+      event.preventDefault();
+
+      if (!elemento("siguiente").disabled) {
+        siguiente();
+      }
+    }
+  }
+});
+
+</script>
+</body>
+</html>
