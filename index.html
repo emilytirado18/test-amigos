@@ -7,27 +7,33 @@
 <title>¿Qué tanto me conoces?</title>
 <style>
 * { box-sizing: border-box; }
+
 body {
   margin: 0;
   padding: 20px;
   min-height: 100vh;
   font-family: Arial, sans-serif;
-  color: #493951;
-  background: linear-gradient(135deg,#fce8f5,#e8e5ff,#e5f5fa);
+  color: #46344f;
+  background: linear-gradient(135deg, #f8e8f7, #e9e4ff);
 }
+
 main {
-  max-width: 700px;
-  margin: 28px auto;
-  padding: 28px;
+  max-width: 650px;
+  margin: 30px auto;
+  padding: 30px;
   background: white;
   border-radius: 24px;
-  box-shadow: 0 12px 35px #654b8420;
+  box-shadow: 0 12px 35px #694b8420;
 }
-h1,h2 { color: #885eac; text-align: center; }
-h3 { color: #684789; }
+
+h1, h2 {
+  color: #8658a6;
+  text-align: center;
+}
+
 p { line-height: 1.5; }
 .center { text-align: center; }
-.hidden { display: none !important; }
+
 input {
   width: 100%;
   padding: 14px;
@@ -36,70 +42,276 @@ input {
   border: 1px solid #cbb4dc;
   border-radius: 12px;
 }
+
 button {
-  padding: 13px 20px;
+  padding: 14px 22px;
   margin: 5px;
-  font-size: 15px;
+  font-size: 16px;
   color: white;
-  background: #9068b4;
-  border: 0;
+  background: #9166b5;
+  border: none;
   border-radius: 12px;
   cursor: pointer;
 }
-button:disabled { opacity: .5; cursor: wait; }
-.secondary { background: #e9ddf3; color: #563a70; }
+
+button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.secondary {
+  background: #e8d9f2;
+  color: #5b3d72;
+}
+
+.danger { background: #b94063; }
+.danger:hover { background: #9f3151; }
+
+.hidden { display: none !important; }
+
 .progress {
   height: 12px;
-  background: #eee4f5;
+  margin: 22px 0;
+  background: #eee3f4;
   border-radius: 20px;
   overflow: hidden;
-  margin: 22px 0;
 }
+
 .bar {
-  height: 100%;
   width: 0;
-  background: #ab80d0;
-  transition: width .25s;
+  height: 100%;
+  background: #a77bd0;
+  transition: width .3s;
 }
+
 .question {
   margin: 30px 0;
   text-align: center;
   font-size: 22px;
   font-weight: bold;
 }
+
 .navigation {
   display: flex;
   justify-content: space-between;
   gap: 10px;
 }
+
 .result {
-  padding: 16px;
-  margin: 13px 0;
-  background: #f8f2fc;
-  border-radius: 14px;
+  padding: 15px;
+  margin: 12px 0;
+  background: #f7f0fb;
+  border-radius: 12px;
 }
-.good { border-left: 5px solid #76b28e; }
-.bad { border-left: 5px solid #d77b8a; }
-.small { font-size: 13px; color: #766880; }
-.error { color: #b63857; }
-summary { cursor: pointer; font-weight: bold; padding: 8px 0; }
+
+.good { border-left: 5px solid #71b18a; }
+.review { border-left: 5px solid #e3af68; }
+
+.small {
+  font-size: 13px;
+  color: #74667c;
+}
+
+.error { color: #b63759; }
+summary { cursor: pointer; padding: 8px 0; }
+
+/* ANIMACIÓN DE HORTENSIA AZUL */
+
+#animacionFlor {
+  min-height: 390px;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.escenaFlor {
+  width: 260px;
+  height: 275px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.hortensia {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  left: 30px;
+  top: 10px;
+  animation: aparecerFlor 2.4s ease-out both;
+  transform-origin: 50% 85%;
+}
+
+.ramillete {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  left: 0;
+  top: 0;
+  filter: drop-shadow(0 8px 12px #6689b544);
+  animation: balanceo 3s ease-in-out infinite alternate;
+}
+
+.florcita {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%) scale(0);
+  animation: florecer .75s cubic-bezier(.2,1.6,.4,1) forwards;
+  animation-delay: var(--delay);
+}
+
+.petalo {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: var(--azul);
+  border: 1px solid #ffffff77;
+  border-radius: 70% 30% 65% 35%;
+  box-shadow: inset 3px 3px 6px #ffffff66;
+}
+
+.petalo:nth-child(1) {
+  left: 13px;
+  top: 1px;
+  transform: rotate(-45deg);
+}
+
+.petalo:nth-child(2) {
+  right: 1px;
+  top: 13px;
+  transform: rotate(45deg);
+}
+
+.petalo:nth-child(3) {
+  left: 13px;
+  bottom: 1px;
+  transform: rotate(135deg);
+}
+
+.petalo:nth-child(4) {
+  left: 1px;
+  top: 13px;
+  transform: rotate(225deg);
+}
+
+.centroFlor {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  left: 20px;
+  top: 20px;
+  background: #f4e4a0;
+  border-radius: 50%;
+  box-shadow: 0 0 5px #fff6;
+}
+
+.tallo {
+  position: absolute;
+  width: 8px;
+  height: 135px;
+  left: 126px;
+  top: 135px;
+  background: linear-gradient(90deg,#43895f,#78b68a);
+  border-radius: 10px;
+  transform: rotate(6deg);
+  transform-origin: top;
+  animation: crecerTallo 1.5s ease-out both;
+}
+
+.hoja {
+  position: absolute;
+  width: 67px;
+  height: 35px;
+  background: linear-gradient(135deg,#85c79b,#3f9262);
+  border-radius: 5% 95% 5% 95%;
+  transform-origin: left center;
+  animation: aparecerHoja 1.5s ease-out both;
+}
+
+.hoja.izquierda {
+  left: 121px;
+  top: 205px;
+  transform: rotate(150deg);
+}
+
+.hoja.derecha {
+  left: 133px;
+  top: 230px;
+  transform: rotate(-25deg);
+}
+
+.mensajeFlor {
+  color: #5878b8;
+  font-size: 25px;
+  font-weight: bold;
+  margin: 8px 0;
+  animation: aparecerTexto 1.5s ease 1s both;
+}
+
+.submensajeFlor {
+  color: #7e79a3;
+  animation: aparecerTexto 1.5s ease 1.5s both;
+}
+
+@keyframes florecer {
+  from {
+    transform: translate(-50%,-50%) scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%,-50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes aparecerFlor {
+  from { opacity: 0; transform: scale(.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes balanceo {
+  from { transform: rotate(-3deg); }
+  to { transform: rotate(3deg); }
+}
+
+@keyframes crecerTallo {
+  from { opacity: 0; transform: scaleY(0); }
+  to { opacity: 1; transform: scaleY(1); }
+}
+
+@keyframes aparecerHoja {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes aparecerTexto {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @media(max-width:480px) {
   main { padding: 18px; margin: 10px auto; }
   .question { font-size: 19px; }
 }
+
+@media(prefers-reduced-motion:reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
 </style>
 </head>
-
 <body>
+
 <main>
 
 <section id="bienvenida">
   <h1>💜 ¿Qué tanto me conoces?</h1>
   <p class="center">
     Responde 20 preguntas y descubre cuánto sabes de mí.
-    Cada participante recibe las preguntas en un orden diferente.
   </p>
-  <input id="nombre" maxlength="80" placeholder="Escribe tu nombre">
+  <input id="nombre" maxlength="80"
+         placeholder="Escribe tu nombre">
   <div class="center">
     <button onclick="comenzar()">Comenzar test</button>
   </div>
@@ -107,7 +319,9 @@ summary { cursor: pointer; font-weight: bold; padding: 8px 0; }
 
 <section id="juego" class="hidden">
   <p id="contador" class="center"></p>
-  <div class="progress"><div id="barra" class="bar"></div></div>
+  <div class="progress">
+    <div id="barra" class="bar"></div>
+  </div>
   <div id="pregunta" class="question"></div>
   <input id="respuesta" maxlength="500"
          placeholder="Escribe tu respuesta..."
@@ -115,10 +329,26 @@ summary { cursor: pointer; font-weight: bold; padding: 8px 0; }
   <div class="navigation">
     <button id="anteriorBtn" class="secondary"
             onclick="anterior()">Anterior</button>
-    <button id="siguienteBtn" onclick="siguiente()">Siguiente</button>
+    <button id="siguienteBtn"
+            onclick="siguiente()">Siguiente</button>
   </div>
-  <p class="small center">Presiona Enter para continuar.</p>
   <p id="estado" class="center"></p>
+</section>
+
+<!-- ANIMACIÓN AL TERMINAR -->
+<section id="animacionFlor" class="hidden">
+  <div class="escenaFlor">
+    <div class="tallo"></div>
+    <div class="hoja izquierda"></div>
+    <div class="hoja derecha"></div>
+    <div class="hortensia">
+      <div id="ramillete" class="ramillete"></div>
+    </div>
+  </div>
+  <div class="mensajeFlor">¡Gracias por responder!</div>
+  <p class="submensajeFlor">
+    Una hortensia azul para ti 💙
+  </p>
 </section>
 
 <section id="final" class="hidden">
@@ -138,7 +368,9 @@ summary { cursor: pointer; font-weight: bold; padding: 8px 0; }
   </div>
 
   <div id="panel" class="hidden">
-    <button onclick="cargarResultados()">Actualizar resultados</button>
+    <button onclick="cargarResultados()">
+      Actualizar resultados
+    </button>
     <button class="secondary" onclick="cerrarSesion()">
       Cerrar sesión
     </button>
@@ -151,281 +383,265 @@ summary { cursor: pointer; font-weight: bold; padding: 8px 0; }
 </main>
 
 <script>
-// CONEXIÓN CON SUPABASE
 const URL_BASE = "https://ehxrmqbthxndcfmwjhmq.supabase.co";
 const API_KEY = "sb_publishable_LRVbj9lMIeAzTVJ-OxzIFA_2iHKkzRp";
 
-// Cada pregunta contiene:
-// texto, respuesta oficial, respuestas alternativas aceptadas.
 const datos = [
   {
-    pregunta: "¿Cuál es mi color favorito?",
-    correcta: "Azul",
-    opciones: ["azul", "el azul"]
+    pregunta:"¿Cuál es mi color favorito?",
+    correcta:"Azul",
+    opciones:["azul","el azul"]
   },
   {
-    pregunta: "¿Cuándo es mi cumpleaños?",
-    correcta: "28 de noviembre",
-    opciones: ["28 de noviembre", "28 noviembre", "28/11", "noviembre 28"]
+    pregunta:"¿Cuándo es mi cumpleaños?",
+    correcta:"28 de noviembre",
+    opciones:["28 de noviembre","28 noviembre","28/11"]
   },
   {
-    pregunta: "¿Cuál es mi comida favorita?",
-    correcta: "Cualquier tipo de carne",
-    opciones: ["cualquier tipo de carne", "cualquier carne",
-      "todo tipo de carne", "carne", "carnes"]
+    pregunta:"¿Cuál es mi comida favorita?",
+    correcta:"Cualquier tipo de carne",
+    opciones:["cualquier tipo de carne","cualquier carne",
+      "todo tipo de carne","carne","carnes"]
   },
   {
-    pregunta: "¿Prefiero el día o la noche?",
-    correcta: "La noche",
-    opciones: ["noche", "la noche"]
+    pregunta:"¿Prefiero el día o la noche?",
+    correcta:"La noche",
+    opciones:["noche","la noche"]
   },
   {
-    pregunta: "¿Cuál es mi canción favorita?",
-    correcta: "Todos los géneros musicales",
-    opciones: ["todos los generos", "todos los generos musicales",
-      "cualquier genero", "cualquier genero musical",
-      "todo tipo de musica", "todos"]
+    pregunta:"¿Cuál es mi canción favorita?",
+    correcta:"Todos los géneros musicales",
+    opciones:["todos los generos","todos los generos musicales",
+      "cualquier genero","cualquier genero musical",
+      "todo tipo de musica","todos"]
   },
   {
-    pregunta: "¿Qué es lo que más me hace enojar?",
-    correcta: "Cuando se meten con los animales, conmigo o con mi familia",
-    opciones: ["cuando se meten con los animales",
-      "cuando se meten conmigo", "cuando se meten con mi familia",
-      "que se metan con los animales", "que se metan conmigo",
-      "que se metan con mi familia", "maltrato animal",
-      "maltratar animales", "se meten con mi familia"]
+    pregunta:"¿Qué es lo que más me hace enojar?",
+    correcta:"Cuando se meten con los animales, conmigo o con mi familia",
+    opciones:["cuando se meten con los animales",
+      "cuando se meten conmigo","cuando se meten con mi familia",
+      "que se metan con los animales","que se metan conmigo",
+      "que se metan con mi familia","maltrato animal"]
   },
   {
-    pregunta: "¿Qué hago cuando estoy triste?",
-    correcta: "Lloro y veo vídeos graciosos",
-    opciones: ["lloro y veo videos graciosos",
+    pregunta:"¿Qué hago cuando estoy triste?",
+    correcta:"Lloro y veo vídeos graciosos",
+    opciones:["lloro y veo videos graciosos",
       "lloro y miro videos graciosos",
       "llorar y ver videos graciosos",
       "lloro y veo videos divertidos"]
   },
   {
-    pregunta: "¿Soy más de salir o quedarme en casa?",
-    correcta: "Quedarme en casa",
-    opciones: ["quedarme en casa", "estar en casa",
-      "quedarse en casa", "casa", "en casa"]
+    pregunta:"¿Soy más de salir o quedarme en casa?",
+    correcta:"Quedarme en casa",
+    opciones:["quedarme en casa","estar en casa",
+      "quedarse en casa","casa","en casa"]
   },
   {
-    pregunta: "¿Cuál es uno de mis mayores sueños?",
-    correcta: "Tener una cafetería de gatitos",
-    opciones: ["tener una cafeteria de gatitos",
-      "cafeteria de gatitos", "cafeteria de gatos",
-      "cafeteria con gatitos", "cafe de gatos"]
+    pregunta:"¿Cuál es uno de mis mayores sueños?",
+    correcta:"Tener una cafetería de gatitos",
+    opciones:["tener una cafeteria de gatitos",
+      "cafeteria de gatitos","cafeteria de gatos",
+      "cafeteria con gatitos","cafe de gatos"]
   },
   {
-    pregunta: "¿Qué tipo de personas me caen mal?",
-    correcta: "Las personas presumidas y creídas",
-    opciones: ["presumidas y creidas", "presumidas",
-      "creidas", "arrogantes", "engreidas",
-      "personas presumidas", "personas creidas"]
+    pregunta:"¿Qué tipo de personas me caen mal?",
+    correcta:"Las personas presumidas y creídas",
+    opciones:["presumidas y creidas","presumidas",
+      "creidas","arrogantes","engreidas"]
   },
   {
-    pregunta: "¿Cuál es mi mayor miedo?",
-    correcta: "Quedarme sola por mis acciones",
-    opciones: ["quedarme sola por mis acciones",
+    pregunta:"¿Cuál es mi mayor miedo?",
+    correcta:"Quedarme sola por mis acciones",
+    opciones:["quedarme sola por mis acciones",
       "quedar sola por mis acciones",
-      "quedarme sola por lo que hago",
-      "quedarme sola por mis decisiones"]
+      "quedarme sola por lo que hago"]
   },
   {
-    pregunta: "¿Cómo demuestro cariño?",
-    correcta: "Con abrazos, detalles y pasando tiempo con las personas",
-    opciones: ["abrazos", "detalles", "pasando tiempo",
-      "tiempo de calidad", "abrazos y detalles",
+    pregunta:"¿Cómo demuestro cariño?",
+    correcta:"Con abrazos, detalles y pasando tiempo con las personas",
+    opciones:["abrazos","detalles","pasando tiempo",
+      "tiempo de calidad","abrazos y detalles",
       "abrazos detalles y tiempo de calidad",
       "con abrazos detalles y pasando tiempo con las personas"]
   },
   {
-    pregunta: "¿Qué inseguridad tengo?",
-    correcta: "Mi físico",
-    opciones: ["mi fisico", "fisico",
-      "mi apariencia fisica", "apariencia fisica",
-      "mi cuerpo"]
+    pregunta:"¿Qué inseguridad tengo?",
+    correcta:"Mi físico",
+    opciones:["mi fisico","fisico",
+      "mi apariencia fisica","apariencia fisica","mi cuerpo"]
   },
   {
-    pregunta: "¿Qué es lo que más valoro en una amistad?",
-    correcta: "Honestidad y lealtad",
-    opciones: ["honestidad y lealtad",
-      "lealtad y honestidad", "honestidad", "lealtad"]
+    pregunta:"¿Qué es lo que más valoro en una amistad?",
+    correcta:"Honestidad y lealtad",
+    opciones:["honestidad y lealtad","lealtad y honestidad",
+      "honestidad","lealtad"]
   },
   {
-    pregunta: "¿Qué cosa me puede hacer llorar fácilmente?",
-    correcta: "Cuando me esconden la comida o cuando no me escuchan",
-    opciones: ["me esconden la comida", "esconden mi comida",
-      "que me escondan la comida", "cuando no me escuchan",
-      "no me escuchan", "que no me escuchen"]
+    pregunta:"¿Qué cosa me puede hacer llorar fácilmente?",
+    correcta:"Cuando me esconden la comida o cuando no me escuchan",
+    opciones:["me esconden la comida","esconden mi comida",
+      "que me escondan la comida","cuando no me escuchan",
+      "no me escuchan","que no me escuchen"]
   },
   {
-    pregunta: "¿Qué hago cuando alguien me decepciona?",
-    correcta: "Le aplico la ley del hielo por unos cuantos días",
-    opciones: ["ley del hielo", "le aplico la ley del hielo",
+    pregunta:"¿Qué hago cuando alguien me decepciona?",
+    correcta:"Le aplico la ley del hielo por unos cuantos días",
+    opciones:["ley del hielo","le aplico la ley del hielo",
       "le aplico la ley del hielo por unos cuantos dias",
-      "le dejo de hablar unos dias", "no le hablo por dias",
-      "dejo de hablarle por varios dias"]
+      "le dejo de hablar unos dias",
+      "no le hablo por dias"]
   },
   {
-    pregunta: "¿Qué es algo que nunca perdonaría?",
-    correcta: "La traición o la decepción",
-    opciones: ["traicion", "la traicion",
-      "decepcion", "la decepcion",
-      "traicion o decepcion", "una traicion",
-      "una decepcion"]
+    pregunta:"¿Qué es algo que nunca perdonaría?",
+    correcta:"La traición o la decepción",
+    opciones:["traicion","la traicion","decepcion",
+      "la decepcion","traicion o decepcion"]
   },
   {
-    pregunta: "¿Qué pequeño detalle me hace muy feliz?",
-    correcta: "Cualquier detalle pequeño",
-    opciones: ["cualquier detalle pequeno",
-      "cualquier detallito", "los pequenos detalles",
-      "un pequeno detalle", "cualquier gesto bonito",
-      "los detalles", "detallitos"]
+    pregunta:"¿Qué pequeño detalle me hace muy feliz?",
+    correcta:"Cualquier detalle pequeño",
+    opciones:["cualquier detalle pequeno",
+      "cualquier detallito","los pequenos detalles",
+      "un pequeno detalle","cualquier gesto bonito",
+      "los detalles"]
   },
   {
-    pregunta: "¿Qué es lo que más deseo conseguir en mi vida?",
-    correcta: "Dinero",
-    opciones: ["dinero", "plata", "mucho dinero"]
+    pregunta:"¿Qué es lo que más deseo conseguir en mi vida?",
+    correcta:"Dinero",
+    opciones:["dinero","plata","mucho dinero"]
   },
   {
-    pregunta: "Si estoy pasando un mal momento, ¿qué necesitaría de ti?",
-    correcta: "Palabras de apoyo y un heladito",
-    opciones: ["palabras de apoyo y un heladito",
-      "apoyo y helado", "palabras de apoyo y helado",
-      "que me apoyen y me den un helado",
+    pregunta:"Si estoy pasando un mal momento, ¿qué necesitaría de ti?",
+    correcta:"Palabras de apoyo y un heladito",
+    opciones:["palabras de apoyo y un heladito",
+      "apoyo y helado","palabras de apoyo y helado",
       "un heladito y palabras de apoyo"]
   }
 ];
 
+let tokenAdmin = null;
 let orden = [];
 let respuestas = Array(datos.length).fill("");
 let posicion = 0;
 let participante = "";
 let enviando = false;
-let tokenAdmin = null;
 
 function el(id) {
   return document.getElementById(id);
 }
 
 function mezclar(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+  for(let i=array.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [array[i],array[j]]=[array[j],array[i]];
   }
   return array;
 }
 
 function mostrar(id) {
-  ["bienvenida", "juego", "final"].forEach(x => {
-    el(x).classList.add("hidden");
-  });
+  ["bienvenida","juego","animacionFlor","final"]
+    .forEach(x=>el(x).classList.add("hidden"));
   el(id).classList.remove("hidden");
 }
 
 function comenzar() {
-  participante = el("nombre").value.trim();
-  if (!participante) {
-    alert("Primero escribe tu nombre.");
+  participante=el("nombre").value.trim();
+
+  if(!participante) {
+    alert("Escribe tu nombre.");
     return;
   }
 
-  orden = mezclar([...Array(datos.length).keys()]);
-  respuestas = Array(datos.length).fill("");
-  posicion = 0;
+  orden=mezclar([...Array(datos.length).keys()]);
+  respuestas=Array(datos.length).fill("");
+  posicion=0;
+
   mostrar("juego");
   mostrarPregunta();
 }
 
 function mostrarPregunta() {
-  const indice = orden[posicion];
-  el("contador").textContent =
-    "Pregunta " + (posicion + 1) + " de " + datos.length;
-  el("barra").style.width =
-    ((posicion + 1) / datos.length * 100) + "%";
-  el("pregunta").textContent = datos[indice].pregunta;
-  el("respuesta").value = respuestas[indice];
-  el("anteriorBtn").disabled = posicion === 0;
-  el("siguienteBtn").textContent =
-    posicion === datos.length - 1 ? "Terminar" : "Siguiente";
-  el("estado").textContent = "";
+  const indice=orden[posicion];
+
+  el("contador").textContent=
+    "Pregunta "+(posicion+1)+" de "+datos.length;
+
+  el("barra").style.width=
+    ((posicion+1)/datos.length*100)+"%";
+
+  el("pregunta").textContent=datos[indice].pregunta;
+  el("respuesta").value=respuestas[indice];
+
+  el("anteriorBtn").disabled=posicion===0;
+
+  el("siguienteBtn").textContent=
+    posicion===datos.length-1?"Terminar":"Siguiente";
+
+  el("estado").textContent="";
   el("respuesta").focus();
 }
 
 function guardarTemporal() {
-  if (orden.length) {
-    respuestas[orden[posicion]] = el("respuesta").value;
+  if(orden.length) {
+    respuestas[orden[posicion]]=el("respuesta").value;
   }
 }
 
 function anterior() {
-  if (enviando) return;
+  if(enviando)return;
+
   guardarTemporal();
-  if (posicion > 0) {
+
+  if(posicion>0) {
     posicion--;
     mostrarPregunta();
   }
 }
 
 async function siguiente() {
-  if (enviando) return;
+  if(enviando)return;
+
   guardarTemporal();
 
-  if (!respuestas[orden[posicion]].trim()) {
+  if(!respuestas[orden[posicion]].trim()) {
     alert("Responde antes de continuar.");
-    el("respuesta").focus();
     return;
   }
 
-  if (posicion < datos.length - 1) {
+  if(posicion<datos.length-1) {
     posicion++;
     mostrarPregunta();
-    return;
+  } else {
+    if(respuestas.some(r=>!r.trim())) {
+      alert("Faltan preguntas por responder.");
+      return;
+    }
+    await finalizar();
   }
-
-  if (respuestas.some(r => !r.trim())) {
-    alert("Faltan preguntas por responder.");
-    return;
-  }
-
-  await finalizar();
 }
 
-// NORMALIZAR RESPUESTAS
 function normalizar(texto) {
-  return String(texto || "")
-    .toLowerCase()
+  return String(texto||"").toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9 ]/g, " ")
-    .replace(/\s+/g, " ")
+    .replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9 ]/g," ")
+    .replace(/\s+/g," ")
     .trim();
 }
 
-// CORRECCIÓN AUTOMÁTICA
-function evaluar(respuesta, opciones) {
-  const r = normalizar(respuesta);
-  if (!r) return "incorrecta";
+function evaluar(respuesta,opciones) {
+  const r=normalizar(respuesta);
+  if(!r)return "incorrecta";
 
-  const negaciones = [
-    "no es", "no son", "no me gusta",
-    "no prefiero", "no quiero", "no hago"
-  ];
+  for(const opcion of opciones) {
+    const o=normalizar(opcion);
 
-  if (negaciones.some(n => r.startsWith(n + " "))) {
-    return "incorrecta";
-  }
+    if(r===o)return "correcta";
 
-  for (const opcion of opciones) {
-    const o = normalizar(opcion);
-
-    if (r === o) return "correcta";
-
-    // Aceptar la respuesta dentro de una frase más larga.
-    if (o.length >= 6 &&
-        (" " + r + " ").includes(" " + o + " ") &&
-        r.length <= o.length + 65) {
+    if(o.length>=6 &&
+       (" "+r+" ").includes(" "+o+" ") &&
+       r.length<=o.length+65) {
       return "correcta";
     }
   }
@@ -433,99 +649,158 @@ function evaluar(respuesta, opciones) {
   return "incorrecta";
 }
 
-function calcular(respuestasGuardadas) {
-  const evaluaciones = datos.map((dato, i) =>
-    evaluar(respuestasGuardadas[i] || "", dato.opciones)
+function calcular(guardadas) {
+  const evaluaciones=datos.map((dato,i)=>
+    evaluar(guardadas[i]||"",dato.opciones)
   );
-  const puntos = evaluaciones.filter(e => e === "correcta").length;
-  return { evaluaciones, puntos };
+
+  const puntos=evaluaciones
+    .filter(e=>e==="correcta").length;
+
+  return {evaluaciones,puntos};
 }
 
 function headers(token) {
   return {
-    "apikey": API_KEY,
-    "Authorization": "Bearer " + (token || API_KEY),
-    "Content-Type": "application/json"
+    "apikey":API_KEY,
+    "Authorization":"Bearer "+(token||API_KEY),
+    "Content-Type":"application/json"
   };
 }
 
-// GUARDAR RESPUESTAS EN SUPABASE
+// CREAR LAS FLORES AZULES DE LA HORTENSIA
+function crearHortensia() {
+  const ramillete=el("ramillete");
+  ramillete.replaceChildren();
+
+  const posiciones=[
+    [100,25],[70,35],[130,35],
+    [45,55],[90,55],[115,60],[155,55],
+    [35,85],[65,85],[100,85],[135,85],[165,85],
+    [50,115],[80,115],[115,115],[150,115],
+    [65,145],[100,145],[135,145],
+    [85,165],[115,165]
+  ];
+
+  const colores=[
+    "#76a8ed","#91bcf5","#5f91dc",
+    "#a1c7f6","#6f9ce7","#8db5f1",
+    "#739ddd","#b0cff8"
+  ];
+
+  posiciones.forEach(([x,y],i)=>{
+    const flor=document.createElement("div");
+    flor.className="florcita";
+    flor.style.left=x+"px";
+    flor.style.top=y+"px";
+    flor.style.setProperty("--delay",(i*.075)+"s");
+    flor.style.setProperty(
+      "--azul",colores[i%colores.length]
+    );
+
+    for(let j=0;j<4;j++) {
+      const petalo=document.createElement("span");
+      petalo.className="petalo";
+      flor.append(petalo);
+    }
+
+    const centro=document.createElement("span");
+    centro.className="centroFlor";
+    flor.append(centro);
+    ramillete.append(flor);
+  });
+}
+
+// MOSTRAR LA ANIMACIÓN ANTES DE LOS RESULTADOS
+function animarHortensia() {
+  mostrar("animacionFlor");
+  crearHortensia();
+
+  return new Promise(resolve=>{
+    setTimeout(resolve,3000);
+  });
+}
+
+// GUARDAR PARTICIPACIÓN Y MOSTRAR FLOR
 async function finalizar() {
-  if (enviando) return;
-  enviando = true;
+  if(enviando)return;
 
-  const boton = el("siguienteBtn");
-  boton.disabled = true;
-  el("estado").textContent = "Guardando respuestas...";
+  enviando=true;
+  const boton=el("siguienteBtn");
+  boton.disabled=true;
+  el("estado").textContent="Guardando respuestas...";
 
-  const { evaluaciones, puntos } = calcular(respuestas);
+  const {evaluaciones,puntos}=calcular(respuestas);
 
   try {
-    const response = await fetch(
-      URL_BASE + "/rest/v1/resultados_test",
-      {
-        method: "POST",
-        headers: {
+    const r=await fetch(
+      URL_BASE+"/rest/v1/resultados_test",{
+        method:"POST",
+        headers:{
           ...headers(),
-          "Prefer": "return=minimal"
+          "Prefer":"return=minimal"
         },
-        body: JSON.stringify({
-          nombre: participante,
-          respuestas: respuestas,
-          puntuacion: puntos,
-          pendientes_revision: 0
+        body:JSON.stringify({
+          nombre:participante,
+          respuestas:respuestas,
+          puntuacion:puntos,
+          pendientes_revision:0
         })
       }
     );
 
-    if (!response.ok) {
-      throw new Error(await response.text());
-    }
+    if(!r.ok)throw new Error(await r.text());
 
+    // Primero florece la hortensia azul
+    await animarHortensia();
+
+    // Después aparecen los resultados
     mostrar("final");
-    const zona = el("resultado");
+    const zona=el("resultado");
     zona.replaceChildren();
 
-    const titulo = document.createElement("h2");
-    titulo.textContent =
-      participante + ": " + puntos + "/" + datos.length;
+    const titulo=document.createElement("h2");
+    titulo.textContent=participante+": "+puntos+"/20";
 
-    const mensaje = document.createElement("p");
-    mensaje.className = "center";
-    mensaje.textContent =
+    const mensaje=document.createElement("p");
+    mensaje.textContent=
       "Estas son tus respuestas y las respuestas correctas.";
 
-    zona.append(titulo, mensaje);
+    zona.append(titulo,mensaje);
 
-    respuestas.forEach((respuesta, i) => {
-      const div = document.createElement("div");
-      const acierto = evaluaciones[i] === "correcta";
-      div.className = "result " + (acierto ? "good" : "bad");
+    respuestas.forEach((respuesta,i)=>{
+      const div=document.createElement("div");
+      div.className="result "+
+        (evaluaciones[i]==="correcta"?"good":"review");
 
-      const pregunta = document.createElement("strong");
-      pregunta.textContent = (i + 1) + ". " + datos[i].pregunta;
+      const pregunta=document.createElement("strong");
+      pregunta.textContent=
+        (i+1)+". "+datos[i].pregunta;
 
-      const tuya = document.createElement("p");
-      tuya.textContent = "Tu respuesta: " + respuesta;
+      const tuya=document.createElement("p");
+      tuya.textContent="Tu respuesta: "+respuesta;
 
-      const correcta = document.createElement("p");
-      correcta.textContent =
-        "Respuesta correcta: " + datos[i].correcta;
+      const correcta=document.createElement("p");
+      correcta.textContent=
+        "Respuesta correcta: "+datos[i].correcta;
 
-      const estado = document.createElement("strong");
-      estado.textContent = acierto ? "Correcta" : "Incorrecta";
+      const estado=document.createElement("small");
+      estado.textContent=
+        evaluaciones[i]==="correcta"
+          ?"Correcta":"Incorrecta";
 
-      div.append(pregunta, tuya, correcta, estado);
+      div.append(pregunta,tuya,correcta,estado);
       zona.append(div);
     });
 
-  } catch (error) {
+  } catch(error) {
     console.error(error);
-    el("estado").textContent =
-      "No se pudieron guardar las respuestas. Inténtalo de nuevo.";
+    el("estado").textContent=
+      "No se pudieron guardar las respuestas.";
+    mostrar("juego");
   } finally {
-    enviando = false;
-    boton.disabled = false;
+    enviando=false;
+    boton.disabled=false;
   }
 }
 
@@ -533,187 +808,249 @@ async function finalizar() {
 function mostrarAdmin() {
   el("admin").classList.toggle("hidden");
 
-  if (!el("admin").classList.contains("hidden")) {
+  if(!el("admin").classList.contains("hidden")) {
     el("admin").scrollIntoView({
-      behavior: "smooth",
-      block: "start"
+      behavior:"smooth",
+      block:"start"
     });
   }
 }
 
 async function iniciarSesion() {
-  const email = el("correo").value.trim();
-  const password = el("clave").value;
-  const estado = el("estadoAdmin");
+  const email=el("correo").value.trim();
+  const password=el("clave").value;
+  const estado=el("estadoAdmin");
 
-  estado.textContent = "Iniciando sesión...";
-  estado.className = "";
+  estado.textContent="Iniciando sesión...";
+  estado.className="";
 
   try {
-    const response = await fetch(
-      URL_BASE + "/auth/v1/token?grant_type=password",
-      {
-        method: "POST",
-        headers: {
-          "apikey": API_KEY,
-          "Content-Type": "application/json"
+    const r=await fetch(
+      URL_BASE+"/auth/v1/token?grant_type=password",{
+        method:"POST",
+        headers:{
+          "apikey":API_KEY,
+          "Content-Type":"application/json"
         },
-        body: JSON.stringify({ email, password })
+        body:JSON.stringify({email,password})
       }
     );
 
-    const data = await response.json();
+    const d=await r.json();
 
-    if (!response.ok || !data.access_token) {
+    if(!r.ok||!d.access_token) {
       throw new Error("Correo o contraseña incorrectos.");
     }
 
-    tokenAdmin = data.access_token;
+    tokenAdmin=d.access_token;
     el("login").classList.add("hidden");
     el("panel").classList.remove("hidden");
+    estado.textContent="Sesión iniciada.";
 
-    estado.textContent = "Sesión iniciada.";
     await cargarResultados();
 
-  } catch (error) {
-    estado.textContent = error.message;
-    estado.className = "error";
+  } catch(error) {
+    estado.textContent=error.message;
+    estado.className="error";
   }
 }
 
+// CARGAR RESULTADOS CON BOTONES DE ELIMINACIÓN
 async function cargarResultados() {
-  const lista = el("lista");
-  const estado = el("estadoAdmin");
+  const lista=el("lista");
+  const estado=el("estadoAdmin");
 
   lista.replaceChildren();
-  estado.textContent = "Cargando resultados...";
+  estado.className="";
+  estado.textContent="Cargando resultados...";
 
-  if (!tokenAdmin) {
-    estado.textContent = "Primero inicia sesión.";
+  if(!tokenAdmin) {
+    estado.textContent="Primero inicia sesión.";
     return;
   }
 
   try {
-    const response = await fetch(
-      URL_BASE +
+    const r=await fetch(
+      URL_BASE+
       "/rest/v1/resultados_test?select=*&order=creado_en.desc&limit=500",
-      { headers: headers(tokenAdmin) }
+      {headers:headers(tokenAdmin)}
     );
 
-    if (!response.ok) {
-      throw new Error("No se pudieron consultar los resultados.");
-    }
+    if(!r.ok)throw new Error(await r.text());
 
-    const registros = await response.json();
+    const registros=await r.json();
 
-    const titulo = document.createElement("h3");
-    titulo.textContent = "Participaciones: " + registros.length;
+    const titulo=document.createElement("h3");
+    titulo.textContent="Participaciones: "+registros.length;
     lista.append(titulo);
 
-    registros.forEach(registro => {
-      const div = document.createElement("div");
-      div.className = "result";
+    registros.forEach(registro=>{
+      const div=document.createElement("div");
+      div.className="result";
 
-      const nombre = document.createElement("h3");
-      nombre.textContent = registro.nombre;
+      const nombre=document.createElement("h3");
+      nombre.textContent=registro.nombre;
 
-      const guardadas = Array.isArray(registro.respuestas)
-        ? registro.respuestas : [];
+      const guardadas=Array.isArray(registro.respuestas)
+        ?registro.respuestas:[];
 
-      const { evaluaciones, puntos } = calcular(guardadas);
+      const {evaluaciones,puntos}=calcular(guardadas);
 
-      const puntuacion = document.createElement("p");
-      puntuacion.textContent =
-        "Calificación automática actual: " +
-        puntos + "/" + datos.length;
+      const puntuacion=document.createElement("p");
+      puntuacion.textContent=
+        "Calificación automática actual: "+puntos+"/20";
 
-      const fecha = document.createElement("p");
-      fecha.className = "small";
-      fecha.textContent = new Date(
-        registro.creado_en
-      ).toLocaleString("es-EC");
+      const fecha=document.createElement("p");
+      fecha.className="small";
+      fecha.textContent=
+        new Date(registro.creado_en)
+          .toLocaleString("es-EC");
 
-      const detalles = document.createElement("details");
-      const resumen = document.createElement("summary");
-      resumen.textContent = "Ver las 20 respuestas";
+      const detalles=document.createElement("details");
+      const resumen=document.createElement("summary");
+      resumen.textContent="Ver las 20 respuestas";
       detalles.append(resumen);
 
-      datos.forEach((dato, i) => {
-        const item = document.createElement("div");
-        item.className = "result " +
-          (evaluaciones[i] === "correcta" ? "good" : "bad");
+      datos.forEach((dato,i)=>{
+        const item=document.createElement("div");
+        item.className="result "+
+          (evaluaciones[i]==="correcta"?"good":"review");
 
-        const pregunta = document.createElement("strong");
-        pregunta.textContent = (i + 1) + ". " + dato.pregunta;
+        const pregunta=document.createElement("strong");
+        pregunta.textContent=(i+1)+". "+dato.pregunta;
 
-        const respuesta = document.createElement("p");
-        respuesta.textContent =
-          "Respondió: " + (guardadas[i] || "(Sin respuesta)");
+        const respuesta=document.createElement("p");
+        respuesta.textContent=
+          "Respondió: "+(guardadas[i]||"(Sin respuesta)");
 
-        const correcta = document.createElement("p");
-        correcta.textContent =
-          "Respuesta correcta: " + dato.correcta;
+        const correcta=document.createElement("p");
+        correcta.textContent=
+          "Respuesta correcta: "+dato.correcta;
 
-        const estadoRespuesta = document.createElement("small");
-        estadoRespuesta.textContent =
-          evaluaciones[i] === "correcta" ? "Correcta" : "Incorrecta";
-
-        item.append(pregunta, respuesta, correcta, estadoRespuesta);
+        item.append(pregunta,respuesta,correcta);
         detalles.append(item);
       });
 
-      div.append(nombre, puntuacion, fecha, detalles);
+      const eliminar=document.createElement("button");
+      eliminar.type="button";
+      eliminar.className="danger";
+      eliminar.textContent="Eliminar registro";
+
+      eliminar.addEventListener("click",()=>{
+        eliminarRegistro(registro,eliminar);
+      });
+
+      div.append(
+        nombre,puntuacion,fecha,detalles,eliminar
+      );
       lista.append(div);
     });
 
-    estado.textContent = "Resultados cargados.";
+    estado.textContent="Resultados cargados.";
 
-  } catch (error) {
+  } catch(error) {
     console.error(error);
-    estado.textContent = error.message;
-    estado.className = "error";
+    estado.className="error";
+    estado.textContent="Error: "+error.message;
+  }
+}
+
+// ELIMINAR REGISTROS EN SUPABASE
+async function eliminarRegistro(registro,boton) {
+  if(!tokenAdmin) {
+    alert("Debes iniciar sesión como administradora.");
+    return;
+  }
+
+  const nombre=String(registro.nombre||"Sin nombre");
+
+  const confirmar=confirm(
+    '¿Eliminar definitivamente las respuestas de "'+
+    nombre+'"? Esta acción no se puede deshacer.'
+  );
+
+  if(!confirmar)return;
+
+  boton.disabled=true;
+  boton.textContent="Eliminando...";
+
+  const estado=el("estadoAdmin");
+
+  try {
+    const r=await fetch(
+      URL_BASE+
+      "/rest/v1/resultados_test?id=eq."+
+      encodeURIComponent(registro.id),
+      {
+        method:"DELETE",
+        headers:{
+          ...headers(tokenAdmin),
+          "Prefer":"return=representation"
+        }
+      }
+    );
+
+    if(!r.ok) {
+      throw new Error(
+        "Supabase rechazó la eliminación: "+
+        await r.text()
+      );
+    }
+
+    const eliminados=await r.json();
+
+    if(!Array.isArray(eliminados)||
+       eliminados.length!==1) {
+      throw new Error(
+        "No se eliminó el registro. "+
+        "Revisa los permisos de Supabase."
+      );
+    }
+
+    await cargarResultados();
+
+    estado.textContent=
+      'Registro de "'+nombre+
+      '" eliminado correctamente.';
+
+  } catch(error) {
+    console.error(error);
+    estado.className="error";
+    estado.textContent=error.message;
+    boton.disabled=false;
+    boton.textContent="Eliminar registro";
   }
 }
 
 function cerrarSesion() {
-  tokenAdmin = null;
+  tokenAdmin=null;
   el("panel").classList.add("hidden");
   el("login").classList.remove("hidden");
   el("lista").replaceChildren();
-  el("clave").value = "";
-  el("estadoAdmin").textContent = "Sesión cerrada.";
+  el("clave").value="";
+  el("estadoAdmin").textContent="Sesión cerrada.";
 }
 
 // ATAJOS DE TECLADO
-document.addEventListener("keydown", function(event) {
-
-  // Ctrl + A abre el panel oculto, excepto al escribir.
-  if ((event.ctrlKey || event.metaKey) &&
-      event.key.toLowerCase() === "a" &&
-      !event.altKey) {
-
-    const destino = event.target;
-    if (destino.matches("input,textarea,[contenteditable]")) return;
-
+document.addEventListener("keydown",function(event) {
+  if(event.key==="Enter" &&
+     !event.repeat &&
+     !event.ctrlKey &&
+     !event.altKey &&
+     !el("juego").classList.contains("hidden") &&
+     document.activeElement===el("respuesta")) {
     event.preventDefault();
-    mostrarAdmin();
+    siguiente();
     return;
   }
 
-  // Enter avanza a la siguiente pregunta.
-  if (event.key === "Enter" &&
-      !event.repeat &&
-      !event.ctrlKey &&
-      !event.altKey &&
-      !event.metaKey &&
-      !el("juego").classList.contains("hidden") &&
-      document.activeElement === el("respuesta")) {
-
+  if((event.ctrlKey||event.metaKey) &&
+     event.key.toLowerCase()==="a" &&
+     !event.target.matches(
+       "input,textarea,[contenteditable]"
+     )) {
     event.preventDefault();
-
-    if (!el("siguienteBtn").disabled) {
-      siguiente();
-    }
+    mostrarAdmin();
   }
 });
 </script>
