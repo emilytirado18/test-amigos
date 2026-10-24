@@ -120,7 +120,7 @@ button:disabled {
 }
 
 .review {
-  border-left: 5px solid #e3af68;
+  border-left: 5px solid #d46b75;
 }
 
 .small {
@@ -132,7 +132,28 @@ button:disabled {
   color: #b63759;
 }
 
-/* ANIMACIÓN DE LA HORTENSIA */
+.calificacion-correcta {
+  color: #388657;
+  font-weight: bold;
+}
+
+.calificacion-incorrecta {
+  color: #c44555;
+  font-weight: bold;
+}
+
+details {
+  margin-top: 15px;
+}
+
+summary {
+  padding: 10px 0;
+  cursor: pointer;
+  color: #68448a;
+  font-weight: bold;
+}
+
+/* ANIMACIÓN DE HORTENSIA */
 
 #florPantalla {
   position: fixed;
@@ -388,7 +409,7 @@ button:disabled {
 
 </main>
 
-<!-- ANIMACIÓN DE HORTENSIA AZUL -->
+<!-- HORTENSIA AZUL -->
 
 <section
   id="florPantalla"
@@ -404,7 +425,6 @@ button:disabled {
       role="img"
       aria-label="Hortensia azul floreciendo"
     >
-
       <defs>
         <radialGradient id="petaloAzul">
           <stop offset="0%" stop-color="#e5f3ff"/>
@@ -440,7 +460,6 @@ button:disabled {
         />
 
         <g id="racimoHortensia"></g>
-
       </g>
     </svg>
 
@@ -458,7 +477,7 @@ button:disabled {
 
 <script>
 
-/* CONFIGURACIÓN DE SUPABASE */
+/* SUPABASE */
 
 const URL_BASE =
   "https://ehxrmqbthxndcfmwjhmq.supabase.co";
@@ -469,7 +488,7 @@ const API_KEY =
 let tokenAdmin = null;
 let enviando = false;
 
-/* LAS 20 PREGUNTAS */
+/* PREGUNTAS Y RESPUESTAS */
 
 const datos = [
   [
@@ -624,149 +643,56 @@ const palabrasClave = [
     ["comer", "dulces"]
   ],
   [["casa"]],
-  [
-    ["cafeteria", "gatos"],
-    ["cafeteria", "gatitos"]
-  ],
-  [
-    ["presumidas"],
-    ["creidas"],
-    ["arrogantes"]
-  ],
+  [["cafeteria", "gatos"], ["cafeteria", "gatitos"]],
+  [["presumidas"], ["creidas"], ["arrogantes"]],
   [["sola", "acciones"], ["sola"]],
-  [
-    ["abrazos"],
-    ["detalles"],
-    ["tiempo", "personas"]
-  ],
+  [["abrazos"], ["detalles"], ["tiempo", "personas"]],
   [["fisico"], ["apariencia"]],
   [["honestidad"], ["lealtad"]],
-  [
-    ["esconden", "comida"],
-    ["no", "escuchan"]
-  ],
+  [["esconden", "comida"], ["no", "escuchan"]],
   [["ley", "hielo"]],
   [["traicion"], ["decepcion"], ["nada"]],
-  [
-    ["detalle"],
-    ["detalles"],
-    ["flores"],
-    ["chocolates"]
-  ],
+  [["detalle"], ["detalles"], ["flores"], ["chocolates"]],
   [["dinero"], ["plata"]],
-  [
-    ["apoyo"],
-    ["helado"],
-    ["heladito"],
-    ["comida"],
-    ["chocolates"]
-  ]
+  [["apoyo"], ["helado"], ["heladito"], ["comida"], ["chocolates"]]
 ];
 
-/* GÉNEROS MUSICALES ACEPTADOS */
+/* GÉNEROS MUSICALES */
 
 const generosMusicales = [
-  "pop",
-  "pop rock",
-  "indie pop",
-  "electropop",
-  "synth pop",
-  "kpop",
-  "k pop",
-  "jpop",
-  "j pop",
-  "dance pop",
-  "pop latino",
-  "balada",
-  "rock",
-  "rock alternativo",
-  "rock clasico",
-  "hard rock",
-  "indie rock",
-  "punk rock",
-  "rock progresivo",
-  "metal",
-  "heavy metal",
-  "death metal",
-  "black metal",
-  "metal sinfonico",
-  "nu metal",
-  "metalcore",
-  "regueton",
-  "reggaeton",
-  "trap",
-  "trap latino",
-  "hip hop",
-  "hiphop",
-  "rap",
-  "drill",
-  "r&b",
-  "rnb",
-  "soul",
-  "funk",
-  "dancehall",
-  "afrobeats",
-  "electronica",
-  "edm",
-  "house",
-  "deep house",
-  "tech house",
-  "techno",
-  "trance",
-  "dubstep",
-  "drum and bass",
-  "hardstyle",
-  "ambient",
-  "lofi",
-  "lo fi",
-  "salsa",
-  "bachata",
-  "merengue",
-  "cumbia",
-  "vallenato",
-  "tropical",
-  "bolero",
-  "bossa nova",
-  "samba",
-  "tango",
-  "reggae",
-  "ska",
-  "ranchera",
-  "mariachi",
-  "corrido",
-  "corridos",
-  "corridos tumbados",
-  "banda",
-  "nortena",
-  "regional mexicana",
-  "pasillo",
-  "sanjuanito",
-  "albazo",
-  "yaravi",
-  "pasacalle",
-  "andina",
-  "folclore",
-  "clasica",
-  "barroca",
-  "opera",
-  "instrumental",
-  "sinfonica",
-  "jazz",
-  "blues",
-  "gospel",
-  "country",
-  "folk",
-  "disco",
-  "new age",
-  "flamenco",
-  "experimental",
-  "shoegaze",
-  "grunge",
-  "emo",
-  "post rock",
-  "dream pop",
-  "phonk",
-  "hyperpop"
+  "pop", "pop rock", "indie pop", "electropop",
+  "synth pop", "kpop", "k pop", "jpop", "j pop",
+  "dance pop", "pop latino", "balada",
+  "rock", "rock alternativo", "rock clasico",
+  "hard rock", "indie rock", "punk rock",
+  "rock progresivo", "metal", "heavy metal",
+  "death metal", "black metal", "metal sinfonico",
+  "nu metal", "metalcore", "regueton",
+  "reggaeton", "trap", "trap latino",
+  "hip hop", "hiphop", "rap", "drill",
+  "r&b", "rnb", "soul", "funk",
+  "dancehall", "afrobeats", "electronica",
+  "edm", "house", "deep house",
+  "tech house", "techno", "trance",
+  "dubstep", "drum and bass", "hardstyle",
+  "ambient", "lofi", "lo fi",
+  "salsa", "bachata", "merengue",
+  "cumbia", "vallenato", "tropical",
+  "bolero", "bossa nova", "samba",
+  "tango", "reggae", "ska",
+  "ranchera", "mariachi", "corrido",
+  "corridos", "corridos tumbados", "banda",
+  "nortena", "regional mexicana",
+  "pasillo", "sanjuanito", "albazo",
+  "yaravi", "pasacalle", "andina",
+  "folclore", "clasica", "barroca",
+  "opera", "instrumental", "sinfonica",
+  "jazz", "blues", "gospel",
+  "country", "folk", "disco",
+  "new age", "flamenco", "experimental",
+  "shoegaze", "grunge", "emo",
+  "post rock", "dream pop",
+  "phonk", "hyperpop"
 ];
 
 const respuestasGeneralesMusica = [
@@ -783,7 +709,7 @@ const respuestasGeneralesMusica = [
   "escucho de todo"
 ];
 
-/* ESTADO DEL TEST */
+/* VARIABLES */
 
 let orden = [];
 let respuestas = Array(datos.length).fill("");
@@ -799,30 +725,14 @@ function crearHortensia() {
   grupo.replaceChildren();
 
   const centros = [
-    [150,55],
-    [117,65],
-    [183,65],
-    [94,88],
-    [133,94],
-    [170,93],
-    [207,88],
-    [76,119],
-    [111,124],
-    [150,127],
-    [189,124],
-    [223,119],
-    [82,155],
-    [118,158],
-    [154,162],
-    [190,158],
-    [219,155],
-    [101,191],
-    [137,192],
-    [174,191],
-    [202,190],
-    [126,219],
-    [163,221],
-    [184,216]
+    [150,55], [117,65], [183,65],
+    [94,88], [133,94], [170,93], [207,88],
+    [76,119], [111,124], [150,127],
+    [189,124], [223,119],
+    [82,155], [118,158], [154,162],
+    [190,158], [219,155],
+    [101,191], [137,192], [174,191],
+    [202,190], [126,219], [163,221], [184,216]
   ];
 
   centros.forEach(([x, y], i) => {
@@ -874,7 +784,7 @@ function crearHortensia() {
 
 crearHortensia();
 
-/* MOSTRAR ANIMACIÓN DURANTE 20 SEGUNDOS */
+/* ANIMACIÓN */
 
 function mostrarHortensia() {
   const pantalla = document.getElementById("florPantalla");
@@ -899,7 +809,7 @@ function mostrarHortensia() {
   });
 }
 
-/* CAMBIAR ENTRE SECCIONES */
+/* PANTALLAS */
 
 function mostrar(id) {
   ["bienvenida", "juego", "final"].forEach(seccion => {
@@ -909,19 +819,18 @@ function mostrar(id) {
   document.getElementById(id).classList.remove("hidden");
 }
 
-/* MEZCLAR PREGUNTAS */
+/* MEZCLAR */
 
 function mezclar(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-
     [array[i], array[j]] = [array[j], array[i]];
   }
 
   return array;
 }
 
-/* COMENZAR TEST */
+/* COMENZAR */
 
 function comenzar() {
   participante = document.getElementById("nombre").value.trim();
@@ -964,14 +873,14 @@ function mostrarPregunta() {
   document.getElementById("estado").textContent = "";
 }
 
-/* GUARDAR RESPUESTA TEMPORAL */
+/* GUARDAR RESPUESTA */
 
 function guardarTemporal() {
   respuestas[orden[posicion]] =
     document.getElementById("respuesta").value;
 }
 
-/* PREGUNTA ANTERIOR */
+/* ANTERIOR */
 
 function anterior() {
   if (enviando) return;
@@ -984,7 +893,7 @@ function anterior() {
   }
 }
 
-/* SIGUIENTE PREGUNTA */
+/* SIGUIENTE */
 
 async function siguiente() {
   if (enviando) return;
@@ -1010,7 +919,7 @@ async function siguiente() {
   await finalizar();
 }
 
-/* NORMALIZAR TEXTO */
+/* NORMALIZAR */
 
 function normalizar(texto) {
   return String(texto)
@@ -1022,7 +931,7 @@ function normalizar(texto) {
     .trim();
 }
 
-/* COMPROBAR FRASES COMPLETAS */
+/* COMPROBAR FRASES */
 
 function contieneFrase(texto, frase) {
   const clave = normalizar(frase);
@@ -1032,23 +941,19 @@ function contieneFrase(texto, frase) {
   return (` ${texto} `).includes(` ${clave} `);
 }
 
-/* EVALUAR RESPUESTAS */
+/* CALIFICACIÓN AUTOMÁTICA */
 
 function evaluar(respuesta, opciones, indice) {
   const texto = normalizar(respuesta);
 
-  if (!texto) {
-    return "pendiente";
-  }
+  if (!texto) return "incorrecta";
 
-  // Primero: respuestas completas aceptadas.
   for (const opcion of opciones) {
     if (texto === normalizar(opcion)) {
       return "correcta";
     }
   }
 
-  // Segundo: géneros musicales para la pregunta 5.
   if (indice === 4) {
     const coincideGenero = generosMusicales.some(genero =>
       contieneFrase(texto, genero)
@@ -1063,16 +968,14 @@ function evaluar(respuesta, opciones, indice) {
     }
   }
 
-  // Tercero: palabras clave de cada pregunta.
   const grupos = palabrasClave[indice] || [];
   const palabras = texto.split(" ");
 
   for (const grupo of grupos) {
     const coincide = grupo.every(clave => {
-      const claveNormalizada = normalizar(clave);
-      const partesClave = claveNormalizada.split(" ");
+      const partes = normalizar(clave).split(" ");
 
-      return partesClave.every(palabra =>
+      return partes.every(palabra =>
         palabras.includes(palabra)
       );
     });
@@ -1082,10 +985,56 @@ function evaluar(respuesta, opciones, indice) {
     }
   }
 
-  return "pendiente";
+  return "incorrecta";
 }
 
-/* CABECERAS DE SUPABASE */
+/* CREAR TARJETA DE RESPUESTA */
+
+function crearTarjetaRespuesta(respuesta, indice) {
+  const evaluacion = evaluar(
+    respuesta,
+    datos[indice][1],
+    indice
+  );
+
+  const esCorrecta = evaluacion === "correcta";
+
+  const tarjeta = document.createElement("div");
+  tarjeta.className =
+    "result " + (esCorrecta ? "good" : "review");
+
+  const pregunta = document.createElement("strong");
+  pregunta.textContent =
+    `${indice + 1}. ${datos[indice][0]}`;
+
+  const respuestaUsuario = document.createElement("p");
+  respuestaUsuario.textContent =
+    "Tu respuesta: " + respuesta;
+
+  const respuestaCorrecta = document.createElement("p");
+  respuestaCorrecta.textContent =
+    "Respuesta correcta: " + datos[indice][1][0];
+
+  const calificacion = document.createElement("p");
+  calificacion.className = esCorrecta
+    ? "calificacion-correcta"
+    : "calificacion-incorrecta";
+
+  calificacion.textContent = esCorrecta
+    ? "✓ Correcta (+1 punto)"
+    : "✗ Incorrecta (0 puntos)";
+
+  tarjeta.append(
+    pregunta,
+    respuestaUsuario,
+    respuestaCorrecta,
+    calificacion
+  );
+
+  return tarjeta;
+}
+
+/* SUPABASE */
 
 function headers(token) {
   return {
@@ -1095,7 +1044,7 @@ function headers(token) {
   };
 }
 
-/* FINALIZAR Y GUARDAR RESULTADOS */
+/* FINALIZAR */
 
 async function finalizar() {
   if (enviando) return;
@@ -1106,21 +1055,14 @@ async function finalizar() {
   const estado = document.getElementById("estado");
 
   boton.disabled = true;
-  estado.textContent = "Guardando respuestas...";
+  estado.textContent = "Calificando y guardando respuestas...";
 
   let puntos = 0;
-  let pendientes = 0;
 
-  const evaluaciones = respuestas.map((r, i) => {
-    const evaluacion = evaluar(r, datos[i][1], i);
-
-    if (evaluacion === "correcta") {
+  respuestas.forEach((respuesta, i) => {
+    if (evaluar(respuesta, datos[i][1], i) === "correcta") {
       puntos++;
-    } else {
-      pendientes++;
     }
-
-    return evaluacion;
   });
 
   try {
@@ -1136,7 +1078,7 @@ async function finalizar() {
           nombre: participante,
           respuestas: respuestas,
           puntuacion: puntos,
-          pendientes_revision: pendientes
+          pendientes_revision: 0
         })
       }
     );
@@ -1150,45 +1092,15 @@ async function finalizar() {
 
     const titulo = document.createElement("h2");
     titulo.textContent =
-      `${participante}: ${puntos}/${datos.length} coincidencias`;
+      `${participante}: ${puntos}/${datos.length} puntos`;
 
-    const aviso = document.createElement("p");
-    aviso.textContent =
-      `${pendientes} respuestas por revisar.`;
-
-    zona.append(titulo, aviso);
+    zona.appendChild(titulo);
 
     respuestas.forEach((respuesta, i) => {
-      const div = document.createElement("div");
-
-      div.className =
-        "result " +
-        (evaluaciones[i] === "correcta" ? "good" : "review");
-
-      const pregunta = document.createElement("strong");
-      pregunta.textContent =
-        `${i + 1}. ${datos[i][0]}`;
-
-      const tuya = document.createElement("p");
-      tuya.textContent =
-        "Tu respuesta: " + respuesta;
-
-      const correcta = document.createElement("p");
-      correcta.textContent =
-        "Respuesta correcta: " + datos[i][1][0];
-
-      const revision = document.createElement("small");
-      revision.textContent =
-        evaluaciones[i] === "correcta"
-          ? "Coincide"
-          : "Pendiente de revisión";
-
-      div.append(pregunta, tuya, correcta, revision);
-      zona.appendChild(div);
+      zona.appendChild(
+        crearTarjetaRespuesta(respuesta, i)
+      );
     });
-
-    // Primero aparece la hortensia.
-    // Después se muestran los resultados.
 
     await mostrarHortensia();
     mostrar("final");
@@ -1207,14 +1119,14 @@ async function finalizar() {
   }
 }
 
-/* PANEL DE ADMINISTRACIÓN */
+/* ABRIR ADMINISTRACIÓN */
 
 function mostrarAdmin() {
   document.getElementById("admin")
     .classList.toggle("hidden");
 }
 
-/* INICIAR SESIÓN ADMINISTRADOR */
+/* INICIAR SESIÓN */
 
 async function iniciarSesion() {
   const email = document.getElementById("correo").value.trim();
@@ -1261,7 +1173,7 @@ async function iniciarSesion() {
   }
 }
 
-/* CARGAR RESULTADOS */
+/* CARGAR RESULTADOS CON TARJETAS */
 
 async function cargarResultados() {
   const lista = document.getElementById("lista");
@@ -1301,8 +1213,7 @@ async function cargarResultados() {
 
       const puntos = document.createElement("p");
       puntos.textContent =
-        `Coincidencias: ${registro.puntuacion}/20 | ` +
-        `Por revisar: ${registro.pendientes_revision}`;
+        `Puntuación guardada: ${registro.puntuacion}/20`;
 
       const fecha = document.createElement("p");
       fecha.className = "small";
@@ -1316,16 +1227,16 @@ async function cargarResultados() {
 
       detalles.appendChild(resumen);
 
-      (registro.respuestas || []).forEach((respuesta, i) => {
+      const respuestasGuardadas = Array.isArray(registro.respuestas)
+        ? registro.respuestas
+        : [];
+
+      respuestasGuardadas.forEach((respuesta, i) => {
         if (!datos[i]) return;
 
-        const p = document.createElement("p");
-        p.textContent =
-          `${i + 1}. ${datos[i][0]} — ` +
-          `Respuesta: ${respuesta} — ` +
-          `Correcta: ${datos[i][1][0]}`;
-
-        detalles.appendChild(p);
+        detalles.appendChild(
+          crearTarjetaRespuesta(respuesta, i)
+        );
       });
 
       const eliminar = document.createElement("button");
@@ -1446,12 +1357,11 @@ function cerrarSesion() {
     "Sesión cerrada.";
 }
 
-/* ATAJOS DEL TECLADO */
+/* ATAJOS */
 
 document.addEventListener("keydown", function(event) {
 
-  // Enter para avanzar de pregunta.
-
+  // Enter: siguiente pregunta.
   if (
     event.key === "Enter" &&
     !event.repeat &&
@@ -1465,8 +1375,7 @@ document.addEventListener("keydown", function(event) {
     return;
   }
 
-  // Ctrl + A para abrir o cerrar administración.
-
+  // Ctrl + A: abrir o cerrar administración.
   if (
     (event.ctrlKey || event.metaKey) &&
     event.key.toLowerCase() === "a" &&
