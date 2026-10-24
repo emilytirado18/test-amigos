@@ -132,7 +132,7 @@ button:disabled {
   color: #b63759;
 }
 
-/* PANTALLA DE LA HORTENSIA */
+/* ANIMACIÓN DE LA HORTENSIA */
 
 #florPantalla {
   position: fixed;
@@ -203,13 +203,6 @@ button:disabled {
   }
 }
 
-/*
-  La posición de cada flor se aplica
-  a un grupo exterior. La animación
-  se aplica a otro grupo interior.
-  Así no se separan las flores del tallo.
-*/
-
 .florecita {
   opacity: 0;
   transform-box: fill-box;
@@ -229,7 +222,7 @@ button:disabled {
   }
   100% {
     opacity: 1;
-    transform: scale(1) rotate(0);
+    transform: scale(1);
   }
 }
 
@@ -245,8 +238,6 @@ button:disabled {
     opacity: 1;
   }
 }
-
-/* CORAZÓN AZUL */
 
 .corazonAzul {
   margin: 8px auto;
@@ -291,8 +282,7 @@ button:disabled {
   <h1>💜 ¿Qué tanto me conoces?</h1>
 
   <p class="center">
-    Responde 20 preguntas y descubre
-    cuánto sabes de mí.
+    Responde 20 preguntas y descubre cuánto sabes de mí.
   </p>
 
   <input
@@ -431,8 +421,6 @@ button:disabled {
 
       <g class="ramo">
 
-        <!-- TALLO -->
-
         <path
           d="M150 175 Q158 242 145 315"
           stroke="url(#talloVerde)"
@@ -440,8 +428,6 @@ button:disabled {
           fill="none"
           stroke-linecap="round"
         />
-
-        <!-- HOJAS -->
 
         <path
           d="M149 270 Q102 220 72 247 Q100 296 149 280"
@@ -452,8 +438,6 @@ button:disabled {
           d="M151 290 Q200 243 228 261 Q207 310 151 300"
           fill="#65aa96"
         />
-
-        <!-- FLORES GENERADAS CON JAVASCRIPT -->
 
         <g id="racimoHortensia"></g>
 
@@ -509,11 +493,11 @@ const datos = [
     ["noche"]
   ],
   [
-    "¿Cuál es mi genero de musica favorita?",
+    "¿Cuál es mi género de música favorita?",
     [
-      "todos los generos musicales",
-      "todos los generos",
-      "cualquier genero musical"
+      "todos los géneros musicales",
+      "todos los géneros",
+      "cualquier género musical"
     ]
   ],
   [
@@ -528,7 +512,7 @@ const datos = [
     [
       "lloro y veo videos graciosos",
       "llorar y ver videos graciosos",
-      "Como dulces"
+      "como dulces"
     ]
   ],
   [
@@ -538,18 +522,18 @@ const datos = [
   [
     "¿Cuál es uno de mis mayores sueños?",
     [
-      "tener una cafeteria de gatitos",
-      "cafeteria de gatos",
-      "cafeteria con gatitos"
+      "tener una cafetería de gatitos",
+      "cafetería de gatos",
+      "cafetería con gatitos"
     ]
   ],
   [
     "¿Qué tipo de personas me caen mal?",
     [
-      "las personas presumidas y creidas",
-      "presumidas y creidas",
+      "las personas presumidas y creídas",
+      "presumidas y creídas",
       "presumidas",
-      "creidas",
+      "creídas",
       "arrogantes"
     ]
   ],
@@ -569,7 +553,7 @@ const datos = [
   ],
   [
     "¿Qué inseguridad tengo?",
-    ["mi fisico", "fisico", "mi apariencia fisica"]
+    ["mi físico", "físico", "mi apariencia física"]
   ],
   [
     "¿Qué es lo que más valoro en una amistad?",
@@ -590,15 +574,15 @@ const datos = [
   [
     "¿Qué hago cuando alguien me decepciona?",
     [
-      "le aplico la ley del hielo por unos cuantos dias",
-      "ley del hielo por unos dias"
+      "le aplico la ley del hielo por unos cuantos días",
+      "ley del hielo por unos días"
     ]
   ],
   [
     "¿Qué es algo que nunca perdonaría?",
     [
-      "la traicion o la decepcion",
-      "Nada",
+      "la traición o la decepción",
+      "nada"
     ]
   ],
   [
@@ -622,6 +606,184 @@ const datos = [
     ]
   ]
 ];
+
+/* PALABRAS CLAVE */
+
+const palabrasClave = [
+  [["azul"]],
+  [["28", "noviembre"], ["28", "11"]],
+  [["carne"], ["pollo"], ["dulces"]],
+  [["noche"]],
+  [["todos"], ["todas"], ["generos", "musicales"]],
+  [["animales"], ["familia"], ["conmigo"]],
+  [
+    ["lloro"],
+    ["llorar"],
+    ["videos", "graciosos"],
+    ["dulces"],
+    ["comer", "dulces"]
+  ],
+  [["casa"]],
+  [
+    ["cafeteria", "gatos"],
+    ["cafeteria", "gatitos"]
+  ],
+  [
+    ["presumidas"],
+    ["creidas"],
+    ["arrogantes"]
+  ],
+  [["sola", "acciones"], ["sola"]],
+  [
+    ["abrazos"],
+    ["detalles"],
+    ["tiempo", "personas"]
+  ],
+  [["fisico"], ["apariencia"]],
+  [["honestidad"], ["lealtad"]],
+  [
+    ["esconden", "comida"],
+    ["no", "escuchan"]
+  ],
+  [["ley", "hielo"]],
+  [["traicion"], ["decepcion"], ["nada"]],
+  [
+    ["detalle"],
+    ["detalles"],
+    ["flores"],
+    ["chocolates"]
+  ],
+  [["dinero"], ["plata"]],
+  [
+    ["apoyo"],
+    ["helado"],
+    ["heladito"],
+    ["comida"],
+    ["chocolates"]
+  ]
+];
+
+/* GÉNEROS MUSICALES ACEPTADOS */
+
+const generosMusicales = [
+  "pop",
+  "pop rock",
+  "indie pop",
+  "electropop",
+  "synth pop",
+  "kpop",
+  "k pop",
+  "jpop",
+  "j pop",
+  "dance pop",
+  "pop latino",
+  "balada",
+  "rock",
+  "rock alternativo",
+  "rock clasico",
+  "hard rock",
+  "indie rock",
+  "punk rock",
+  "rock progresivo",
+  "metal",
+  "heavy metal",
+  "death metal",
+  "black metal",
+  "metal sinfonico",
+  "nu metal",
+  "metalcore",
+  "regueton",
+  "reggaeton",
+  "trap",
+  "trap latino",
+  "hip hop",
+  "hiphop",
+  "rap",
+  "drill",
+  "r&b",
+  "rnb",
+  "soul",
+  "funk",
+  "dancehall",
+  "afrobeats",
+  "electronica",
+  "edm",
+  "house",
+  "deep house",
+  "tech house",
+  "techno",
+  "trance",
+  "dubstep",
+  "drum and bass",
+  "hardstyle",
+  "ambient",
+  "lofi",
+  "lo fi",
+  "salsa",
+  "bachata",
+  "merengue",
+  "cumbia",
+  "vallenato",
+  "tropical",
+  "bolero",
+  "bossa nova",
+  "samba",
+  "tango",
+  "reggae",
+  "ska",
+  "ranchera",
+  "mariachi",
+  "corrido",
+  "corridos",
+  "corridos tumbados",
+  "banda",
+  "nortena",
+  "regional mexicana",
+  "pasillo",
+  "sanjuanito",
+  "albazo",
+  "yaravi",
+  "pasacalle",
+  "andina",
+  "folclore",
+  "clasica",
+  "barroca",
+  "opera",
+  "instrumental",
+  "sinfonica",
+  "jazz",
+  "blues",
+  "gospel",
+  "country",
+  "folk",
+  "disco",
+  "new age",
+  "flamenco",
+  "experimental",
+  "shoegaze",
+  "grunge",
+  "emo",
+  "post rock",
+  "dream pop",
+  "phonk",
+  "hyperpop"
+];
+
+const respuestasGeneralesMusica = [
+  "todos",
+  "todas",
+  "de todo",
+  "todo tipo de musica",
+  "todos los generos",
+  "todos los generos musicales",
+  "cualquier genero",
+  "cualquier genero musical",
+  "cualquier tipo de musica",
+  "me gusta de todo",
+  "escucho de todo"
+];
+
+/* ESTADO DEL TEST */
 
 let orden = [];
 let respuestas = Array(datos.length).fill("");
@@ -664,13 +826,8 @@ function crearHortensia() {
   ];
 
   centros.forEach(([x, y], i) => {
-
-    /*
-      El grupo exterior fija la posición.
-      El interior controla el florecimiento.
-    */
-
     const posicionFlor = document.createElementNS(ns, "g");
+
     posicionFlor.setAttribute(
       "transform",
       `translate(${x} ${y})`
@@ -679,10 +836,9 @@ function crearHortensia() {
     const flor = document.createElementNS(ns, "g");
     flor.setAttribute("class", "florecita");
 
-    const retardo = i * 0.72;
     flor.style.setProperty(
       "--retardo",
-      `${retardo}s`
+      `${i * 0.72}s`
     );
 
     [0, 90, 180, 270].forEach(angulo => {
@@ -692,10 +848,12 @@ function crearHortensia() {
       petalo.setAttribute("cy", "-12");
       petalo.setAttribute("rx", "13");
       petalo.setAttribute("ry", "18");
+
       petalo.setAttribute(
         "transform",
         `rotate(${angulo})`
       );
+
       petalo.setAttribute("fill", "url(#petaloAzul)");
       petalo.setAttribute("stroke", "#e5f1ff");
       petalo.setAttribute("stroke-width", ".8");
@@ -716,7 +874,7 @@ function crearHortensia() {
 
 crearHortensia();
 
-/* MOSTRAR LA ANIMACIÓN DURANTE 20 SEGUNDOS */
+/* MOSTRAR ANIMACIÓN DURANTE 20 SEGUNDOS */
 
 function mostrarHortensia() {
   const pantalla = document.getElementById("florPantalla");
@@ -756,6 +914,7 @@ function mostrar(id) {
 function mezclar(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
+
     [array[i], array[j]] = [array[j], array[i]];
   }
 
@@ -851,7 +1010,7 @@ async function siguiente() {
   await finalizar();
 }
 
-/* COMPARAR RESPUESTAS */
+/* NORMALIZAR TEXTO */
 
 function normalizar(texto) {
   return String(texto)
@@ -863,117 +1022,62 @@ function normalizar(texto) {
     .trim();
 }
 
-const generosMusicales = [
-  "pop", "rock", "metal", "heavy metal",
-  "regueton", "reggaeton", "trap", "rap",
-  "hip hop", "hiphop", "r&b", "soul",
-  "funk", "jazz", "blues", "country",
-  "folk", "indie", "punk", "grunge",
-  "emo", "kpop", "k pop", "jpop",
-  "j pop", "bachata", "salsa",
-  "merengue", "cumbia", "vallenato",
-  "bolero", "tango", "samba",
-  "bossa nova", "reggae", "ska",
-  "electronica", "edm", "house",
-  "techno", "trance", "dubstep",
-  "drum and bass", "hardstyle",
-  "ambient", "lofi", "lo fi",
-  "phonk", "hyperpop", "disco",
-  "flamenco", "ranchera", "mariachi",
-  "corridos", "banda", "nortena",
-  "pasillo", "sanjuanito", "albazo",
-  "yaravi", "pasacalle", "andina",
-  "clasica", "opera", "instrumental",
-  "gospel", "balada", "afrobeats",
-  "dancehall", "musica tropical",
-  "musica regional", "musica de videojuegos"
-];
+/* COMPROBAR FRASES COMPLETAS */
 
-const respuestasGeneralesMusica = [
-  "todos",
-  "todas",
-  "de todo",
-  "todo tipo de musica",
-  "todos los generos",
-  "todos los generos musicales",
-  "cualquier genero",
-  "cualquier genero musical",
-  "cualquier tipo de musica",
-  "me gusta de todo",
-  "escucho de todo"
-];
+function contieneFrase(texto, frase) {
+  const clave = normalizar(frase);
 
-function evaluar(respuesta, opciones) {
-const texto = normalizar(respuesta);
+  if (!clave) return false;
 
-  if (!texto) return "pendiente";
+  return (` ${texto} `).includes(` ${clave} `);
+}
 
-  // Pregunta 5: géneros musicales.
-  if (indice === 4) {
-    const coincideGenero = generosMusicales.some(genero => {
-      const clave = normalizar(genero);
-      return (` ${texto} `).includes(` ${clave} `);
-    });
+/* EVALUAR RESPUESTAS */
 
-    const coincideGeneral = respuestasGeneralesMusica.some(frase => {
-      const clave = normalizar(frase);
-      return texto === clave ||
-        (` ${texto} `).includes(` ${clave} `);
-    });
+function evaluar(respuesta, opciones, indice) {
+  const texto = normalizar(respuesta);
 
-    if (coincideGenero || coincideGeneral) {
-      return "correcta";
-    }
+  if (!texto) {
+    return "pendiente";
   }
 
-  // Respuestas completas aceptadas.
+  // Primero: respuestas completas aceptadas.
   for (const opcion of opciones) {
     if (texto === normalizar(opcion)) {
       return "correcta";
     }
   }
 
-/* PALABRAS CLAVE PARA LAS 20 PREGUNTAS */
+  // Segundo: géneros musicales para la pregunta 5.
+  if (indice === 4) {
+    const coincideGenero = generosMusicales.some(genero =>
+      contieneFrase(texto, genero)
+    );
 
-const palabrasClave = [
-  [["azul"]],
-  [["28", "noviembre"]],
-  [["carne","comida","dulces","pollo"]],
-  [["noche"]],
-  [["generos", "musicales",], ["todo","musica"]],
-  [["animales"], ["familia"], ["conmigo"]],
-  [["lloro"], ["videos", "graciosos","comer","dulces","dulce"]],
-  [["casa"]],
-  [["cafeteria", "gatos"], ["cafeteria", "gatitos"]],
-  [["presumidas"], ["creidas"], ["arrogantes"]],
-  [["sola", "acciones"]],
-  [["abrazos"], ["detalles"], ["tiempo", "personas"]],
-  [["fisico"], ["apariencia"]],
-  [["honestidad"], ["lealtad"], ["comida"], ["pollo],
-  [["comida"], ["escuchan"]],
-  [["ley", "hielo"]],
-  [["Nada"]],
-  [["detalle"], ["detalles"],["flores", "chocolates"]],
-  [["dinero"], ["plata"]],
-  [["apoyo"], ["helado"], ["heladito"],["comida", "chocolates"]]
-];
+    const coincideGeneral = respuestasGeneralesMusica.some(frase =>
+      contieneFrase(texto, frase)
+    );
 
-/* COMPROBAR SI CONTIENE LAS PALABRAS CLAVE */
-
-for (const opcion of opciones) {
-    if (texto === normalizar(opcion)) {
+    if (coincideGenero || coincideGeneral) {
       return "correcta";
     }
   }
 
-  // Palabras clave de las demás preguntas.
+  // Tercero: palabras clave de cada pregunta.
   const grupos = palabrasClave[indice] || [];
   const palabras = texto.split(" ");
 
   for (const grupo of grupos) {
-    if (grupo.every(clave =>
-      palabras.includes(normalizar(clave))
-    )) {
+    const coincide = grupo.every(clave => {
+      const claveNormalizada = normalizar(clave);
+      const partesClave = claveNormalizada.split(" ");
+
+      return partesClave.every(palabra =>
+        palabras.includes(palabra)
+      );
+    });
+
+    if (coincide) {
       return "correcta";
     }
   }
@@ -981,7 +1085,7 @@ for (const opcion of opciones) {
   return "pendiente";
 }
 
-/* CABECERAS SUPABASE */
+/* CABECERAS DE SUPABASE */
 
 function headers(token) {
   return {
@@ -1009,6 +1113,7 @@ async function finalizar() {
 
   const evaluaciones = respuestas.map((r, i) => {
     const evaluacion = evaluar(r, datos[i][1], i);
+
     if (evaluacion === "correcta") {
       puntos++;
     } else {
@@ -1039,8 +1144,6 @@ async function finalizar() {
     if (!response.ok) {
       throw new Error(await response.text());
     }
-
-    /* PREPARAR LOS RESULTADOS */
 
     const zona = document.getElementById("resultado");
     zona.replaceChildren();
@@ -1084,10 +1187,8 @@ async function finalizar() {
       zona.appendChild(div);
     });
 
-    /*
-      PRIMERO LA ANIMACIÓN.
-      DESPUÉS SE MUESTRAN LOS RESULTADOS.
-    */
+    // Primero aparece la hortensia.
+    // Después se muestran los resultados.
 
     await mostrarHortensia();
     mostrar("final");
@@ -1121,6 +1222,7 @@ async function iniciarSesion() {
   const estado = document.getElementById("estadoAdmin");
 
   estado.textContent = "Iniciando sesión...";
+  estado.className = "";
 
   try {
     const response = await fetch(
@@ -1167,6 +1269,7 @@ async function cargarResultados() {
 
   lista.replaceChildren();
   estado.textContent = "Cargando resultados...";
+  estado.className = "";
 
   try {
     const response = await fetch(
@@ -1250,6 +1353,7 @@ async function cargarResultados() {
   } catch (error) {
     console.error(error);
     estado.textContent = error.message;
+    estado.className = "error";
   }
 }
 
@@ -1346,6 +1450,8 @@ function cerrarSesion() {
 
 document.addEventListener("keydown", function(event) {
 
+  // Enter para avanzar de pregunta.
+
   if (
     event.key === "Enter" &&
     !event.repeat &&
@@ -1359,10 +1465,7 @@ document.addEventListener("keydown", function(event) {
     return;
   }
 
-  /*
-    Ctrl + A fuera de los campos de texto
-    abre o cierra el panel de administración.
-  */
+  // Ctrl + A para abrir o cerrar administración.
 
   if (
     (event.ctrlKey || event.metaKey) &&
@@ -1376,7 +1479,6 @@ document.addEventListener("keydown", function(event) {
   }
 });
 
-  
 </script>
 </body>
 </html>
