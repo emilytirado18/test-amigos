@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,22 +7,24 @@
 <title>¿Qué tanto me conoces?</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
+  min-height: 100vh;
   padding: 20px;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#f8e8f7,#e9e4ff);
   color: #46344f;
-  min-height: 100vh;
+  background: linear-gradient(135deg, #f8e8f7, #e9e4ff);
 }
 
 main {
   max-width: 650px;
   margin: 30px auto;
-  background: white;
   padding: 30px;
+  background: white;
   border-radius: 24px;
   box-shadow: 0 12px 35px #694b8420;
 }
@@ -31,28 +34,36 @@ h1, h2 {
   text-align: center;
 }
 
-p { line-height: 1.5; }
+p {
+  line-height: 1.5;
+}
 
-.center { text-align: center; }
+.center {
+  text-align: center;
+}
+
+.hidden {
+  display: none !important;
+}
 
 input {
   width: 100%;
   padding: 14px;
-  font-size: 16px;
+  margin: 10px 0;
   border: 1px solid #cbb4dc;
   border-radius: 12px;
-  margin: 10px 0;
+  font-size: 16px;
 }
 
 button {
-  background: #9166b5;
-  color: white;
+  margin: 5px;
+  padding: 14px 22px;
   border: none;
   border-radius: 12px;
-  padding: 14px 22px;
-  cursor: pointer;
+  background: #9166b5;
+  color: white;
   font-size: 16px;
-  margin: 5px;
+  cursor: pointer;
 }
 
 button:disabled {
@@ -65,28 +76,30 @@ button:disabled {
   color: #5b3d72;
 }
 
-.hidden { display: none; }
+.danger {
+  background: #b94063;
+}
 
 .progress {
   height: 12px;
-  background: #eee3f4;
-  border-radius: 20px;
-  overflow: hidden;
   margin: 22px 0;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #eee3f4;
 }
 
 .bar {
-  height: 100%;
   width: 0;
+  height: 100%;
   background: #a77bd0;
   transition: width .3s;
 }
 
 .question {
-  text-align: center;
+  margin: 30px 0;
   font-size: 22px;
   font-weight: bold;
-  margin: 30px 0;
+  text-align: center;
 }
 
 .navigation {
@@ -97,53 +110,148 @@ button:disabled {
 
 .result {
   padding: 15px;
-  background: #f7f0fb;
-  border-radius: 12px;
   margin: 12px 0;
+  border-radius: 12px;
+  background: #f7f0fb;
 }
 
-.good { border-left: 5px solid #71b18a; }
-.review { border-left: 5px solid #e3af68; }
+.good {
+  border-left: 5px solid #71b18a;
+}
+
+.review {
+  border-left: 5px solid #e3af68;
+}
 
 .small {
   font-size: 13px;
   color: #74667c;
 }
 
-.error { color: #b63759; }
-.danger { background: #b94063; }
-.danger:hover { background: #9f3151; }
+.error {
+  color: #b63759;
+}
 
-/* Hortensia azul al terminar el test */
+/* PANTALLA DE LA HORTENSIA */
+
 #florPantalla {
-  position: fixed; inset: 0; z-index: 9999;
-  display: flex; align-items: center; justify-content: center;
-  padding: 24px; text-align: center;
-  background: linear-gradient(145deg,#e8efff,#f4eaff,#e3f4ff);
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    #e9f6ff,
+    #c5e6ff,
+    #e4f4ff,
+    #b9ddff
+  );
+  background-size: 300% 300%;
+  animation: cieloAzul 20s ease-in-out forwards;
 }
-#florPantalla.hidden { display: none !important; }
-.florTarjeta { max-width: 440px; width: 100%; }
-.florTarjeta h2 { color: #5472bb; margin: 6px 0; }
-.florTarjeta p { color: #615b80; }
-.hortensia { width: min(300px,80vw); height: auto; overflow: visible; }
-.hortensia .ramo { transform-origin: 150px 190px; animation: balanceo 3s ease-in-out infinite; }
-.hortensia .florecita { opacity: 0; transform-box: fill-box; transform-origin: center;
-  animation: abrirFlor .7s cubic-bezier(.2,1.3,.4,1) forwards;
-  animation-delay: var(--retardo); }
-.hortensia .brillo { animation: palpitar 2.2s ease-in-out infinite alternate; }
-@keyframes abrirFlor { from { opacity:0; transform:scale(.1) rotate(-35deg); }
-  to { opacity:1; transform:scale(1) rotate(0); } }
-@keyframes balanceo { 0%,100% { transform:rotate(-2deg); } 50% { transform:rotate(2deg); } }
-@keyframes palpitar { from { opacity:.45; } to { opacity:1; } }
-@media (prefers-reduced-motion: reduce) {
-  .hortensia .ramo,.hortensia .brillo { animation:none; }
-  .hortensia .florecita { animation:none; opacity:1; }
+
+@keyframes cieloAzul {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
 }
-  
+
+.florTarjeta {
+  width: 100%;
+  max-width: 440px;
+}
+
+.florTarjeta h2 {
+  margin: 8px 0;
+  color: #4674bf;
+}
+
+.florTarjeta p {
+  color: #596b8d;
+}
+
+.hortensia {
+  display: block;
+  width: min(300px, 75vw);
+  height: auto;
+  margin: auto;
+  overflow: visible;
+}
+
+.ramo {
+  transform-origin: 150px 250px;
+  animation: balanceo 4s ease-in-out infinite;
+}
+
+@keyframes balanceo {
+  0%, 100% {
+    transform: rotate(-1.5deg);
+  }
+  50% {
+    transform: rotate(1.5deg);
+  }
+}
+
+/*
+  La posición de cada flor se aplica
+  a un grupo exterior. La animación
+  se aplica a otro grupo interior.
+  Así no se separan las flores del tallo.
+*/
+
+.florecita {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: abrirFlor 2s ease-out forwards;
+  animation-delay: var(--retardo);
+}
+
+@keyframes abrirFlor {
+  0% {
+    opacity: 0;
+    transform: scale(.05) rotate(-25deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+.brillo {
+  animation: brilloPetalo 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes brilloPetalo {
+  from {
+    opacity: .4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* CORAZÓN AZUL */
+
 .corazonAzul {
-  font-size: 65px;
-  margin: 12px auto;
-  filter: drop-shadow(0 0 16px #65b9ff);
+  margin: 8px auto;
+  font-size: 62px;
+  filter: drop-shadow(0 0 15px #65b9ff);
   animation: latidoCorazon 1.5s ease-in-out infinite;
 }
 
@@ -152,33 +260,55 @@ button:disabled {
     transform: scale(1);
     filter: drop-shadow(0 0 8px #80caff);
   }
-
   50% {
-    transform: scale(1.25);
+    transform: scale(1.22);
     filter: drop-shadow(0 0 24px #369bff);
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .ramo,
+  .brillo,
+  .corazonAzul {
+    animation: none;
+  }
+
+  .florecita {
+    animation: none;
+    opacity: 1;
+  }
+}
 </style>
 </head>
 
 <body>
+
 <main>
+
+<!-- BIENVENIDA -->
 
 <section id="bienvenida">
   <h1>💜 ¿Qué tanto me conoces?</h1>
+
   <p class="center">
     Responde 20 preguntas y descubre
     cuánto sabes de mí.
   </p>
 
-  <input id="nombre" maxlength="80"
-    placeholder="Escribe tu nombre">
+  <input
+    id="nombre"
+    maxlength="80"
+    placeholder="Escribe tu nombre"
+  >
 
   <div class="center">
-    <button onclick="comenzar()">Comenzar test</button>
+    <button type="button" onclick="comenzar()">
+      Comenzar test
+    </button>
   </div>
 </section>
+
+<!-- PREGUNTAS -->
 
 <section id="juego" class="hidden">
   <p id="contador" class="center"></p>
@@ -189,49 +319,74 @@ button:disabled {
 
   <div id="pregunta" class="question"></div>
 
-  <input id="respuesta"
+  <input
+    id="respuesta"
     maxlength="500"
     placeholder="Escribe tu respuesta..."
-    oninput="guardarTemporal()">
+    oninput="guardarTemporal()"
+  >
 
   <div class="navigation">
-    <button class="secondary"
-      onclick="anterior()">Anterior</button>
+    <button
+      type="button"
+      class="secondary"
+      onclick="anterior()"
+    >
+      Anterior
+    </button>
 
-    <button id="siguiente"
-      onclick="siguiente()">Siguiente</button>
+    <button
+      type="button"
+      id="siguiente"
+      onclick="siguiente()"
+    >
+      Siguiente
+    </button>
   </div>
 
   <p id="estado" class="center"></p>
 </section>
+
+<!-- RESULTADOS -->
 
 <section id="final" class="hidden">
   <h1>Tu resultado</h1>
   <div id="resultado"></div>
 </section>
 
+<!-- ADMINISTRACIÓN -->
+
 <section id="admin" class="hidden">
   <h2>Panel de administración</h2>
 
   <div id="login">
-    <input id="correo" type="email"
-      placeholder="Correo electrónico">
+    <input
+      id="correo"
+      type="email"
+      placeholder="Correo electrónico"
+    >
 
-    <input id="clave" type="password"
-      placeholder="Contraseña">
+    <input
+      id="clave"
+      type="password"
+      placeholder="Contraseña"
+    >
 
-    <button onclick="iniciarSesion()">
+    <button type="button" onclick="iniciarSesion()">
       Iniciar sesión
     </button>
   </div>
 
   <div id="panel" class="hidden">
-    <button onclick="cargarResultados()">
+    <button type="button" onclick="cargarResultados()">
       Actualizar resultados
     </button>
 
-    <button class="secondary"
-      onclick="cerrarSesion()">
+    <button
+      type="button"
+      class="secondary"
+      onclick="cerrarSesion()"
+    >
       Cerrar sesión
     </button>
 
@@ -243,80 +398,84 @@ button:disabled {
 
 </main>
 
-<!-- Animación de hortensia azul: solo se muestra al guardar correctamente -->
-<section id="florPantalla" class="hidden" role="status" aria-live="polite">
+<!-- ANIMACIÓN DE HORTENSIA AZUL -->
+
+<section
+  id="florPantalla"
+  class="hidden"
+  role="status"
+  aria-live="polite"
+>
   <div class="florTarjeta">
-    <svg class="hortensia" viewBox="0 0 300 330" role="img" aria-label="Hortensia azul floreciendo">
+
+    <svg
+      class="hortensia"
+      viewBox="0 0 300 330"
+      role="img"
+      aria-label="Hortensia azul floreciendo"
+    >
+
       <defs>
-        <linearGradient id="petaloAzul" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#c1dcff"/>
-          <stop offset="0.55" stop-color="#729de9"/>
-          <stop offset="1" stop-color="#5275ce"/>
-        </linearGradient>
-        <linearGradient id="talloVerde" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#7ab89c"/><stop offset="1" stop-color="#3b8e78"/>
+        <radialGradient id="petaloAzul">
+          <stop offset="0%" stop-color="#e5f3ff"/>
+          <stop offset="40%" stop-color="#a6ceff"/>
+          <stop offset="75%" stop-color="#689bea"/>
+          <stop offset="100%" stop-color="#416fc5"/>
+        </radialGradient>
+
+        <linearGradient id="talloVerde">
+          <stop offset="0%" stop-color="#88c8ad"/>
+          <stop offset="100%" stop-color="#3e967c"/>
         </linearGradient>
       </defs>
+
       <g class="ramo">
-        <path d="M150 188 Q155 246 145 315" stroke="url(#talloVerde)" stroke-width="8" fill="none" stroke-linecap="round"/>
-        <path d="M149 268 Q100 219 77 248 Q106 294 149 279" fill="#70b7a1"/>
-        <path d="M151 289 Q198 242 223 262 Q203 308 151 298" fill="#65aa96"/>
+
+        <!-- TALLO -->
+
+        <path
+          d="M150 175 Q158 242 145 315"
+          stroke="url(#talloVerde)"
+          stroke-width="8"
+          fill="none"
+          stroke-linecap="round"
+        />
+
+        <!-- HOJAS -->
+
+        <path
+          d="M149 270 Q102 220 72 247 Q100 296 149 280"
+          fill="#70b7a1"
+        />
+
+        <path
+          d="M151 290 Q200 243 228 261 Q207 310 151 300"
+          fill="#65aa96"
+        />
+
+        <!-- FLORES GENERADAS CON JAVASCRIPT -->
+
         <g id="racimoHortensia"></g>
+
       </g>
     </svg>
+
     <div class="corazonAzul">💙</div>
+
     <h2>¡Gracias por responder!</h2>
-    <p>Una hortensia azul para ti. Preparando tu resultado...</p>
+
+    <p>
+      Una hortensia azul para ti.
+      Preparando tu resultado...
+    </p>
+
   </div>
 </section>
 
-
 <script>
-// Dibujar pequeñas flores de la hortensia azul.
-(function crearHortensia() {
-  const ns="http://www.w3.org/2000/svg";
-  const grupo=document.getElementById("racimoHortensia");
-  const centros=[
-    [150,58],[111,74],[187,76],[86,111],[127,108],[169,105],[210,112],
-    [74,150],[111,148],[151,145],[191,148],[225,152],
-    [91,187],[131,186],[172,187],[209,188],
-    [115,220],[154,219],[191,217],[151,253]
-  ];
-  centros.forEach(([x,y],i)=>{
-    const flor=document.createElementNS(ns,"g");
-    flor.setAttribute("class","florecita");
-    flor.setAttribute("transform",`translate(${x} ${y})`);
-    flor.style.setProperty("--retardo",`${i*0.075}s`);
-    [0,90,180,270].forEach(angulo=>{
-      const petalo=document.createElementNS(ns,"ellipse");
-      petalo.setAttribute("cx","0");petalo.setAttribute("cy","-12");
-      petalo.setAttribute("rx","12");petalo.setAttribute("ry","17");
-      petalo.setAttribute("transform",`rotate(${angulo})`);
-      petalo.setAttribute("fill","url(#petaloAzul)");
-      petalo.setAttribute("stroke","#e0ebff");
-      petalo.setAttribute("stroke-width","1");
-      flor.appendChild(petalo);
-    });
-    const centro=document.createElementNS(ns,"circle");
-    centro.setAttribute("r","4.5");centro.setAttribute("fill","#fff3b5");
-    centro.setAttribute("class","brillo");flor.appendChild(centro);
-    grupo.appendChild(flor);
-  });
-})();
 
-function mostrarHortensia() {
-  const pantalla=document.getElementById("florPantalla");
-  pantalla.classList.remove("hidden");
-  // Reiniciar el florecimiento cada vez que se complete el test.
-  pantalla.querySelectorAll(".florecita").forEach(flor=>{
-    flor.style.animation="none";
-    void flor.getBoundingClientRect();
-    flor.style.animation="";
-  });
-  setTimeout(()=>pantalla.classList.add("hidden"),20000);
-}
+/* CONFIGURACIÓN DE SUPABASE */
 
-// CONEXIÓN SUPABASE
 const URL_BASE =
   "https://ehxrmqbthxndcfmwjhmq.supabase.co";
 
@@ -326,419 +485,756 @@ const API_KEY =
 let tokenAdmin = null;
 let enviando = false;
 
-// PREGUNTAS Y RESPUESTAS ACEPTADAS
+/* LAS 20 PREGUNTAS */
+
 const datos = [
-["¿Cuál es mi color favorito?",["azul"]],
-["¿Cuándo es mi cumpleaños?",
- ["28 de noviembre","28 noviembre","28/11"]],
-["¿Cuál es mi comida favorita?",
- ["cualquier tipo de carne","cualquier carne","todo tipo de carne"]],
-["¿Prefiero el día o la noche?",["noche"]],
-["¿Cuál es mi canción favorita?",
- ["todos los generos","todos los generos musicales","cualquier genero musical"]],
-["¿Qué es lo que más me hace enojar?",
- ["cuando se meten con los animales o se meten conmigo o con mi familia","que se metan con los animales conmigo o con mi familia"]],
-["¿Qué hago cuando estoy triste?",
- ["lloro y veo videos graciosos","llorar y ver videos graciosos"]],
-["¿Soy más de salir o quedarme en casa?",
- ["quedarme en casa","estar en casa","casa"]],
-["¿Cuál es uno de mis mayores sueños?",
- ["tener una cafeteria de gatitos",
- "cafeteria de gatos","cafeteria con gatitos"]],
-["¿Qué tipo de personas me caen mal?",
- ["presumidas y creidas","presumidas",
- "creidas","arrogantes","engreidas"]],
-["¿Cuál es mi mayor miedo?",
- ["quedarme sola por mis acciones","quedar sola por mis acciones"]],
-["¿Cómo demuestro cariño?",
- ["con abrazos detalles y pasando tiempo con las personas","abrazos detalles y pasando tiempo con las personas"]],
-["¿Qué inseguridad tengo?",
- ["mi fisico","fisico","mi apariencia fisica"]],
-["¿Qué es lo que más valoro en una amistad?",
- ["honestidad y lealtad","lealtad y honestidad",
- "honestidad","lealtad"]],
-["¿Qué cosa me puede hacer llorar fácilmente?",
- ["cuando me esconden la comida y cuando no me escuchan","que me escondan la comida y no me escuchen"]],
-["¿Qué hago cuando alguien me decepciona?",
- ["le aplico la ley del hielo por unos cuantos dias","ley del hielo por unos dias"]],
-["¿Qué es algo que nunca perdonaría?",
- ["la traicion o la decepcion","la traicion","la decepcion","traicion","decepcion"]],
-["¿Qué pequeño detalle me hace muy feliz?",
- ["cualquier detalle pequeño","cualquier detallito","los pequeños detalles","cualquier gesto bonito"]],
-["¿Qué es lo que más deseo conseguir en mi vida?",
- ["dinero","plata","mucho dinero"]],
-["Si estoy pasando un mal momento, ¿qué necesitaría de ti?",
- ["palabras de apoyo y un heladito",
- "apoyo y helado","palabras de apoyo y helado"]]
+  [
+    "¿Cuál es mi color favorito?",
+    ["azul"]
+  ],
+  [
+    "¿Cuándo es mi cumpleaños?",
+    ["28 de noviembre", "28 noviembre", "28/11"]
+  ],
+  [
+    "¿Cuál es mi comida favorita?",
+    [
+      "cualquier tipo de carne",
+      "cualquier carne",
+      "todo tipo de carne"
+    ]
+  ],
+  [
+    "¿Prefiero el día o la noche?",
+    ["noche"]
+  ],
+  [
+    "¿Cuál es mi canción favorita?",
+    [
+      "todos los generos musicales",
+      "todos los generos",
+      "cualquier genero musical"
+    ]
+  ],
+  [
+    "¿Qué es lo que más me hace enojar?",
+    [
+      "cuando se meten con los animales conmigo o con mi familia",
+      "que se metan con los animales conmigo o con mi familia"
+    ]
+  ],
+  [
+    "¿Qué hago cuando estoy triste?",
+    [
+      "lloro y veo videos graciosos",
+      "llorar y ver videos graciosos"
+    ]
+  ],
+  [
+    "¿Soy más de salir o quedarme en casa?",
+    ["quedarme en casa", "estar en casa", "casa"]
+  ],
+  [
+    "¿Cuál es uno de mis mayores sueños?",
+    [
+      "tener una cafeteria de gatitos",
+      "cafeteria de gatos",
+      "cafeteria con gatitos"
+    ]
+  ],
+  [
+    "¿Qué tipo de personas me caen mal?",
+    [
+      "las personas presumidas y creidas",
+      "presumidas y creidas",
+      "presumidas",
+      "creidas",
+      "arrogantes"
+    ]
+  ],
+  [
+    "¿Cuál es mi mayor miedo?",
+    [
+      "quedarme sola por mis acciones",
+      "quedar sola por mis acciones"
+    ]
+  ],
+  [
+    "¿Cómo demuestro cariño?",
+    [
+      "con abrazos detalles y pasando tiempo con las personas",
+      "abrazos detalles y pasando tiempo con las personas"
+    ]
+  ],
+  [
+    "¿Qué inseguridad tengo?",
+    ["mi fisico", "fisico", "mi apariencia fisica"]
+  ],
+  [
+    "¿Qué es lo que más valoro en una amistad?",
+    [
+      "honestidad y lealtad",
+      "lealtad y honestidad",
+      "honestidad",
+      "lealtad"
+    ]
+  ],
+  [
+    "¿Qué cosa me puede hacer llorar fácilmente?",
+    [
+      "cuando me esconden la comida o cuando no me escuchan",
+      "que me escondan la comida y no me escuchen"
+    ]
+  ],
+  [
+    "¿Qué hago cuando alguien me decepciona?",
+    [
+      "le aplico la ley del hielo por unos cuantos dias",
+      "ley del hielo por unos dias"
+    ]
+  ],
+  [
+    "¿Qué es algo que nunca perdonaría?",
+    [
+      "la traicion o la decepcion",
+      "la traicion",
+      "la decepcion",
+      "traicion",
+      "decepcion"
+    ]
+  ],
+  [
+    "¿Qué pequeño detalle me hace muy feliz?",
+    [
+      "cualquier detalle pequeño",
+      "cualquier detallito",
+      "los pequeños detalles"
+    ]
+  ],
+  [
+    "¿Qué es lo que más deseo conseguir en mi vida?",
+    ["dinero", "plata", "mucho dinero"]
+  ],
+  [
+    "Si estoy pasando un mal momento, ¿qué necesitaría de ti?",
+    [
+      "palabras de apoyo y un heladito",
+      "apoyo y helado",
+      "palabras de apoyo y helado"
+    ]
+  ]
 ];
 
 let orden = [];
-let respuestas = Array(20).fill("");
+let respuestas = Array(datos.length).fill("");
 let posicion = 0;
 let participante = "";
 
-// MEZCLAR PREGUNTAS
+/* CREAR HORTENSIA */
+
+function crearHortensia() {
+  const ns = "http://www.w3.org/2000/svg";
+  const grupo = document.getElementById("racimoHortensia");
+
+  grupo.replaceChildren();
+
+  const centros = [
+    [150,55],
+    [117,65],
+    [183,65],
+    [94,88],
+    [133,94],
+    [170,93],
+    [207,88],
+    [76,119],
+    [111,124],
+    [150,127],
+    [189,124],
+    [223,119],
+    [82,155],
+    [118,158],
+    [154,162],
+    [190,158],
+    [219,155],
+    [101,191],
+    [137,192],
+    [174,191],
+    [202,190],
+    [126,219],
+    [163,221],
+    [184,216]
+  ];
+
+  centros.forEach(([x, y], i) => {
+
+    /*
+      El grupo exterior fija la posición.
+      El interior controla el florecimiento.
+    */
+
+    const posicionFlor = document.createElementNS(ns, "g");
+    posicionFlor.setAttribute(
+      "transform",
+      `translate(${x} ${y})`
+    );
+
+    const flor = document.createElementNS(ns, "g");
+    flor.setAttribute("class", "florecita");
+
+    const retardo = i * 0.72;
+    flor.style.setProperty(
+      "--retardo",
+      `${retardo}s`
+    );
+
+    [0, 90, 180, 270].forEach(angulo => {
+      const petalo = document.createElementNS(ns, "ellipse");
+
+      petalo.setAttribute("cx", "0");
+      petalo.setAttribute("cy", "-12");
+      petalo.setAttribute("rx", "13");
+      petalo.setAttribute("ry", "18");
+      petalo.setAttribute(
+        "transform",
+        `rotate(${angulo})`
+      );
+      petalo.setAttribute("fill", "url(#petaloAzul)");
+      petalo.setAttribute("stroke", "#e5f1ff");
+      petalo.setAttribute("stroke-width", ".8");
+
+      flor.appendChild(petalo);
+    });
+
+    const centro = document.createElementNS(ns, "circle");
+    centro.setAttribute("r", "4");
+    centro.setAttribute("fill", "#fff1ae");
+    centro.setAttribute("class", "brillo");
+
+    flor.appendChild(centro);
+    posicionFlor.appendChild(flor);
+    grupo.appendChild(posicionFlor);
+  });
+}
+
+crearHortensia();
+
+/* MOSTRAR LA ANIMACIÓN DURANTE 20 SEGUNDOS */
+
+function mostrarHortensia() {
+  const pantalla = document.getElementById("florPantalla");
+
+  pantalla.classList.remove("hidden");
+
+  pantalla.style.animation = "none";
+  void pantalla.offsetWidth;
+  pantalla.style.animation = "";
+
+  pantalla.querySelectorAll(".florecita").forEach(flor => {
+    flor.style.animation = "none";
+    void flor.getBoundingClientRect();
+    flor.style.animation = "";
+  });
+
+  return new Promise(resolve => {
+    setTimeout(() => {
+      pantalla.classList.add("hidden");
+      resolve();
+    }, 20000);
+  });
+}
+
+/* CAMBIAR ENTRE SECCIONES */
+
+function mostrar(id) {
+  ["bienvenida", "juego", "final"].forEach(seccion => {
+    document.getElementById(seccion).classList.add("hidden");
+  });
+
+  document.getElementById(id).classList.remove("hidden");
+}
+
+/* MEZCLAR PREGUNTAS */
+
 function mezclar(array) {
-  for (let i=array.length-1;i>0;i--) {
-    const j=Math.floor(Math.random()*(i+1));
-    [array[i],array[j]]=[array[j],array[i]];
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
   }
+
   return array;
 }
 
-function mostrar(id) {
-  ["bienvenida","juego","final"].forEach(x=>{
-    const seccion=document.getElementById(x);
-    if(seccion) seccion.classList.add("hidden");
-  });
-  const destino=document.getElementById(id);
-  if(destino) destino.classList.remove("hidden");
-}
+/* COMENZAR TEST */
 
 function comenzar() {
-  participante=document.getElementById("nombre").value.trim();
+  participante = document.getElementById("nombre").value.trim();
 
-  if(!participante) {
+  if (!participante) {
     alert("Escribe tu nombre.");
     return;
   }
 
-  orden=mezclar([...Array(20).keys()]);
-  respuestas=Array(20).fill("");
-  posicion=0;
+  orden = mezclar([...Array(datos.length).keys()]);
+  respuestas = Array(datos.length).fill("");
+  posicion = 0;
 
   mostrar("juego");
   mostrarPregunta();
 }
 
+/* MOSTRAR PREGUNTA */
+
 function mostrarPregunta() {
-  const indice=orden[posicion];
+  const indice = orden[posicion];
 
-  document.getElementById("contador").textContent=
-    "Pregunta "+(posicion+1)+" de 20";
+  document.getElementById("contador").textContent =
+    `Pregunta ${posicion + 1} de ${datos.length}`;
 
-  document.getElementById("barra").style.width=
-    ((posicion+1)/20*100)+"%";
+  document.getElementById("barra").style.width =
+    `${((posicion + 1) / datos.length) * 100}%`;
 
-  document.getElementById("pregunta").textContent=
+  document.getElementById("pregunta").textContent =
     datos[indice][0];
 
-  document.getElementById("respuesta").value=
+  document.getElementById("respuesta").value =
     respuestas[indice];
 
-  document.getElementById("siguiente").textContent=
-    posicion===19?"Terminar":"Siguiente";
+  document.getElementById("siguiente").textContent =
+    posicion === datos.length - 1
+      ? "Terminar"
+      : "Siguiente";
 
-  document.getElementById("estado").textContent="";
+  document.getElementById("estado").textContent = "";
 }
 
+/* GUARDAR RESPUESTA TEMPORAL */
+
 function guardarTemporal() {
-  respuestas[orden[posicion]]=
+  respuestas[orden[posicion]] =
     document.getElementById("respuesta").value;
 }
 
+/* PREGUNTA ANTERIOR */
+
 function anterior() {
+  if (enviando) return;
+
   guardarTemporal();
-  if(posicion>0) {
+
+  if (posicion > 0) {
     posicion--;
     mostrarPregunta();
   }
 }
 
+/* SIGUIENTE PREGUNTA */
+
 async function siguiente() {
-  if(enviando)return;
+  if (enviando) return;
+
   guardarTemporal();
 
-  if(!respuestas[orden[posicion]].trim()) {
+  if (!respuestas[orden[posicion]].trim()) {
     alert("Responde antes de continuar.");
     return;
   }
 
-  if(posicion<19) {
+  if (posicion < datos.length - 1) {
     posicion++;
     mostrarPregunta();
-  } else {
-    if(respuestas.some(r=>!r.trim())) {
-      alert("Faltan preguntas por responder.");
-      return;
-    }
-    await finalizar();
+    return;
   }
+
+  if (respuestas.some(r => !r.trim())) {
+    alert("Faltan preguntas por responder.");
+    return;
+  }
+
+  await finalizar();
 }
 
-// CORRECCIÓN FLEXIBLE
+/* COMPARAR RESPUESTAS */
+
 function normalizar(texto) {
-  return String(texto).toLowerCase()
+  return String(texto)
+    .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .replace(/[^a-z0-9 ]/g," ")
-    .replace(/\s+/g," ")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9 ]/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
 }
 
-function evaluar(respuesta,opciones) {
-  const r=normalizar(respuesta);
-  if(!r)return "pendiente";
+function evaluar(respuesta, opciones) {
+  const r = normalizar(respuesta);
 
-  for(const opcion of opciones) {
-    const o=normalizar(opcion);
+  if (!r) return "pendiente";
 
-    if(r===o)return "correcta";
+  for (const opcion of opciones) {
+    const o = normalizar(opcion);
 
-    if(o.length>=5 &&
-       r.includes(o) &&
-       r.length<=o.length+65) {
+    if (r === o) return "correcta";
+
+    if (
+      o.length >= 5 &&
+      r.includes(o) &&
+      r.length <= o.length + 65
+    ) {
       return "correcta";
     }
   }
+
   return "pendiente";
 }
 
+/* CABECERAS SUPABASE */
+
 function headers(token) {
   return {
-    "apikey":API_KEY,
-    "Authorization":"Bearer "+(token||API_KEY),
-    "Content-Type":"application/json"
+    "apikey": API_KEY,
+    "Authorization": "Bearer " + (token || API_KEY),
+    "Content-Type": "application/json"
   };
 }
 
-// GUARDAR EN SUPABASE
+/* FINALIZAR Y GUARDAR RESULTADOS */
+
 async function finalizar() {
-  if(enviando)return;
-  enviando=true;
-  const boton=document.getElementById("siguiente");
-  boton.disabled=true;
+  if (enviando) return;
 
-  document.getElementById("estado").textContent=
-    "Guardando respuestas...";
+  enviando = true;
 
-  let puntos=0;
-  let pendientes=0;
+  const boton = document.getElementById("siguiente");
+  const estado = document.getElementById("estado");
 
-  const evaluaciones=respuestas.map((r,i)=>{
-    const e=evaluar(r,datos[i][1]);
-    if(e==="correcta")puntos++;
-    else pendientes++;
-    return e;
+  boton.disabled = true;
+  estado.textContent = "Guardando respuestas...";
+
+  let puntos = 0;
+  let pendientes = 0;
+
+  const evaluaciones = respuestas.map((r, i) => {
+    const evaluacion = evaluar(r, datos[i][1]);
+
+    if (evaluacion === "correcta") {
+      puntos++;
+    } else {
+      pendientes++;
+    }
+
+    return evaluacion;
   });
 
   try {
-    const response=await fetch(
-      URL_BASE+"/rest/v1/resultados_test",{
-        method:"POST",
-        headers:{
+    const response = await fetch(
+      URL_BASE + "/rest/v1/resultados_test",
+      {
+        method: "POST",
+        headers: {
           ...headers(),
-          "Prefer":"return=minimal"
+          "Prefer": "return=minimal"
         },
-        body:JSON.stringify({
-          nombre:participante,
-          respuestas:respuestas,
-          puntuacion:puntos,
-          pendientes_revision:pendientes
+        body: JSON.stringify({
+          nombre: participante,
+          respuestas: respuestas,
+          puntuacion: puntos,
+          pendientes_revision: pendientes
         })
       }
     );
 
-    if(!response.ok) {
+    if (!response.ok) {
       throw new Error(await response.text());
     }
 
-    mostrar("final");
-    mostrarHortensia();
+    /* PREPARAR LOS RESULTADOS */
 
-    const zona=document.getElementById("resultado");
+    const zona = document.getElementById("resultado");
     zona.replaceChildren();
 
-    const titulo=document.createElement("h2");
-    titulo.textContent=
-      participante+": "+puntos+"/20 coincidencias";
+    const titulo = document.createElement("h2");
+    titulo.textContent =
+      `${participante}: ${puntos}/${datos.length} coincidencias`;
 
-    const aviso=document.createElement("p");
-    aviso.textContent=
-      pendientes+" respuestas por revisar.";
+    const aviso = document.createElement("p");
+    aviso.textContent =
+      `${pendientes} respuestas por revisar.`;
 
-    zona.append(titulo,aviso);
+    zona.append(titulo, aviso);
 
-    respuestas.forEach((r,i)=>{
-      const div=document.createElement("div");
-      div.className="result "+(evaluaciones[i]==="correcta"?"good":"review");
-      const titulo=document.createElement("strong");
-      titulo.textContent=(i+1)+". "+datos[i][0];
-      const tuya=document.createElement("p");
-      tuya.textContent="Tu respuesta: "+r;
-      const correcta=document.createElement("p");
-      correcta.textContent="Respuesta correcta: "+datos[i][1][0];
-      const estado=document.createElement("small");
-      estado.textContent=evaluaciones[i]==="correcta"?"Coincide":"Pendiente de revisión";
-      div.append(titulo,tuya,correcta,estado);
-      zona.append(div);
+    respuestas.forEach((respuesta, i) => {
+      const div = document.createElement("div");
+
+      div.className =
+        "result " +
+        (evaluaciones[i] === "correcta" ? "good" : "review");
+
+      const pregunta = document.createElement("strong");
+      pregunta.textContent =
+        `${i + 1}. ${datos[i][0]}`;
+
+      const tuya = document.createElement("p");
+      tuya.textContent =
+        "Tu respuesta: " + respuesta;
+
+      const correcta = document.createElement("p");
+      correcta.textContent =
+        "Respuesta correcta: " + datos[i][1][0];
+
+      const revision = document.createElement("small");
+      revision.textContent =
+        evaluaciones[i] === "correcta"
+          ? "Coincide"
+          : "Pendiente de revisión";
+
+      div.append(pregunta, tuya, correcta, revision);
+      zona.appendChild(div);
     });
 
-  } catch(error) {
+    /*
+      PRIMERO LA ANIMACIÓN.
+      DESPUÉS SE MUESTRAN LOS RESULTADOS.
+    */
+
+    await mostrarHortensia();
+    mostrar("final");
+
+  } catch (error) {
     console.error(error);
-    document.getElementById("estado").textContent=
-      "No se pudo guardar. Inténtalo nuevamente.";
+
+    estado.textContent =
+      "No se pudieron guardar las respuestas. Inténtalo nuevamente.";
+
+    alert("Hubo un problema al guardar tus respuestas.");
+
   } finally {
-    enviando=false;
-    boton.disabled=false;
+    enviando = false;
+    boton.disabled = false;
   }
 }
 
-// ADMINISTRACIÓN
+/* PANEL DE ADMINISTRACIÓN */
+
 function mostrarAdmin() {
   document.getElementById("admin")
     .classList.toggle("hidden");
 }
 
-async function iniciarSesion() {
-  const email=document.getElementById("correo").value;
-  const password=document.getElementById("clave").value;
-  const estado=document.getElementById("estadoAdmin");
+/* INICIAR SESIÓN ADMINISTRADOR */
 
-  estado.textContent="Iniciando sesión...";
+async function iniciarSesion() {
+  const email = document.getElementById("correo").value.trim();
+  const password = document.getElementById("clave").value;
+  const estado = document.getElementById("estadoAdmin");
+
+  estado.textContent = "Iniciando sesión...";
 
   try {
-    const r=await fetch(
-      URL_BASE+"/auth/v1/token?grant_type=password",{
-        method:"POST",
-        headers:{
-          "apikey":API_KEY,
-          "Content-Type":"application/json"
+    const response = await fetch(
+      URL_BASE + "/auth/v1/token?grant_type=password",
+      {
+        method: "POST",
+        headers: {
+          "apikey": API_KEY,
+          "Content-Type": "application/json"
         },
-        body:JSON.stringify({email,password})
+        body: JSON.stringify({ email, password })
       }
     );
 
-    const d=await r.json();
+    const datosSesion = await response.json();
 
-    if(!r.ok||!d.access_token) {
+    if (!response.ok || !datosSesion.access_token) {
       throw new Error("No se pudo iniciar sesión.");
     }
 
-    tokenAdmin=d.access_token;
+    tokenAdmin = datosSesion.access_token;
 
     document.getElementById("login")
       .classList.add("hidden");
+
     document.getElementById("panel")
       .classList.remove("hidden");
 
-    estado.textContent="Sesión iniciada.";
+    estado.textContent = "Sesión iniciada.";
+
     await cargarResultados();
 
-  } catch(error) {
-    estado.textContent=error.message;
-    estado.className="error";
+  } catch (error) {
+    estado.textContent = error.message;
+    estado.className = "error";
   }
 }
+
+/* CARGAR RESULTADOS */
 
 async function cargarResultados() {
-  const lista=document.getElementById("lista");
-  const estado=document.getElementById("estadoAdmin");
+  const lista = document.getElementById("lista");
+  const estado = document.getElementById("estadoAdmin");
 
   lista.replaceChildren();
-  estado.textContent="Cargando...";
+  estado.textContent = "Cargando resultados...";
 
   try {
-    const r=await fetch(
-      URL_BASE+
+    const response = await fetch(
+      URL_BASE +
       "/rest/v1/resultados_test?select=*&order=creado_en.desc&limit=500",
-      {headers:headers(tokenAdmin)}
+      {
+        headers: headers(tokenAdmin)
+      }
     );
 
-    if(!r.ok)throw new Error("Error al consultar resultados.");
+    if (!response.ok) {
+      throw new Error("Error al consultar resultados.");
+    }
 
-    const registros=await r.json();
+    const registros = await response.json();
 
-    const titulo=document.createElement("h3");
-    titulo.textContent="Participaciones: "+registros.length;
-    lista.append(titulo);
+    const titulo = document.createElement("h3");
+    titulo.textContent =
+      "Participaciones: " + registros.length;
 
-    registros.forEach(registro=>{
-      const div=document.createElement("div");
-      div.className="result";
+    lista.appendChild(titulo);
 
-      const nombre=document.createElement("h3");
-      nombre.textContent=registro.nombre;
+    registros.forEach(registro => {
+      const div = document.createElement("div");
+      div.className = "result";
 
-      const puntos=document.createElement("p");
-      puntos.textContent=
-        "Coincidencias: "+registro.puntuacion+
-        "/20 | Por revisar: "+
-        registro.pendientes_revision;
+      const nombre = document.createElement("h3");
+      nombre.textContent = registro.nombre;
 
-      const fecha=document.createElement("p");
-      fecha.className="small";
-      fecha.textContent=new Date(
-        registro.creado_en
-      ).toLocaleString("es-EC");
+      const puntos = document.createElement("p");
+      puntos.textContent =
+        `Coincidencias: ${registro.puntuacion}/20 | ` +
+        `Por revisar: ${registro.pendientes_revision}`;
 
-      const detalles=document.createElement("details");
-      const resumen=document.createElement("summary");
-      resumen.textContent="Ver las 20 respuestas";
-      detalles.append(resumen);
+      const fecha = document.createElement("p");
+      fecha.className = "small";
+      fecha.textContent =
+        new Date(registro.creado_en).toLocaleString("es-EC");
 
-      (registro.respuestas||[]).forEach((respuesta,i)=>{
-        const p=document.createElement("p");
-        p.textContent=
-          (i+1)+". "+datos[i][0]+" — Respuesta: "+respuesta+" — Correcta: "+datos[i][1][0];
-        detalles.append(p);
+      const detalles = document.createElement("details");
+
+      const resumen = document.createElement("summary");
+      resumen.textContent = "Ver las 20 respuestas";
+
+      detalles.appendChild(resumen);
+
+      (registro.respuestas || []).forEach((respuesta, i) => {
+        if (!datos[i]) return;
+
+        const p = document.createElement("p");
+        p.textContent =
+          `${i + 1}. ${datos[i][0]} — ` +
+          `Respuesta: ${respuesta} — ` +
+          `Correcta: ${datos[i][1][0]}`;
+
+        detalles.appendChild(p);
       });
 
-      const eliminar=document.createElement("button");
-      eliminar.type="button";
-      eliminar.className="danger";
-      eliminar.textContent="Eliminar registro";
-      eliminar.addEventListener("click",()=>eliminarRegistro(registro,eliminar));
+      const eliminar = document.createElement("button");
+      eliminar.type = "button";
+      eliminar.className = "danger";
+      eliminar.textContent = "Eliminar registro";
 
-      div.append(nombre,puntos,fecha,detalles,eliminar);
-      lista.append(div);
+      eliminar.addEventListener("click", () => {
+        eliminarRegistro(registro, eliminar);
+      });
+
+      div.append(
+        nombre,
+        puntos,
+        fecha,
+        detalles,
+        eliminar
+      );
+
+      lista.appendChild(div);
     });
 
-    estado.textContent="Resultados cargados.";
+    estado.textContent = "Resultados cargados.";
 
-  } catch(error) {
-    estado.textContent=error.message;
+  } catch (error) {
+    console.error(error);
+    estado.textContent = error.message;
   }
 }
 
-// ELIMINAR UNA PARTICIPACIÓN (SOLO ADMINISTRACIÓN)
-async function eliminarRegistro(registro,boton) {
-  if(!tokenAdmin) {
+/* ELIMINAR REGISTRO */
+
+async function eliminarRegistro(registro, boton) {
+  if (!tokenAdmin) {
     alert("Inicia sesión como administradora.");
     return;
   }
-  const nombre=String(registro.nombre||"Sin nombre");
-  if(!confirm('¿Eliminar definitivamente las respuestas de "'+nombre+'"? Esta acción no se puede deshacer.'))return;
 
-  boton.disabled=true;
-  boton.textContent="Eliminando...";
-  const estado=document.getElementById("estadoAdmin");
+  const nombre = String(registro.nombre || "Sin nombre");
+
+  const confirmar = confirm(
+    `¿Eliminar definitivamente las respuestas de "${nombre}"? ` +
+    "Esta acción no se puede deshacer."
+  );
+
+  if (!confirmar) return;
+
+  boton.disabled = true;
+  boton.textContent = "Eliminando...";
+
+  const estado = document.getElementById("estadoAdmin");
+
   try {
-    const r=await fetch(
-      URL_BASE+"/rest/v1/resultados_test?id=eq."+encodeURIComponent(registro.id),
+    const response = await fetch(
+      URL_BASE +
+      "/rest/v1/resultados_test?id=eq." +
+      encodeURIComponent(registro.id),
       {
-        method:"DELETE",
-        headers:{...headers(tokenAdmin),"Prefer":"return=representation"}
+        method: "DELETE",
+        headers: {
+          ...headers(tokenAdmin),
+          "Prefer": "return=representation"
+        }
       }
     );
-    if(!r.ok)throw new Error("Supabase rechazó la eliminación: "+await r.text());
-    const eliminados=await r.json();
-    if(!Array.isArray(eliminados)||eliminados.length!==1) {
-      throw new Error("No se eliminó el registro. Revisa los permisos DELETE de Supabase.");
+
+    if (!response.ok) {
+      throw new Error(
+        "Supabase rechazó la eliminación: " +
+        await response.text()
+      );
     }
+
+    const eliminados = await response.json();
+
+    if (
+      !Array.isArray(eliminados) ||
+      eliminados.length !== 1
+    ) {
+      throw new Error(
+        "No se eliminó el registro. " +
+        "Revisa los permisos DELETE de Supabase."
+      );
+    }
+
     await cargarResultados();
-    estado.textContent='Registro de "'+nombre+'" eliminado correctamente.';
-  } catch(error) {
+
+    estado.textContent =
+      `Registro de "${nombre}" eliminado correctamente.`;
+
+  } catch (error) {
     console.error(error);
-    estado.textContent=error.message;
-    estado.className="error";
-    boton.disabled=false;
-    boton.textContent="Eliminar registro";
+
+    estado.textContent = error.message;
+    estado.className = "error";
+
+    boton.disabled = false;
+    boton.textContent = "Eliminar registro";
   }
 }
 
+/* CERRAR SESIÓN */
+
 function cerrarSesion() {
-  tokenAdmin=null;
+  tokenAdmin = null;
 
   document.getElementById("panel")
     .classList.add("hidden");
@@ -747,24 +1243,46 @@ function cerrarSesion() {
     .classList.remove("hidden");
 
   document.getElementById("lista").replaceChildren();
-  document.getElementById("clave").value="";
+  document.getElementById("clave").value = "";
 
-  document.getElementById("estadoAdmin").textContent=
+  document.getElementById("estadoAdmin").textContent =
     "Sesión cerrada.";
 }
+
+/* ATAJOS DEL TECLADO */
+
 document.addEventListener("keydown", function(event) {
-  if(event.key==="Enter" && !event.repeat && !event.ctrlKey && !event.altKey &&
-     !document.getElementById("juego").classList.contains("hidden") &&
-     document.activeElement===document.getElementById("respuesta")){
+
+  if (
+    event.key === "Enter" &&
+    !event.repeat &&
+    !event.ctrlKey &&
+    !event.altKey &&
+    !document.getElementById("juego").classList.contains("hidden") &&
+    document.activeElement === document.getElementById("respuesta")
+  ) {
     event.preventDefault();
     siguiente();
     return;
   }
-  if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "a" && !event.target.matches("input,textarea,[contenteditable]")) {
+
+  /*
+    Ctrl + A fuera de los campos de texto
+    abre o cierra el panel de administración.
+  */
+
+  if (
+    (event.ctrlKey || event.metaKey) &&
+    event.key.toLowerCase() === "a" &&
+    !event.target.matches(
+      "input, textarea, [contenteditable]"
+    )
+  ) {
     event.preventDefault();
     mostrarAdmin();
   }
 });
+
 </script>
 </body>
 </html>
