@@ -509,7 +509,7 @@ const datos = [
     ["noche"]
   ],
   [
-    "¿Cuál es mi canción favorita?",
+    "¿Cuál es mi genero de musica favorita?",
     [
       "todos los generos musicales",
       "todos los generos",
@@ -527,7 +527,8 @@ const datos = [
     "¿Qué hago cuando estoy triste?",
     [
       "lloro y veo videos graciosos",
-      "llorar y ver videos graciosos"
+      "llorar y ver videos graciosos",
+      "Como dulces"
     ]
   ],
   [
@@ -597,10 +598,7 @@ const datos = [
     "¿Qué es algo que nunca perdonaría?",
     [
       "la traicion o la decepcion",
-      "la traicion",
-      "la decepcion",
-      "traicion",
-      "decepcion"
+      "Nada",
     ]
   ],
   [
@@ -865,57 +863,117 @@ function normalizar(texto) {
     .trim();
 }
 
-function evaluar(respuesta, opciones) {
-
-/* PALABRAS CLAVE PARA LAS 20 PREGUNTAS */
-
-const palabrasClave = [
-  [["azul"]],
-  [["28", "noviembre"]],
-  [["carne"]],
-  [["noche"]],
-  [["generos", "musicales"], ["todo", "musica"]],
-  [["animales"], ["familia"], ["conmigo"]],
-  [["lloro"], ["videos", "graciosos"]],
-  [["casa"]],
-  [["cafeteria", "gatos"], ["cafeteria", "gatitos"]],
-  [["presumidas"], ["creidas"], ["arrogantes"]],
-  [["sola", "acciones"]],
-  [["abrazos"], ["detalles"], ["tiempo", "personas"]],
-  [["fisico"], ["apariencia"]],
-  [["honestidad"], ["lealtad"]],
-  [["comida"], ["escuchan"]],
-  [["ley", "hielo"]],
-  [["traicion"], ["decepcion"]],
-  [["detalle"], ["detalles"]],
-  [["dinero"], ["plata"]],
-  [["apoyo"], ["helado"], ["heladito"]]
+const generosMusicales = [
+  "pop", "rock", "metal", "heavy metal",
+  "regueton", "reggaeton", "trap", "rap",
+  "hip hop", "hiphop", "r&b", "soul",
+  "funk", "jazz", "blues", "country",
+  "folk", "indie", "punk", "grunge",
+  "emo", "kpop", "k pop", "jpop",
+  "j pop", "bachata", "salsa",
+  "merengue", "cumbia", "vallenato",
+  "bolero", "tango", "samba",
+  "bossa nova", "reggae", "ska",
+  "electronica", "edm", "house",
+  "techno", "trance", "dubstep",
+  "drum and bass", "hardstyle",
+  "ambient", "lofi", "lo fi",
+  "phonk", "hyperpop", "disco",
+  "flamenco", "ranchera", "mariachi",
+  "corridos", "banda", "nortena",
+  "pasillo", "sanjuanito", "albazo",
+  "yaravi", "pasacalle", "andina",
+  "clasica", "opera", "instrumental",
+  "gospel", "balada", "afrobeats",
+  "dancehall", "musica tropical",
+  "musica regional", "musica de videojuegos"
 ];
 
-/* COMPROBAR SI CONTIENE LAS PALABRAS CLAVE */
+const respuestasGeneralesMusica = [
+  "todos",
+  "todas",
+  "de todo",
+  "todo tipo de musica",
+  "todos los generos",
+  "todos los generos musicales",
+  "cualquier genero",
+  "cualquier genero musical",
+  "cualquier tipo de musica",
+  "me gusta de todo",
+  "escucho de todo"
+];
 
-function evaluar(respuesta, opciones, indice) {
-  const texto = normalizar(respuesta);
+function evaluar(respuesta, opciones) {
+const texto = normalizar(respuesta);
 
   if (!texto) return "pendiente";
 
-  // Primero comprobar respuestas completas aceptadas.
+  // Pregunta 5: géneros musicales.
+  if (indice === 4) {
+    const coincideGenero = generosMusicales.some(genero => {
+      const clave = normalizar(genero);
+      return (` ${texto} `).includes(` ${clave} `);
+    });
+
+    const coincideGeneral = respuestasGeneralesMusica.some(frase => {
+      const clave = normalizar(frase);
+      return texto === clave ||
+        (` ${texto} `).includes(` ${clave} `);
+    });
+
+    if (coincideGenero || coincideGeneral) {
+      return "correcta";
+    }
+  }
+
+  // Respuestas completas aceptadas.
   for (const opcion of opciones) {
     if (texto === normalizar(opcion)) {
       return "correcta";
     }
   }
 
-  // Después comprobar palabras clave.
+/* PALABRAS CLAVE PARA LAS 20 PREGUNTAS */
+
+const palabrasClave = [
+  [["azul"]],
+  [["28", "noviembre"]],
+  [["carne","comida","dulces","pollo"]],
+  [["noche"]],
+  [["generos", "musicales",], ["todo","musica"]],
+  [["animales"], ["familia"], ["conmigo"]],
+  [["lloro"], ["videos", "graciosos","comer","dulces","dulce"]],
+  [["casa"]],
+  [["cafeteria", "gatos"], ["cafeteria", "gatitos"]],
+  [["presumidas"], ["creidas"], ["arrogantes"]],
+  [["sola", "acciones"]],
+  [["abrazos"], ["detalles"], ["tiempo", "personas"]],
+  [["fisico"], ["apariencia"]],
+  [["honestidad"], ["lealtad"], ["comida"], ["pollo],
+  [["comida"], ["escuchan"]],
+  [["ley", "hielo"]],
+  [["Nada"]],
+  [["detalle"], ["detalles"],["flores", "chocolates"]],
+  [["dinero"], ["plata"]],
+  [["apoyo"], ["helado"], ["heladito"],["comida", "chocolates"]]
+];
+
+/* COMPROBAR SI CONTIENE LAS PALABRAS CLAVE */
+
+for (const opcion of opciones) {
+    if (texto === normalizar(opcion)) {
+      return "correcta";
+    }
+  }
+
+  // Palabras clave de las demás preguntas.
   const grupos = palabrasClave[indice] || [];
   const palabras = texto.split(" ");
 
   for (const grupo of grupos) {
-    const coincide = grupo.every(clave =>
+    if (grupo.every(clave =>
       palabras.includes(normalizar(clave))
-    );
-
-    if (coincide) {
+    )) {
       return "correcta";
     }
   }
@@ -950,8 +1008,7 @@ async function finalizar() {
   let pendientes = 0;
 
   const evaluaciones = respuestas.map((r, i) => {
-    const evaluacion = evaluar(r, datos[i][1]);
-
+    const evaluacion = evaluar(r, datos[i][1], i);
     if (evaluacion === "correcta") {
       puntos++;
     } else {
