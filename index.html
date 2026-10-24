@@ -5,26 +5,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>¿Qué tanto me conoces?</title>
-
 <style>
-* {
-  box-sizing: border-box;
-}
-
+* { box-sizing: border-box; }
 body {
   margin: 0;
   padding: 20px;
   min-height: 100vh;
   font-family: Arial, sans-serif;
   color: #493951;
-  background: linear-gradient(
-    135deg,
-    #fce8f5,
-    #e8e5ff,
-    #e5f5fa
-  );
+  background: linear-gradient(135deg,#fce8f5,#e8e5ff,#e5f5fa);
 }
-
 main {
   max-width: 700px;
   margin: 28px auto;
@@ -33,28 +23,11 @@ main {
   border-radius: 24px;
   box-shadow: 0 12px 35px #654b8420;
 }
-
-h1, h2 {
-  color: #885eac;
-  text-align: center;
-}
-
-h3 {
-  color: #684789;
-}
-
-p {
-  line-height: 1.5;
-}
-
-.center {
-  text-align: center;
-}
-
-.hidden {
-  display: none !important;
-}
-
+h1,h2 { color: #885eac; text-align: center; }
+h3 { color: #684789; }
+p { line-height: 1.5; }
+.center { text-align: center; }
+.hidden { display: none !important; }
 input {
   width: 100%;
   padding: 14px;
@@ -62,34 +35,19 @@ input {
   font-size: 16px;
   border: 1px solid #cbb4dc;
   border-radius: 12px;
-  outline-color: #a77bd0;
 }
-
 button {
-  padding: 13px 19px;
+  padding: 13px 20px;
   margin: 5px;
-  border: none;
-  border-radius: 12px;
-  background: #9068b4;
-  color: white;
   font-size: 15px;
+  color: white;
+  background: #9068b4;
+  border: 0;
+  border-radius: 12px;
   cursor: pointer;
 }
-
-button:hover {
-  filter: brightness(.96);
-}
-
-button:disabled {
-  opacity: .5;
-  cursor: wait;
-}
-
-.secondary {
-  background: #e9ddf3;
-  color: #563a70;
-}
-
+button:disabled { opacity: .5; cursor: wait; }
+.secondary { background: #e9ddf3; color: #563a70; }
 .progress {
   height: 12px;
   background: #eee4f5;
@@ -97,80 +55,37 @@ button:disabled {
   overflow: hidden;
   margin: 22px 0;
 }
-
 .bar {
   height: 100%;
   width: 0;
   background: #ab80d0;
   transition: width .25s;
 }
-
 .question {
   margin: 30px 0;
   text-align: center;
   font-size: 22px;
   font-weight: bold;
 }
-
 .navigation {
   display: flex;
   justify-content: space-between;
   gap: 10px;
 }
-
 .result {
-  background: #f8f2fc;
-  border-radius: 14px;
   padding: 16px;
   margin: 13px 0;
+  background: #f8f2fc;
+  border-radius: 14px;
 }
-
-.good {
-  border-left: 5px solid #76b28e;
-}
-
-.bad {
-  border-left: 5px solid #d77b8a;
-}
-
-.small {
-  font-size: 13px;
-  color: #766880;
-}
-
-.error {
-  color: #b63857;
-}
-
-.success {
-  color: #34794f;
-}
-
-summary {
-  cursor: pointer;
-  font-weight: bold;
-  padding: 8px 0;
-}
-
-.admin-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
+.good { border-left: 5px solid #76b28e; }
+.bad { border-left: 5px solid #d77b8a; }
+.small { font-size: 13px; color: #766880; }
+.error { color: #b63857; }
+summary { cursor: pointer; font-weight: bold; padding: 8px 0; }
 @media(max-width:480px) {
-  main {
-    padding: 18px;
-    margin: 10px auto;
-  }
-
-  .question {
-    font-size: 19px;
-  }
-
-  button {
-    padding: 12px;
-  }
+  main { padding: 18px; margin: 10px auto; }
+  .question { font-size: 19px; }
 }
 </style>
 </head>
@@ -178,112 +93,55 @@ summary {
 <body>
 <main>
 
-<!-- BIENVENIDA -->
 <section id="bienvenida">
   <h1>💜 ¿Qué tanto me conoces?</h1>
-
   <p class="center">
     Responde 20 preguntas y descubre cuánto sabes de mí.
-    Cada participante recibirá las preguntas
-    en un orden diferente.
+    Cada participante recibe las preguntas en un orden diferente.
   </p>
-
-  <input
-    id="nombre"
-    maxlength="80"
-    placeholder="Escribe tu nombre"
-  >
-
+  <input id="nombre" maxlength="80" placeholder="Escribe tu nombre">
   <div class="center">
-    <button onclick="comenzar()">
-      Comenzar test
-    </button>
+    <button onclick="comenzar()">Comenzar test</button>
   </div>
 </section>
 
-<!-- PREGUNTAS -->
 <section id="juego" class="hidden">
   <p id="contador" class="center"></p>
-
-  <div class="progress">
-    <div id="barra" class="bar"></div>
-  </div>
-
+  <div class="progress"><div id="barra" class="bar"></div></div>
   <div id="pregunta" class="question"></div>
-
-  <input
-    id="respuesta"
-    maxlength="500"
-    placeholder="Escribe tu respuesta..."
-    oninput="guardarTemporal()"
-  >
-
+  <input id="respuesta" maxlength="500"
+         placeholder="Escribe tu respuesta..."
+         oninput="guardarTemporal()">
   <div class="navigation">
-    <button
-      id="anteriorBtn"
-      class="secondary"
-      onclick="anterior()"
-    >
-      Anterior
-    </button>
-
-    <button
-      id="siguiente"
-      onclick="siguiente()"
-    >
-      Siguiente
-    </button>
+    <button id="anteriorBtn" class="secondary"
+            onclick="anterior()">Anterior</button>
+    <button id="siguienteBtn" onclick="siguiente()">Siguiente</button>
   </div>
-
-  <p class="small center">
-    Presiona Enter para continuar.
-  </p>
-
+  <p class="small center">Presiona Enter para continuar.</p>
   <p id="estado" class="center"></p>
 </section>
 
-<!-- RESULTADO DEL PARTICIPANTE -->
 <section id="final" class="hidden">
   <h1>Tu resultado</h1>
   <div id="resultado"></div>
 </section>
 
-<!-- ADMINISTRACIÓN OCULTA -->
 <section id="admin" class="hidden">
   <h2>Panel de administración</h2>
 
   <div id="login">
-    <input
-      id="correo"
-      type="email"
-      placeholder="Correo electrónico"
-    >
-
-    <input
-      id="clave"
-      type="password"
-      placeholder="Contraseña"
-    >
-
-    <button onclick="iniciarSesion()">
-      Iniciar sesión
-    </button>
+    <input id="correo" type="email"
+           placeholder="Correo electrónico">
+    <input id="clave" type="password"
+           placeholder="Contraseña">
+    <button onclick="iniciarSesion()">Iniciar sesión</button>
   </div>
 
   <div id="panel" class="hidden">
-    <div class="admin-actions">
-      <button onclick="cargarResultados()">
-        Actualizar resultados
-      </button>
-
-      <button
-        class="secondary"
-        onclick="cerrarSesion()"
-      >
-        Cerrar sesión
-      </button>
-    </div>
-
+    <button onclick="cargarResultados()">Actualizar resultados</button>
+    <button class="secondary" onclick="cerrarSesion()">
+      Cerrar sesión
+    </button>
     <div id="lista"></div>
   </div>
 
@@ -293,303 +151,230 @@ summary {
 </main>
 
 <script>
+// CONEXIÓN CON SUPABASE
+const URL_BASE = "https://ehxrmqbthxndcfmwjhmq.supabase.co";
+const API_KEY = "sb_publishable_LRVbj9lMIeAzTVJ-OxzIFA_2iHKkzRp";
 
-// CONFIGURACIÓN SUPABASE
-const URL_BASE =
-  "https://ehxrmqbthxndcfmwjhmq.supabase.co";
-
-const API_KEY =
-  "sb_publishable_LRVbj9lMIeAzTVJ-OxzIFA_2iHKkzRp";
-
-// PREGUNTAS Y RESPUESTAS ACEPTADAS
+// Cada pregunta contiene:
+// texto, respuesta oficial, respuestas alternativas aceptadas.
 const datos = [
-  [
-    "¿Cuál es mi color favorito?",
-    ["azul"]
-  ],
-  [
-    "¿Cuándo es mi cumpleaños?",
-    [
-      "28 de noviembre",
-      "28 noviembre",
-      "28/11",
-      "noviembre 28"
-    ]
-  ],
-  [
-    "¿Cuál es mi comida favorita?",
-    ["pollo frito"]
-  ],
-  [
-    "¿Prefiero el día o la noche?",
-    ["noche", "la noche"]
-  ],
-  [
-    "¿Cuál es mi canción favorita?",
-    [
-      "todas",
-      "cualquiera",
-      "no tengo favorita",
-      "no tengo una favorita",
-      "la que se me ocurra"
-    ]
-  ],
-  [
-    "¿Qué es lo que más me hace enojar?",
-    [
-      "que me quiten mi comida",
-      "que me roben mi comida",
-      "que agarren mi comida",
-      "que me quiten la comida"
-    ]
-  ],
-  [
-    "¿Qué hago cuando estoy triste?",
-    [
-      "lloro y scrolleo",
-      "lloro y veo redes",
-      "lloro y veo el celular",
-      "llorar y scrollear"
-    ]
-  ],
-  [
-    "¿Soy más de salir o quedarme en casa?",
-    [
-      "quedarme en casa",
-      "estar en casa",
-      "en casa",
-      "casa"
-    ]
-  ],
-  [
-    "¿Cuál es uno de mis mayores sueños?",
-    [
-      "tener una cafeteria de gatitos",
-      "cafeteria de gatos",
-      "cafeteria con gatitos",
-      "cafe de gatos"
-    ]
-  ],
-  [
-    "¿Qué tipo de personas me caen mal?",
-    [
-      "presumidas y creidas",
-      "presumidas",
-      "creidas",
-      "arrogantes",
-      "engreidas"
-    ]
-  ],
-  [
-    "¿Cuál es mi mayor miedo?",
-    [
-      "caerle mal a todo el mundo",
-      "caer mal a todos",
-      "que todos me odien",
-      "no agradarle a nadie"
-    ]
-  ],
-  [
-    "¿Cómo demuestro cariño?",
-    [
-      "de varias formas",
-      "de muchas formas",
-      "a veces cariñosa y a veces no",
-      "depende",
-      "de diferentes maneras"
-    ]
-  ],
-  [
-    "¿Qué inseguridad tengo?",
-    [
-      "mi cuerpo",
-      "cuerpo",
-      "fisico",
-      "apariencia fisica"
-    ]
-  ],
-  [
-    "¿Qué es lo que más valoro en una amistad?",
-    [
-      "honestidad y lealtad",
-      "lealtad y honestidad",
-      "ser honesto y leal"
-    ]
-  ],
-  [
-    "¿Qué cosa me puede hacer llorar fácilmente?",
-    [
-      "que me roben mi comida",
-      "que me quiten mi comida",
-      "que se coman mi comida",
-      "que me roben la comida que hice"
-    ]
-  ],
-  [
-    "¿Qué hago cuando alguien me decepciona?",
-    [
-      "le dejo de hablar por cinco minutos",
-      "le dejo de hablar por 5 minutos",
-      "no le hablo por cinco minutos",
-      "le dejo de hablar un rato"
-    ]
-  ],
-  [
-    "¿Qué es algo que nunca perdonaría?",
-    [
-      "nada",
-      "no hay nada",
-      "todo lo perdono"
-    ]
-  ],
-  [
-    "¿Qué pequeño detalle me hace muy feliz?",
-    [
-      "que me den comida",
-      "que me regalen comida",
-      "que me inviten a comer",
-      "comida"
-    ]
-  ],
-  [
-    "¿Qué es lo que más deseo conseguir en mi vida?",
-    [
-      "dinero",
-      "plata",
-      "mucho dinero"
-    ]
-  ],
-  [
-    "Si estoy pasando un mal momento, ¿qué necesitaría de ti?",
-    [
-      "palabras de apoyo y un heladito",
-      "apoyo y helado",
-      "palabras de apoyo y helado",
-      "que me apoyen y me den un helado"
-    ]
-  ]
+  {
+    pregunta: "¿Cuál es mi color favorito?",
+    correcta: "Azul",
+    opciones: ["azul", "el azul"]
+  },
+  {
+    pregunta: "¿Cuándo es mi cumpleaños?",
+    correcta: "28 de noviembre",
+    opciones: ["28 de noviembre", "28 noviembre", "28/11", "noviembre 28"]
+  },
+  {
+    pregunta: "¿Cuál es mi comida favorita?",
+    correcta: "Cualquier tipo de carne",
+    opciones: ["cualquier tipo de carne", "cualquier carne",
+      "todo tipo de carne", "carne", "carnes"]
+  },
+  {
+    pregunta: "¿Prefiero el día o la noche?",
+    correcta: "La noche",
+    opciones: ["noche", "la noche"]
+  },
+  {
+    pregunta: "¿Cuál es mi canción favorita?",
+    correcta: "Todos los géneros musicales",
+    opciones: ["todos los generos", "todos los generos musicales",
+      "cualquier genero", "cualquier genero musical",
+      "todo tipo de musica", "todos"]
+  },
+  {
+    pregunta: "¿Qué es lo que más me hace enojar?",
+    correcta: "Cuando se meten con los animales, conmigo o con mi familia",
+    opciones: ["cuando se meten con los animales",
+      "cuando se meten conmigo", "cuando se meten con mi familia",
+      "que se metan con los animales", "que se metan conmigo",
+      "que se metan con mi familia", "maltrato animal",
+      "maltratar animales", "se meten con mi familia"]
+  },
+  {
+    pregunta: "¿Qué hago cuando estoy triste?",
+    correcta: "Lloro y veo vídeos graciosos",
+    opciones: ["lloro y veo videos graciosos",
+      "lloro y miro videos graciosos",
+      "llorar y ver videos graciosos",
+      "lloro y veo videos divertidos"]
+  },
+  {
+    pregunta: "¿Soy más de salir o quedarme en casa?",
+    correcta: "Quedarme en casa",
+    opciones: ["quedarme en casa", "estar en casa",
+      "quedarse en casa", "casa", "en casa"]
+  },
+  {
+    pregunta: "¿Cuál es uno de mis mayores sueños?",
+    correcta: "Tener una cafetería de gatitos",
+    opciones: ["tener una cafeteria de gatitos",
+      "cafeteria de gatitos", "cafeteria de gatos",
+      "cafeteria con gatitos", "cafe de gatos"]
+  },
+  {
+    pregunta: "¿Qué tipo de personas me caen mal?",
+    correcta: "Las personas presumidas y creídas",
+    opciones: ["presumidas y creidas", "presumidas",
+      "creidas", "arrogantes", "engreidas",
+      "personas presumidas", "personas creidas"]
+  },
+  {
+    pregunta: "¿Cuál es mi mayor miedo?",
+    correcta: "Quedarme sola por mis acciones",
+    opciones: ["quedarme sola por mis acciones",
+      "quedar sola por mis acciones",
+      "quedarme sola por lo que hago",
+      "quedarme sola por mis decisiones"]
+  },
+  {
+    pregunta: "¿Cómo demuestro cariño?",
+    correcta: "Con abrazos, detalles y pasando tiempo con las personas",
+    opciones: ["abrazos", "detalles", "pasando tiempo",
+      "tiempo de calidad", "abrazos y detalles",
+      "abrazos detalles y tiempo de calidad",
+      "con abrazos detalles y pasando tiempo con las personas"]
+  },
+  {
+    pregunta: "¿Qué inseguridad tengo?",
+    correcta: "Mi físico",
+    opciones: ["mi fisico", "fisico",
+      "mi apariencia fisica", "apariencia fisica",
+      "mi cuerpo"]
+  },
+  {
+    pregunta: "¿Qué es lo que más valoro en una amistad?",
+    correcta: "Honestidad y lealtad",
+    opciones: ["honestidad y lealtad",
+      "lealtad y honestidad", "honestidad", "lealtad"]
+  },
+  {
+    pregunta: "¿Qué cosa me puede hacer llorar fácilmente?",
+    correcta: "Cuando me esconden la comida o cuando no me escuchan",
+    opciones: ["me esconden la comida", "esconden mi comida",
+      "que me escondan la comida", "cuando no me escuchan",
+      "no me escuchan", "que no me escuchen"]
+  },
+  {
+    pregunta: "¿Qué hago cuando alguien me decepciona?",
+    correcta: "Le aplico la ley del hielo por unos cuantos días",
+    opciones: ["ley del hielo", "le aplico la ley del hielo",
+      "le aplico la ley del hielo por unos cuantos dias",
+      "le dejo de hablar unos dias", "no le hablo por dias",
+      "dejo de hablarle por varios dias"]
+  },
+  {
+    pregunta: "¿Qué es algo que nunca perdonaría?",
+    correcta: "La traición o la decepción",
+    opciones: ["traicion", "la traicion",
+      "decepcion", "la decepcion",
+      "traicion o decepcion", "una traicion",
+      "una decepcion"]
+  },
+  {
+    pregunta: "¿Qué pequeño detalle me hace muy feliz?",
+    correcta: "Cualquier detalle pequeño",
+    opciones: ["cualquier detalle pequeno",
+      "cualquier detallito", "los pequenos detalles",
+      "un pequeno detalle", "cualquier gesto bonito",
+      "los detalles", "detallitos"]
+  },
+  {
+    pregunta: "¿Qué es lo que más deseo conseguir en mi vida?",
+    correcta: "Dinero",
+    opciones: ["dinero", "plata", "mucho dinero"]
+  },
+  {
+    pregunta: "Si estoy pasando un mal momento, ¿qué necesitaría de ti?",
+    correcta: "Palabras de apoyo y un heladito",
+    opciones: ["palabras de apoyo y un heladito",
+      "apoyo y helado", "palabras de apoyo y helado",
+      "que me apoyen y me den un helado",
+      "un heladito y palabras de apoyo"]
+  }
 ];
 
-let tokenAdmin = null;
 let orden = [];
-let respuestas = Array(20).fill("");
+let respuestas = Array(datos.length).fill("");
 let posicion = 0;
 let participante = "";
 let enviando = false;
+let tokenAdmin = null;
 
-function elemento(id) {
+function el(id) {
   return document.getElementById(id);
 }
 
-function crearElemento(etiqueta, texto, clase) {
-  const el = document.createElement(etiqueta);
-
-  if (texto !== undefined) {
-    el.textContent = texto;
-  }
-
-  if (clase) {
-    el.className = clase;
-  }
-
-  return el;
-}
-
-// MOSTRAR PANTALLAS
-function mostrar(id) {
-  ["bienvenida", "juego", "final"].forEach(x => {
-    elemento(x).classList.add("hidden");
-  });
-
-  elemento(id).classList.remove("hidden");
-}
-
-// MEZCLAR PREGUNTAS
 function mezclar(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-
     [array[i], array[j]] = [array[j], array[i]];
   }
-
   return array;
 }
 
-// COMENZAR TEST
-function comenzar() {
-  participante = elemento("nombre").value.trim();
+function mostrar(id) {
+  ["bienvenida", "juego", "final"].forEach(x => {
+    el(x).classList.add("hidden");
+  });
+  el(id).classList.remove("hidden");
+}
 
+function comenzar() {
+  participante = el("nombre").value.trim();
   if (!participante) {
-    alert("Escribe tu nombre.");
+    alert("Primero escribe tu nombre.");
     return;
   }
 
   orden = mezclar([...Array(datos.length).keys()]);
   respuestas = Array(datos.length).fill("");
   posicion = 0;
-
   mostrar("juego");
   mostrarPregunta();
 }
 
-// MOSTRAR UNA PREGUNTA
 function mostrarPregunta() {
   const indice = orden[posicion];
-
-  elemento("contador").textContent =
-    "Pregunta " + (posicion + 1) +
-    " de " + datos.length;
-
-  elemento("barra").style.width =
+  el("contador").textContent =
+    "Pregunta " + (posicion + 1) + " de " + datos.length;
+  el("barra").style.width =
     ((posicion + 1) / datos.length * 100) + "%";
-
-  elemento("pregunta").textContent =
-    datos[indice][0];
-
-  elemento("respuesta").value =
-    respuestas[indice];
-
-  elemento("siguiente").textContent =
-    posicion === datos.length - 1
-      ? "Terminar"
-      : "Siguiente";
-
-  elemento("anteriorBtn").disabled =
-    posicion === 0;
-
-  elemento("estado").textContent = "";
-  elemento("respuesta").focus();
+  el("pregunta").textContent = datos[indice].pregunta;
+  el("respuesta").value = respuestas[indice];
+  el("anteriorBtn").disabled = posicion === 0;
+  el("siguienteBtn").textContent =
+    posicion === datos.length - 1 ? "Terminar" : "Siguiente";
+  el("estado").textContent = "";
+  el("respuesta").focus();
 }
 
-// GUARDAR RESPUESTA TEMPORAL
 function guardarTemporal() {
   if (orden.length) {
-    respuestas[orden[posicion]] =
-      elemento("respuesta").value;
+    respuestas[orden[posicion]] = el("respuesta").value;
   }
 }
 
-// ANTERIOR
 function anterior() {
   if (enviando) return;
-
   guardarTemporal();
-
   if (posicion > 0) {
     posicion--;
     mostrarPregunta();
   }
 }
 
-// SIGUIENTE
 async function siguiente() {
   if (enviando) return;
-
   guardarTemporal();
 
   if (!respuestas[orden[posicion]].trim()) {
     alert("Responde antes de continuar.");
-    elemento("respuesta").focus();
+    el("respuesta").focus();
     return;
   }
 
@@ -621,24 +406,26 @@ function normalizar(texto) {
 // CORRECCIÓN AUTOMÁTICA
 function evaluar(respuesta, opciones) {
   const r = normalizar(respuesta);
+  if (!r) return "incorrecta";
 
-  if (!r) {
+  const negaciones = [
+    "no es", "no son", "no me gusta",
+    "no prefiero", "no quiero", "no hago"
+  ];
+
+  if (negaciones.some(n => r.startsWith(n + " "))) {
     return "incorrecta";
   }
 
   for (const opcion of opciones) {
     const o = normalizar(opcion);
 
-    if (r === o) {
-      return "correcta";
-    }
+    if (r === o) return "correcta";
 
-    // Aceptar variantes dentro de una frase.
-    if (
-      o.length >= 5 &&
-      r.includes(o) &&
-      r.length <= o.length + 40
-    ) {
+    // Aceptar la respuesta dentro de una frase más larga.
+    if (o.length >= 6 &&
+        (" " + r + " ").includes(" " + o + " ") &&
+        r.length <= o.length + 65) {
       return "correcta";
     }
   }
@@ -646,22 +433,14 @@ function evaluar(respuesta, opciones) {
   return "incorrecta";
 }
 
-// CONTAR ACIERTOS
-function calcularPuntos(listaRespuestas) {
-  let puntos = 0;
-
-  listaRespuestas.forEach((respuesta, i) => {
-    if (
-      evaluar(respuesta, datos[i][1]) === "correcta"
-    ) {
-      puntos++;
-    }
-  });
-
-  return puntos;
+function calcular(respuestasGuardadas) {
+  const evaluaciones = datos.map((dato, i) =>
+    evaluar(respuestasGuardadas[i] || "", dato.opciones)
+  );
+  const puntos = evaluaciones.filter(e => e === "correcta").length;
+  return { evaluaciones, puntos };
 }
 
-// CABECERAS SUPABASE
 function headers(token) {
   return {
     "apikey": API_KEY,
@@ -670,19 +449,16 @@ function headers(token) {
   };
 }
 
-// GUARDAR RESULTADOS
+// GUARDAR RESPUESTAS EN SUPABASE
 async function finalizar() {
   if (enviando) return;
-
   enviando = true;
 
-  const boton = elemento("siguiente");
+  const boton = el("siguienteBtn");
   boton.disabled = true;
+  el("estado").textContent = "Guardando respuestas...";
 
-  elemento("estado").textContent =
-    "Guardando respuestas...";
-
-  const puntos = calcularPuntos(respuestas);
+  const { evaluaciones, puntos } = calcular(respuestas);
 
   try {
     const response = await fetch(
@@ -707,84 +483,74 @@ async function finalizar() {
     }
 
     mostrar("final");
-
-    const zona = elemento("resultado");
+    const zona = el("resultado");
     zona.replaceChildren();
 
-    zona.append(
-      crearElemento(
-        "h2",
-        participante + ": " + puntos + "/20"
-      ),
-      crearElemento(
-        "p",
-        "Correctas: " + puntos +
-        " | Incorrectas: " + (20 - puntos)
-      )
-    );
+    const titulo = document.createElement("h2");
+    titulo.textContent =
+      participante + ": " + puntos + "/" + datos.length;
 
-    respuestas.forEach((r, i) => {
-      const estado = evaluar(r, datos[i][1]);
+    const mensaje = document.createElement("p");
+    mensaje.className = "center";
+    mensaje.textContent =
+      "Estas son tus respuestas y las respuestas correctas.";
 
-      const div = crearElemento(
-        "div",
-        undefined,
-        "result " +
-        (estado === "correcta" ? "good" : "bad")
-      );
+    zona.append(titulo, mensaje);
 
-      div.append(
-        crearElemento(
-          "strong",
-          (i + 1) + ". " + datos[i][0]
-        ),
-        crearElemento("p", "Tu respuesta: " + r),
-        crearElemento(
-          "p",
-          estado === "correcta"
-            ? "Correcta"
-            : "Incorrecta"
-        )
-      );
+    respuestas.forEach((respuesta, i) => {
+      const div = document.createElement("div");
+      const acierto = evaluaciones[i] === "correcta";
+      div.className = "result " + (acierto ? "good" : "bad");
 
+      const pregunta = document.createElement("strong");
+      pregunta.textContent = (i + 1) + ". " + datos[i].pregunta;
+
+      const tuya = document.createElement("p");
+      tuya.textContent = "Tu respuesta: " + respuesta;
+
+      const correcta = document.createElement("p");
+      correcta.textContent =
+        "Respuesta correcta: " + datos[i].correcta;
+
+      const estado = document.createElement("strong");
+      estado.textContent = acierto ? "Correcta" : "Incorrecta";
+
+      div.append(pregunta, tuya, correcta, estado);
       zona.append(div);
     });
 
   } catch (error) {
     console.error(error);
-
-    elemento("estado").textContent =
-      "No se pudo guardar. Inténtalo nuevamente.";
-
+    el("estado").textContent =
+      "No se pudieron guardar las respuestas. Inténtalo de nuevo.";
   } finally {
     enviando = false;
     boton.disabled = false;
   }
 }
 
-// ABRIR ADMINISTRACIÓN
+// PANEL DE ADMINISTRACIÓN
 function mostrarAdmin() {
-  elemento("admin").classList.toggle("hidden");
+  el("admin").classList.toggle("hidden");
 
-  if (!elemento("admin").classList.contains("hidden")) {
-    elemento("admin").scrollIntoView({
+  if (!el("admin").classList.contains("hidden")) {
+    el("admin").scrollIntoView({
       behavior: "smooth",
       block: "start"
     });
   }
 }
 
-// INICIAR SESIÓN ADMIN
 async function iniciarSesion() {
-  const email = elemento("correo").value.trim();
-  const password = elemento("clave").value;
-  const estado = elemento("estadoAdmin");
+  const email = el("correo").value.trim();
+  const password = el("clave").value;
+  const estado = el("estadoAdmin");
 
-  estado.className = "";
   estado.textContent = "Iniciando sesión...";
+  estado.className = "";
 
   try {
-    const r = await fetch(
+    const response = await fetch(
       URL_BASE + "/auth/v1/token?grant_type=password",
       {
         method: "POST",
@@ -792,233 +558,164 @@ async function iniciarSesion() {
           "apikey": API_KEY,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          email: email,
-          password: password
-        })
+        body: JSON.stringify({ email, password })
       }
     );
 
-    const d = await r.json();
+    const data = await response.json();
 
-    if (!r.ok || !d.access_token) {
-      throw new Error(
-        "Correo o contraseña incorrectos."
-      );
+    if (!response.ok || !data.access_token) {
+      throw new Error("Correo o contraseña incorrectos.");
     }
 
-    tokenAdmin = d.access_token;
-
-    elemento("login").classList.add("hidden");
-    elemento("panel").classList.remove("hidden");
+    tokenAdmin = data.access_token;
+    el("login").classList.add("hidden");
+    el("panel").classList.remove("hidden");
 
     estado.textContent = "Sesión iniciada.";
-
     await cargarResultados();
 
   } catch (error) {
-    estado.className = "error";
     estado.textContent = error.message;
+    estado.className = "error";
   }
 }
 
-// MOSTRAR RESPUESTAS EN ADMINISTRACIÓN
-function crearResultadoAdmin(registro) {
-  const div = crearElemento(
-    "div",
-    undefined,
-    "result"
-  );
-
-  const respuestasGuardadas =
-    Array.isArray(registro.respuestas)
-      ? registro.respuestas
-      : [];
-
-  const puntos =
-    calcularPuntos(respuestasGuardadas);
-
-  div.append(
-    crearElemento("h3", registro.nombre),
-    crearElemento(
-      "p",
-      "Correctas: " + puntos +
-      "/20 | Incorrectas: " + (20 - puntos)
-    ),
-    crearElemento(
-      "p",
-      new Date(registro.creado_en)
-        .toLocaleString("es-EC"),
-      "small"
-    )
-  );
-
-  const detalles = document.createElement("details");
-
-  detalles.append(
-    crearElemento(
-      "summary",
-      "Ver las 20 respuestas"
-    )
-  );
-
-  for (let i = 0; i < datos.length; i++) {
-    const respuesta =
-      respuestasGuardadas[i] || "";
-
-    const estado =
-      evaluar(respuesta, datos[i][1]);
-
-    const item = crearElemento(
-      "div",
-      undefined,
-      "result " +
-      (estado === "correcta" ? "good" : "bad")
-    );
-
-    item.append(
-      crearElemento(
-        "strong",
-        (i + 1) + ". " + datos[i][0]
-      ),
-      crearElemento(
-        "p",
-        "Respuesta: " + respuesta
-      ),
-      crearElemento(
-        "p",
-        estado === "correcta"
-          ? "Correcta"
-          : "Incorrecta"
-      )
-    );
-
-    detalles.append(item);
-  }
-
-  div.append(detalles);
-
-  return div;
-}
-
-// CARGAR RESULTADOS DE SUPABASE
 async function cargarResultados() {
-  const lista = elemento("lista");
-  const estado = elemento("estadoAdmin");
+  const lista = el("lista");
+  const estado = el("estadoAdmin");
 
   lista.replaceChildren();
-  estado.className = "";
   estado.textContent = "Cargando resultados...";
 
   if (!tokenAdmin) {
-    estado.textContent =
-      "Primero inicia sesión como administrador.";
+    estado.textContent = "Primero inicia sesión.";
     return;
   }
 
   try {
-    const r = await fetch(
+    const response = await fetch(
       URL_BASE +
-      "/rest/v1/resultados_test" +
-      "?select=*&order=creado_en.desc&limit=500",
-      {
-        headers: headers(tokenAdmin)
-      }
+      "/rest/v1/resultados_test?select=*&order=creado_en.desc&limit=500",
+      { headers: headers(tokenAdmin) }
     );
 
-    if (!r.ok) {
-      throw new Error(await r.text());
+    if (!response.ok) {
+      throw new Error("No se pudieron consultar los resultados.");
     }
 
-    const registros = await r.json();
+    const registros = await response.json();
 
-    lista.append(
-      crearElemento(
-        "h3",
-        "Participaciones: " + registros.length
-      )
-    );
+    const titulo = document.createElement("h3");
+    titulo.textContent = "Participaciones: " + registros.length;
+    lista.append(titulo);
 
     registros.forEach(registro => {
-      lista.append(
-        crearResultadoAdmin(registro)
-      );
+      const div = document.createElement("div");
+      div.className = "result";
+
+      const nombre = document.createElement("h3");
+      nombre.textContent = registro.nombre;
+
+      const guardadas = Array.isArray(registro.respuestas)
+        ? registro.respuestas : [];
+
+      const { evaluaciones, puntos } = calcular(guardadas);
+
+      const puntuacion = document.createElement("p");
+      puntuacion.textContent =
+        "Calificación automática actual: " +
+        puntos + "/" + datos.length;
+
+      const fecha = document.createElement("p");
+      fecha.className = "small";
+      fecha.textContent = new Date(
+        registro.creado_en
+      ).toLocaleString("es-EC");
+
+      const detalles = document.createElement("details");
+      const resumen = document.createElement("summary");
+      resumen.textContent = "Ver las 20 respuestas";
+      detalles.append(resumen);
+
+      datos.forEach((dato, i) => {
+        const item = document.createElement("div");
+        item.className = "result " +
+          (evaluaciones[i] === "correcta" ? "good" : "bad");
+
+        const pregunta = document.createElement("strong");
+        pregunta.textContent = (i + 1) + ". " + dato.pregunta;
+
+        const respuesta = document.createElement("p");
+        respuesta.textContent =
+          "Respondió: " + (guardadas[i] || "(Sin respuesta)");
+
+        const correcta = document.createElement("p");
+        correcta.textContent =
+          "Respuesta correcta: " + dato.correcta;
+
+        const estadoRespuesta = document.createElement("small");
+        estadoRespuesta.textContent =
+          evaluaciones[i] === "correcta" ? "Correcta" : "Incorrecta";
+
+        item.append(pregunta, respuesta, correcta, estadoRespuesta);
+        detalles.append(item);
+      });
+
+      div.append(nombre, puntuacion, fecha, detalles);
+      lista.append(div);
     });
 
-    estado.textContent =
-      "Resultados cargados correctamente.";
+    estado.textContent = "Resultados cargados.";
 
   } catch (error) {
     console.error(error);
-
+    estado.textContent = error.message;
     estado.className = "error";
-    estado.textContent =
-      "Error al cargar: " + error.message;
   }
 }
 
-// CERRAR SESIÓN
 function cerrarSesion() {
   tokenAdmin = null;
-
-  elemento("panel").classList.add("hidden");
-  elemento("login").classList.remove("hidden");
-
-  elemento("lista").replaceChildren();
-  elemento("clave").value = "";
-
-  elemento("estadoAdmin").textContent =
-    "Sesión cerrada.";
+  el("panel").classList.add("hidden");
+  el("login").classList.remove("hidden");
+  el("lista").replaceChildren();
+  el("clave").value = "";
+  el("estadoAdmin").textContent = "Sesión cerrada.";
 }
 
 // ATAJOS DE TECLADO
 document.addEventListener("keydown", function(event) {
 
-  // Ctrl + A abre u oculta administración
-  // cuando no estás escribiendo.
-  if (
-    event.ctrlKey &&
-    !event.altKey &&
-    !event.metaKey &&
-    event.key.toLowerCase() === "a"
-  ) {
-    const etiqueta =
-      document.activeElement.tagName;
+  // Ctrl + A abre el panel oculto, excepto al escribir.
+  if ((event.ctrlKey || event.metaKey) &&
+      event.key.toLowerCase() === "a" &&
+      !event.altKey) {
 
-    if (
-      etiqueta !== "INPUT" &&
-      etiqueta !== "TEXTAREA"
-    ) {
-      event.preventDefault();
-      mostrarAdmin();
-    }
+    const destino = event.target;
+    if (destino.matches("input,textarea,[contenteditable]")) return;
 
+    event.preventDefault();
+    mostrarAdmin();
     return;
   }
 
   // Enter avanza a la siguiente pregunta.
-  if (
-    event.key === "Enter" &&
-    !event.repeat &&
-    !event.ctrlKey &&
-    !event.altKey &&
-    !event.metaKey
-  ) {
-    const juego = elemento("juego");
+  if (event.key === "Enter" &&
+      !event.repeat &&
+      !event.ctrlKey &&
+      !event.altKey &&
+      !event.metaKey &&
+      !el("juego").classList.contains("hidden") &&
+      document.activeElement === el("respuesta")) {
 
-    if (
-      !juego.classList.contains("hidden") &&
-      document.activeElement === elemento("respuesta")
-    ) {
-      event.preventDefault();
+    event.preventDefault();
 
-      if (!elemento("siguiente").disabled) {
-        siguiente();
-      }
+    if (!el("siguienteBtn").disabled) {
+      siguiente();
     }
   }
 });
-
 </script>
 </body>
 </html>
