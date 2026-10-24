@@ -4,507 +4,230 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>¿Qué tanto me conoces?</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;padding:20px;
+  font-family:Arial,sans-serif;color:#46344f;
+  background:linear-gradient(135deg,#f8e8f7,#e9e4ff)
 }
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  color: #46344f;
-  background: linear-gradient(135deg, #f8e8f7, #e9e4ff);
+main{
+  max-width:680px;margin:30px auto;padding:30px;
+  background:white;border-radius:24px;
+  box-shadow:0 12px 35px #694b8420
 }
-
-main {
-  max-width: 680px;
-  margin: 30px auto;
-  padding: 30px;
-  background: white;
-  border-radius: 24px;
-  box-shadow: 0 12px 35px #694b8420;
+h1,h2{color:#8658a6;text-align:center}
+p{line-height:1.5}
+.center{text-align:center}
+.hidden{display:none!important}
+input{
+  width:100%;padding:14px;margin:10px 0;
+  border:1px solid #cbb4dc;border-radius:12px;font-size:16px
 }
-
-h1, h2 {
-  color: #8658a6;
-  text-align: center;
+button{
+  margin:5px;padding:14px 22px;border:0;border-radius:12px;
+  background:#9166b5;color:white;font-size:16px;cursor:pointer
 }
-
-p {
-  line-height: 1.5;
+button:disabled{opacity:.45;cursor:not-allowed}
+.secondary{background:#e8d9f2;color:#5b3d72}
+.danger{background:#b94063}
+.progress{
+  height:12px;margin:22px 0;overflow:hidden;
+  border-radius:20px;background:#eee3f4
 }
-
-.center {
-  text-align: center;
+.bar{width:0;height:100%;background:#a77bd0;transition:width .3s}
+.question{
+  margin:30px 0;font-size:22px;font-weight:bold;text-align:center
 }
-
-.hidden {
-  display: none !important;
+.navigation{display:flex;justify-content:space-between;gap:10px}
+.result{
+  padding:15px;margin:12px 0;border-radius:12px;background:#f7f0fb
 }
-
-input {
-  width: 100%;
-  padding: 14px;
-  margin: 10px 0;
-  border: 1px solid #cbb4dc;
-  border-radius: 12px;
-  font-size: 16px;
+.good{border-left:5px solid #71b18a}
+.incorrect{border-left:5px solid #d46b75}
+.small{font-size:13px;color:#74667c}
+.error{color:#b63759}
+.success{color:#388657}
+.calificacion-correcta{color:#388657;font-weight:bold}
+.calificacion-incorrecta{color:#c44555;font-weight:bold}
+details{margin-top:15px}
+summary{
+  padding:10px 0;cursor:pointer;color:#68448a;font-weight:bold
 }
-
-button {
-  margin: 5px;
-  padding: 14px 22px;
-  border: none;
-  border-radius: 12px;
-  background: #9166b5;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
+.registro{
+  margin:18px 0;padding:18px;border:1px solid #e7d9ef;
+  border-radius:16px;background:#fcf9ff
 }
-
-button:disabled {
-  opacity: .45;
-  cursor: not-allowed;
+.registro h3{margin-top:0;color:#68448a}
+#admin{margin-top:20px}
+#admin.admin-pantalla{
+  position:relative;
+  margin:0;
 }
-
-.secondary {
-  background: #e8d9f2;
-  color: #5b3d72;
+.admin-cerrar{
+  float:right;
+  padding:8px 13px;
 }
-
-.danger {
-  background: #b94063;
+#florPantalla{
+  position:fixed;inset:0;z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;overflow-y:auto;text-align:center;
+  background:linear-gradient(135deg,#e9f6ff,#c5e6ff,#e4f4ff,#b9ddff);
+  background-size:300% 300%;
+  animation:cieloAzul 20s ease-in-out forwards
 }
-
-.progress {
-  height: 12px;
-  margin: 22px 0;
-  overflow: hidden;
-  border-radius: 20px;
-  background: #eee3f4;
+@keyframes cieloAzul{
+  0%{background-position:0% 0%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 100%}
 }
-
-.bar {
-  width: 0;
-  height: 100%;
-  background: #a77bd0;
-  transition: width .3s;
+.florTarjeta{width:100%;max-width:440px}
+.florTarjeta h2{margin:8px 0;color:#4674bf}
+.florTarjeta p{color:#596b8d}
+.hortensia{
+  display:block;width:min(300px,75vw);height:auto;
+  margin:auto;overflow:visible
 }
-
-.question {
-  margin: 30px 0;
-  font-size: 22px;
-  font-weight: bold;
-  text-align: center;
+.ramo{
+  transform-origin:150px 250px;
+  animation:balanceo 4s ease-in-out infinite
 }
-
-.navigation {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
+@keyframes balanceo{
+  0%,100%{transform:rotate(-1.5deg)}
+  50%{transform:rotate(1.5deg)}
 }
-
-.result {
-  padding: 15px;
-  margin: 12px 0;
-  border-radius: 12px;
-  background: #f7f0fb;
+.florecita{
+  opacity:0;transform-box:fill-box;transform-origin:center;
+  animation:abrirFlor 2s ease-out forwards;
+  animation-delay:var(--retardo)
 }
-
-.good {
-  border-left: 5px solid #71b18a;
+@keyframes abrirFlor{
+  0%{opacity:0;transform:scale(.05) rotate(-25deg)}
+  60%{opacity:1;transform:scale(1.08)}
+  100%{opacity:1;transform:scale(1)}
 }
-
-.incorrect {
-  border-left: 5px solid #d46b75;
+.brillo{animation:brilloPetalo 2.5s ease-in-out infinite alternate}
+@keyframes brilloPetalo{
+  from{opacity:.4}to{opacity:1}
 }
-
-.small {
-  font-size: 13px;
-  color: #74667c;
+.corazonAzul{
+  margin:8px auto;font-size:62px;
+  filter:drop-shadow(0 0 15px #65b9ff);
+  animation:latidoCorazon 1.5s ease-in-out infinite
 }
-
-.error {
-  color: #b63759;
+@keyframes latidoCorazon{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.22)}
 }
-
-.success {
-  color: #388657;
+@media(prefers-reduced-motion:reduce){
+  .ramo,.brillo,.corazonAzul{animation:none}
+  .florecita{animation:none;opacity:1}
 }
-
-.calificacion-correcta {
-  color: #388657;
-  font-weight: bold;
-}
-
-.calificacion-incorrecta {
-  color: #c44555;
-  font-weight: bold;
-}
-
-details {
-  margin-top: 15px;
-}
-
-summary {
-  padding: 10px 0;
-  cursor: pointer;
-  color: #68448a;
-  font-weight: bold;
-}
-
-.registro {
-  margin: 18px 0;
-  padding: 18px;
-  border: 1px solid #e7d9ef;
-  border-radius: 16px;
-  background: #fcf9ff;
-}
-
-.registro h3 {
-  margin-top: 0;
-  color: #68448a;
-}
-
-#admin {
-  margin-top: 20px;
-}
-
-/* ANIMACIÓN DE LA HORTENSIA */
-
-#florPantalla {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  overflow-y: auto;
-  text-align: center;
-  background: linear-gradient(
-    135deg,
-    #e9f6ff,
-    #c5e6ff,
-    #e4f4ff,
-    #b9ddff
-  );
-  background-size: 300% 300%;
-  animation: cieloAzul 20s ease-in-out forwards;
-}
-
-@keyframes cieloAzul {
-  0% {
-    background-position: 0% 0%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 100%;
-  }
-}
-
-.florTarjeta {
-  width: 100%;
-  max-width: 440px;
-}
-
-.florTarjeta h2 {
-  margin: 8px 0;
-  color: #4674bf;
-}
-
-.florTarjeta p {
-  color: #596b8d;
-}
-
-.hortensia {
-  display: block;
-  width: min(300px, 75vw);
-  height: auto;
-  margin: auto;
-  overflow: visible;
-}
-
-.ramo {
-  transform-origin: 150px 250px;
-  animation: balanceo 4s ease-in-out infinite;
-}
-
-@keyframes balanceo {
-  0%, 100% {
-    transform: rotate(-1.5deg);
-  }
-
-  50% {
-    transform: rotate(1.5deg);
-  }
-}
-
-.florecita {
-  opacity: 0;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: abrirFlor 2s ease-out forwards;
-  animation-delay: var(--retardo);
-}
-
-@keyframes abrirFlor {
-  0% {
-    opacity: 0;
-    transform: scale(.05) rotate(-25deg);
-  }
-
-  60% {
-    opacity: 1;
-    transform: scale(1.08);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.brillo {
-  animation: brilloPetalo 2.5s ease-in-out infinite alternate;
-}
-
-@keyframes brilloPetalo {
-  from {
-    opacity: .4;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-.corazonAzul {
-  margin: 8px auto;
-  font-size: 62px;
-  filter: drop-shadow(0 0 15px #65b9ff);
-  animation: latidoCorazon 1.5s ease-in-out infinite;
-}
-
-@keyframes latidoCorazon {
-  0%, 100% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 8px #80caff);
-  }
-
-  50% {
-    transform: scale(1.22);
-    filter: drop-shadow(0 0 24px #369bff);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ramo,
-  .brillo,
-  .corazonAzul {
-    animation: none;
-  }
-
-  .florecita {
-    animation: none;
-    opacity: 1;
-  }
-}
-
-@media (max-width: 480px) {
-  body {
-    padding: 10px;
-  }
-
-  main {
-    margin: 10px auto;
-    padding: 18px;
-  }
-
-  button {
-    padding: 12px 14px;
-    font-size: 14px;
-  }
-
-  .question {
-    font-size: 19px;
-  }
+@media(max-width:480px){
+  body{padding:10px}
+  main{margin:10px auto;padding:18px}
+  button{padding:12px 14px;font-size:14px}
+  .question{font-size:19px}
 }
 </style>
 </head>
 
 <body>
-
 <main>
-
-<!-- BIENVENIDA -->
 
 <section id="bienvenida">
   <h1>💜 ¿Qué tanto me conoces?</h1>
-
   <p class="center">
     Responde 20 preguntas y descubre cuánto sabes de mí.
   </p>
-
-  <input
-    id="nombre"
-    maxlength="80"
-    placeholder="Escribe tu nombre"
-  >
-
+  <input id="nombre" maxlength="80" placeholder="Escribe tu nombre">
   <div class="center">
-    <button type="button" onclick="comenzar()">
-      Comenzar test
-    </button>
+    <button type="button" onclick="comenzar()">Comenzar test</button>
   </div>
 </section>
 
-<!-- PREGUNTAS -->
-
 <section id="juego" class="hidden">
-
   <p id="contador" class="center"></p>
-
-  <div class="progress">
-    <div id="barra" class="bar"></div>
-  </div>
-
+  <div class="progress"><div id="barra" class="bar"></div></div>
   <div id="pregunta" class="question"></div>
-
   <input
     id="respuesta"
     maxlength="500"
     placeholder="Escribe tu respuesta..."
     oninput="guardarTemporal()"
   >
-
   <div class="navigation">
-    <button
-      type="button"
-      class="secondary"
-      onclick="anterior()"
-    >
+    <button type="button" class="secondary" onclick="anterior()">
       Anterior
     </button>
-
-    <button
-      type="button"
-      id="siguiente"
-      onclick="siguiente()"
-    >
+    <button type="button" id="siguiente" onclick="siguiente()">
       Siguiente
     </button>
   </div>
-
   <p id="estado" class="center"></p>
-
 </section>
-
-<!-- RESULTADOS DEL PARTICIPANTE -->
 
 <section id="final" class="hidden">
-
   <h1>Tu resultado</h1>
-
   <div id="resultado"></div>
-
 </section>
 
-<!-- ADMINISTRACIÓN -->
-
 <section id="admin" class="hidden">
+  <button
+    type="button"
+    class="secondary admin-cerrar"
+    onclick="mostrarAdmin()"
+    aria-label="Cerrar administración"
+  >✕</button>
 
   <h2>Panel de administración</h2>
 
   <div id="login">
-
-    <input
-      id="correo"
-      type="email"
-      placeholder="Correo electrónico"
-    >
-
-    <input
-      id="clave"
-      type="password"
-      placeholder="Contraseña"
-    >
-
+    <input id="correo" type="email" placeholder="Correo electrónico">
+    <input id="clave" type="password" placeholder="Contraseña">
     <button type="button" onclick="iniciarSesion()">
       Iniciar sesión
     </button>
-
   </div>
 
   <div id="panel" class="hidden">
-
     <button type="button" onclick="cargarResultados()">
       Actualizar y recalificar resultados
     </button>
-
-    <button
-      type="button"
-      class="secondary"
-      onclick="cerrarSesion()"
-    >
+    <button type="button" class="secondary" onclick="cerrarSesion()">
       Cerrar sesión
     </button>
-
     <div id="lista"></div>
-
   </div>
 
   <p id="estadoAdmin"></p>
-
 </section>
 
 </main>
 
-<!-- PANTALLA DE HORTENSIA -->
-
-<section
-  id="florPantalla"
-  class="hidden"
-  role="status"
-  aria-live="polite"
->
-
+<section id="florPantalla" class="hidden" role="status">
   <div class="florTarjeta">
-
     <svg
       class="hortensia"
       viewBox="0 0 300 330"
       role="img"
       aria-label="Hortensia azul floreciendo"
     >
-
       <defs>
-
         <radialGradient id="petaloAzul">
           <stop offset="0%" stop-color="#e5f3ff"/>
           <stop offset="40%" stop-color="#a6ceff"/>
           <stop offset="75%" stop-color="#689bea"/>
           <stop offset="100%" stop-color="#416fc5"/>
         </radialGradient>
-
         <linearGradient id="talloVerde">
           <stop offset="0%" stop-color="#88c8ad"/>
           <stop offset="100%" stop-color="#3e967c"/>
         </linearGradient>
-
       </defs>
-
       <g class="ramo">
-
         <path
           d="M150 175 Q158 242 145 315"
           stroke="url(#talloVerde)"
@@ -512,353 +235,325 @@ summary {
           fill="none"
           stroke-linecap="round"
         />
-
         <path
           d="M149 270 Q102 220 72 247 Q100 296 149 280"
           fill="#70b7a1"
         />
-
         <path
           d="M151 290 Q200 243 228 261 Q207 310 151 300"
           fill="#65aa96"
         />
-
         <g id="racimoHortensia"></g>
-
       </g>
-
     </svg>
-
     <div class="corazonAzul">💙</div>
-
     <h2>¡Gracias por responder!</h2>
-
-    <p>
-      Una hortensia azul para ti.
-      Preparando tu resultado...
-    </p>
-
+    <p>Una hortensia azul para ti. Preparando tu resultado...</p>
   </div>
-
 </section>
 
 <script>
+"use strict";
 
-/* ==========================================
-   CONFIGURACIÓN DE SUPABASE
-========================================== */
+/* SUPABASE */
 
-const URL_BASE =
-  "https://ehxrmqbthxndcfmwjhmq.supabase.co";
-
-const API_KEY =
-  "sb_publishable_LRVbj9lMIeAzTVJ-OxzIFA_2iHKkzRp";
+const URL_BASE = "https://ehxrmqbthxndcfmwjhmq.supabase.co";
+const API_KEY = "sb_publishable_LRVbj9lMIeAzTVJ-OxzIFA_2iHKkzRp";
 
 let tokenAdmin = null;
 let enviando = false;
 let cargandoAdmin = false;
+let posicion = 0;
+let participante = "";
+let orden = [];
+let respuestas = [];
 
-/* ==========================================
-   PREGUNTAS Y RESPUESTAS CORRECTAS
-========================================== */
+/* PREGUNTAS */
 
 const datos = [
-  [
-    "¿Cuál es mi color favorito?",
-    ["azul"]
-  ],
-  [
-    "¿Cuándo es mi cumpleaños?",
-    ["28 de noviembre", "28 noviembre", "28/11"]
-  ],
-  [
-    "¿Cuál es mi comida favorita?",
-    [
-      "cualquier tipo de carne",
-      "cualquier carne",
-      "todo tipo de carne"
-    ]
-  ],
-  [
-    "¿Prefiero el día o la noche?",
-    ["noche"]
-  ],
-  [
-    "¿Cuál es mi género de música favorita?",
-    [
-      "todos los géneros musicales",
-      "todos los géneros",
-      "cualquier género musical"
-    ]
-  ],
-  [
-    "¿Qué es lo que más me hace enojar?",
-    [
-      "cuando se meten con los animales conmigo o con mi familia",
-      "que se metan con los animales conmigo o con mi familia"
-    ]
-  ],
-  [
-    "¿Qué hago cuando estoy triste?",
-    [
-      "lloro y veo videos graciosos",
-      "llorar y ver videos graciosos",
-      "como dulces"
-    ]
-  ],
-  [
-    "¿Soy más de salir o quedarme en casa?",
-    [
-      "quedarme en casa",
-      "estar en casa",
-      "casa"
-    ]
-  ],
-  [
-    "¿Cuál es uno de mis mayores sueños?",
-    [
-      "tener una cafetería de gatitos",
-      "cafetería de gatos",
-      "cafetería con gatitos"
-    ]
-  ],
-  [
-    "¿Qué tipo de personas me caen mal?",
-    [
-      "las personas presumidas y creídas",
-      "presumidas y creídas",
-      "presumidas",
-      "creídas",
-      "arrogantes"
-    ]
-  ],
-  [
-    "¿Cuál es mi mayor miedo?",
-    [
-      "quedarme sola por mis acciones",
-      "quedar sola por mis acciones"
-    ]
-  ],
-  [
-    "¿Cómo demuestro cariño?",
-    [
-      "con abrazos detalles y pasando tiempo con las personas",
-      "abrazos detalles y pasando tiempo con las personas",
-      "sonriendo y riendo de forma muy exagerada "
-    ]
-  ],
-  [
-    "¿Qué inseguridad tengo?",
-    [
-      "mi físico",
-      "físico",
-      "mi apariencia física"
-    ]
-  ],
-  [
-    "¿Qué es lo que más valoro en una amistad?",
-    [
-      "honestidad y lealtad",
-      "lealtad y honestidad",
-      "honestidad",
-      "lealtad"
-    ]
-  ],
-  [
-    "¿Qué cosa me puede hacer llorar fácilmente?",
-    [
-      "cuando me esconden la comida o cuando no me escuchan",
-      "que me escondan la comida y no me escuchen"
-    ]
-  ],
-  [
-    "¿Qué hago cuando alguien me decepciona?",
-    [
-      "le aplico la ley del hielo por unos cuantos días",
-      "ley del hielo por unos días"
-    ]
-  ],
-  [
-    "¿Qué es algo que nunca perdonaría?",
-    [
-      "la traición o la decepción",
-      "nada"
-    ]
-  ],
-  [
-    "¿Qué pequeño detalle me hace muy feliz?",
-    [
-      "cualquier detalle pequeño",
-      "cualquier detallito",
-      "los pequeños detalles",
-      "Dinero"
-    ]
-  ],
-  [
-    "¿Qué es lo que más deseo conseguir en mi vida?",
-    [
-      "dinero",
-      "plata",
-      "mucho dinero",
-      "Money"
-    ]
-  ],
-  [
-    "Si estoy pasando un mal momento, ¿qué necesitaría de ti?",
-    [
-      "palabras de apoyo y un heladito",
-      "apoyo y helado",
-      "palabras de apoyo y helado"
-    ]
-  ]
+  ["¿Cuál es mi color favorito?", [
+    "azul"
+  ]],
+  ["¿Cuándo es mi cumpleaños?", [
+    "28 de noviembre", "28 noviembre", "28/11"
+  ]],
+  ["¿Cuál es mi comida favorita?", [
+    "cualquier tipo de carne", "cualquier carne",
+    "todo tipo de carne"
+  ]],
+  ["¿Prefiero el día o la noche?", [
+    "noche"
+  ]],
+  ["¿Cuál es mi género de música favorita?", [
+    "todos los géneros musicales", "todos los géneros",
+    "cualquier género musical"
+  ]],
+  ["¿Qué es lo que más me hace enojar?", [
+    "cuando se meten con los animales conmigo o con mi familia",
+    "que se metan con los animales conmigo o con mi familia"
+  ]],
+  ["¿Qué hago cuando estoy triste?", [
+    "lloro y veo videos graciosos",
+    "llorar y ver videos graciosos",
+    "como dulces"
+  ]],
+  ["¿Soy más de salir o quedarme en casa?", [
+    "quedarme en casa", "estar en casa", "casa"
+  ]],
+  ["¿Cuál es uno de mis mayores sueños?", [
+    "tener una cafetería de gatitos",
+    "cafetería de gatos", "cafetería con gatitos"
+  ]],
+  ["¿Qué tipo de personas me caen mal?", [
+    "las personas presumidas y creídas",
+    "presumidas y creídas", "presumidas",
+    "creídas", "arrogantes"
+  ]],
+  ["¿Cuál es mi mayor miedo?", [
+    "quedarme sola por mis acciones",
+    "quedar sola por mis acciones"
+  ]],
+  ["¿Cómo demuestro cariño?", [
+    "con abrazos detalles y pasando tiempo con las personas",
+    "abrazos detalles y pasando tiempo con las personas",
+    "sonriendo y riendo de forma muy exagerada"
+  ]],
+  ["¿Qué inseguridad tengo?", [
+    "mi físico", "físico", "mi apariencia física"
+  ]],
+  ["¿Qué es lo que más valoro en una amistad?", [
+    "honestidad y lealtad", "lealtad y honestidad",
+    "honestidad", "lealtad"
+  ]],
+  ["¿Qué cosa me puede hacer llorar fácilmente?", [
+    "cuando me esconden la comida o cuando no me escuchan",
+    "que me escondan la comida y no me escuchen"
+  ]],
+  ["¿Qué hago cuando alguien me decepciona?", [
+    "le aplico la ley del hielo por unos cuantos días",
+    "ley del hielo por unos días"
+  ]],
+  ["¿Qué es algo que nunca perdonaría?", [
+    "la traición o la decepción", "nada"
+  ]],
+  ["¿Qué pequeño detalle me hace muy feliz?", [
+    "cualquier detalle pequeño", "cualquier detallito",
+    "los pequeños detalles", "dinero"
+  ]],
+  ["¿Qué es lo que más deseo conseguir en mi vida?", [
+    "dinero", "plata", "mucho dinero", "money"
+  ]],
+  ["Si estoy pasando un mal momento, ¿qué necesitaría de ti?", [
+    "palabras de apoyo y un heladito",
+    "apoyo y helado", "palabras de apoyo y helado"
+  ]]
 ];
 
-/* ==========================================
-   PALABRAS CLAVE
-========================================== */
+/*
+  PALABRAS CLAVE:
+  Cada grupo interno exige todas sus palabras.
+  Los distintos grupos son alternativas independientes.
+
+  Ejemplo:
+  [["dinero"], ["plata"], ["money"]]
+  acepta cualquiera de las tres.
+*/
 
 const palabrasClave = [
   [["azul"]],
-
-  [["28", "noviembre"], ["28", "11"]],
-
-  [["carne"], ["pollo"], ["dulces"]],
-
+  [["28","noviembre"],["28","11"]],
+  [["carne"],["pollo"],["dulces"]],
   [["noche"]],
-
-  [["todos"], ["todas"], ["generos", "musicales"]],
-
-  [["animales"], ["familia"], ["conmigo"]],
-
+  [["todos"],["todas"],["generos","musicales"]],
+  [["animales"],["familia"],["conmigo"]],
   [
-    ["lloro"],
-    ["llorar"],
-    ["videos", "graciosos"],
-    ["dulces"],
-    ["comer", "dulces"]
+    ["lloro"],["llorar"],["videos","graciosos"],
+    ["dulces"],["comer","dulces"]
   ],
-
   [["casa"]],
-
+  [["cafeteria","gatos"],["cafeteria","gatitos"]],
+  [["presumidas"],["creidas"],["arrogantes"]],
+  [["sola","acciones"],["sola"]],
   [
-    ["cafeteria", "gatos"],
-    ["cafeteria", "gatitos"]
+    ["abrazos"],["detalles"],["tiempo","personas"],
+    ["reir"],["riendo"],["sonreir"],["sonriendo"],
+    ["risa"],["risas"]
   ],
-
+  [["fisico"],["apariencia"]],
+  [["honestidad"],["lealtad"]],
+  [["esconden","comida"],["no","escuchan"]],
+  [["ley","hielo"]],
+  [["traicion"],["decepcion"],["nada"]],
   [
-    ["presumidas"],
-    ["creidas"],
-    ["arrogantes"]
+    ["detalle"],["detalles"],["flores"],
+    ["chocolates"],["dinero"],["money"]
   ],
-
+  [["dinero"],["plata"],["money"]],
   [
-    ["sola", "acciones"],
-    ["sola"]
-  ],
-
-  [
-    ["abrazos"],
-    ["detalles"],
-    ["tiempo", "personas","reir","sonreir","Riendo","Reir"]
-  ],
-
-  [["fisico"], ["apariencia"]],
-
-  [["honestidad"], ["lealtad"]],
-
-  [
-    ["esconden", "comida"],
-    ["no", "escuchan"]
-  ],
-
-  [["ley", "hielo"]],
-
-  [["traicion"], ["decepcion"], ["nada"]],
-
-  [
-    ["detalle"],
-    ["detalles"],
-    ["flores"],
-    ["chocolates","dinero","Dinero"]
-  ],
-
-  [["dinero"], ["plata","money","Money"]],
-
-  [
-    ["apoyo"],
-    ["helado"],
-    ["heladito"],
-    ["comida"],
-    ["chocolates"]
+    ["apoyo"],["helado"],["heladito"],
+    ["comida"],["chocolates"]
   ]
 ];
 
-/* ==========================================
-   GÉNEROS MUSICALES
-========================================== */
+/* GÉNEROS MUSICALES */
 
 const generosMusicales = [
-  "pop", "pop rock", "indie pop", "electropop",
-  "synth pop", "kpop", "k pop", "jpop", "j pop",
-  "dance pop", "pop latino", "balada",
-  "rock", "rock alternativo", "rock clasico",
-  "hard rock", "indie rock", "punk rock",
-  "rock progresivo", "metal", "heavy metal",
-  "death metal", "black metal", "metal sinfonico",
-  "nu metal", "metalcore", "regueton",
-  "reggaeton", "trap", "trap latino",
-  "hip hop", "hiphop", "rap", "drill",
-  "r&b", "rnb", "soul", "funk",
-  "dancehall", "afrobeats", "electronica",
-  "edm", "house", "deep house",
-  "tech house", "techno", "trance",
-  "dubstep", "drum and bass", "hardstyle",
-  "ambient", "lofi", "lo fi",
-  "salsa", "bachata", "merengue",
-  "cumbia", "vallenato", "tropical",
-  "bolero", "bossa nova", "samba",
-  "tango", "reggae", "ska",
-  "ranchera", "mariachi", "corrido",
-  "corridos", "corridos tumbados", "banda",
-  "nortena", "regional mexicana",
-  "pasillo", "sanjuanito", "albazo",
-  "yaravi", "pasacalle", "andina",
-  "folclore", "clasica", "barroca",
-  "opera", "instrumental", "sinfonica",
-  "jazz", "blues", "gospel",
-  "country", "folk", "disco",
-  "new age", "flamenco", "experimental",
-  "shoegaze", "grunge", "emo",
-  "post rock", "dream pop",
-  "phonk", "hyperpop"
+  "pop","pop rock","indie pop","electropop",
+  "synth pop","kpop","k pop","jpop","j pop",
+  "dance pop","pop latino","balada",
+  "rock","rock alternativo","rock clasico",
+  "hard rock","indie rock","punk rock",
+  "rock progresivo","metal","heavy metal",
+  "death metal","black metal","metal sinfonico",
+  "nu metal","metalcore","regueton","reggaeton",
+  "trap","trap latino","hip hop","hiphop",
+  "rap","drill","r&b","rnb","soul","funk",
+  "dancehall","afrobeats","electronica",
+  "edm","house","deep house","tech house",
+  "techno","trance","dubstep","drum and bass",
+  "hardstyle","ambient","lofi","lo fi",
+  "salsa","bachata","merengue","cumbia",
+  "vallenato","tropical","bolero",
+  "bossa nova","samba","tango","reggae","ska",
+  "ranchera","mariachi","corrido","corridos",
+  "corridos tumbados","banda","nortena",
+  "regional mexicana","pasillo","sanjuanito",
+  "albazo","yaravi","pasacalle","andina",
+  "folclore","clasica","barroca","opera",
+  "instrumental","sinfonica","jazz","blues",
+  "gospel","country","folk","disco","new age",
+  "flamenco","experimental","shoegaze",
+  "grunge","emo","post rock","dream pop",
+  "phonk","hyperpop"
 ];
 
 const respuestasGeneralesMusica = [
-  "todos",
-  "todas",
-  "de todo",
-  "todo tipo de musica",
-  "todos los generos",
-  "todos los generos musicales",
-  "cualquier genero",
-  "cualquier genero musical",
-  "cualquier tipo de musica",
-  "me gusta de todo",
+  "todos","todas","de todo","todo tipo de musica",
+  "todos los generos","todos los generos musicales",
+  "cualquier genero","cualquier genero musical",
+  "cualquier tipo de musica","me gusta de todo",
   "escucho de todo"
 ];
 
-/* ==========================================
-   VARIABLES DEL TEST
-========================================== */
+respuestas = Array(datos.length).fill("");
 
-let orden = [];
-let respuestas = Array(datos.length).fill("");
-let posicion = 0;
-let participante = "";
+/* UTILIDADES */
 
-/* ==========================================
-   CREAR HORTENSIA
-========================================== */
+function normalizar(texto) {
+  return String(texto ?? "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^a-z0-9 ]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function contieneFrase(texto, frase) {
+  const clave = normalizar(frase);
+  return !!clave && (` ${texto} `).includes(` ${clave} `);
+}
+
+function headers(token) {
+  return {
+    apikey: API_KEY,
+    Authorization: "Bearer " + (token || API_KEY),
+    "Content-Type": "application/json"
+  };
+}
+
+/* CALIFICACIÓN AUTOMÁTICA */
+
+function evaluar(respuesta, opciones, indice) {
+  const texto = normalizar(respuesta);
+
+  if (!texto) return "incorrecta";
+
+  // Respuestas exactas.
+  if (opciones.some(opcion => texto === normalizar(opcion))) {
+    return "correcta";
+  }
+
+  // Música: se acepta cualquier género de la lista.
+  if (indice === 4) {
+    const coincide =
+      generosMusicales.some(g => contieneFrase(texto,g)) ||
+      respuestasGeneralesMusica.some(g => contieneFrase(texto,g));
+
+    if (coincide) return "correcta";
+  }
+
+  // Comprobar cada alternativa de palabras clave.
+  const palabras = texto.split(" ");
+  const grupos = palabrasClave[indice] || [];
+
+  for (const grupo of grupos) {
+    const todasCoinciden = grupo.every(clave => {
+      const partes = normalizar(clave).split(" ");
+      return partes.every(parte => palabras.includes(parte));
+    });
+
+    if (todasCoinciden) return "correcta";
+  }
+
+  return "incorrecta";
+}
+
+function calcularPuntuacion(respuestasUsuario) {
+  if (
+    !Array.isArray(respuestasUsuario) ||
+    respuestasUsuario.length !== datos.length
+  ) {
+    return null;
+  }
+
+  let puntos = 0;
+
+  respuestasUsuario.forEach((respuesta,i) => {
+    if (evaluar(respuesta,datos[i][1],i) === "correcta") {
+      puntos++;
+    }
+  });
+
+  return puntos;
+}
+
+/* TARJETAS DE RESPUESTAS */
+
+function crearTarjetaRespuesta(respuesta,indice) {
+  const esCorrecta =
+    evaluar(respuesta,datos[indice][1],indice) === "correcta";
+
+  const tarjeta = document.createElement("div");
+  tarjeta.className = "result " + (esCorrecta ? "good" : "incorrect");
+
+  const pregunta = document.createElement("strong");
+  pregunta.textContent = `${indice+1}. ${datos[indice][0]}`;
+
+  const respuestaUsuario = document.createElement("p");
+  respuestaUsuario.textContent = "Tu respuesta: " + String(respuesta ?? "");
+
+  const respuestaCorrecta = document.createElement("p");
+  respuestaCorrecta.textContent =
+    "Respuesta correcta: " + datos[indice][1][0];
+
+  const calificacion = document.createElement("p");
+  calificacion.className = esCorrecta
+    ? "calificacion-correcta"
+    : "calificacion-incorrecta";
+
+  calificacion.textContent = esCorrecta
+    ? "✓ Correcta (+1 punto)"
+    : "✗ Incorrecta (0 puntos)";
+
+  tarjeta.append(
+    pregunta,respuestaUsuario,respuestaCorrecta,calificacion
+  );
+
+  return tarjeta;
+}
+
+/* HORTENSIA AZUL */
 
 function crearHortensia() {
   const ns = "http://www.w3.org/2000/svg";
@@ -867,56 +562,41 @@ function crearHortensia() {
   grupo.replaceChildren();
 
   const centros = [
-    [150,55], [117,65], [183,65],
-    [94,88], [133,94], [170,93], [207,88],
-    [76,119], [111,124], [150,127],
-    [189,124], [223,119],
-    [82,155], [118,158], [154,162],
-    [190,158], [219,155],
-    [101,191], [137,192], [174,191],
-    [202,190], [126,219], [163,221], [184,216]
+    [150,55],[117,65],[183,65],
+    [94,88],[133,94],[170,93],[207,88],
+    [76,119],[111,124],[150,127],
+    [189,124],[223,119],
+    [82,155],[118,158],[154,162],
+    [190,158],[219,155],
+    [101,191],[137,192],[174,191],
+    [202,190],[126,219],[163,221],[184,216]
   ];
 
-  centros.forEach(([x, y], i) => {
-    const posicionFlor = document.createElementNS(ns, "g");
+  centros.forEach(([x,y],i) => {
+    const posicionFlor = document.createElementNS(ns,"g");
+    posicionFlor.setAttribute("transform",`translate(${x} ${y})`);
 
-    posicionFlor.setAttribute(
-      "transform",
-      `translate(${x} ${y})`
-    );
+    const flor = document.createElementNS(ns,"g");
+    flor.setAttribute("class","florecita");
+    flor.style.setProperty("--retardo",`${i*0.72}s`);
 
-    const flor = document.createElementNS(ns, "g");
-    flor.setAttribute("class", "florecita");
-
-    flor.style.setProperty(
-      "--retardo",
-      `${i * 0.72}s`
-    );
-
-    [0, 90, 180, 270].forEach(angulo => {
-      const petalo = document.createElementNS(ns, "ellipse");
-
-      petalo.setAttribute("cx", "0");
-      petalo.setAttribute("cy", "-12");
-      petalo.setAttribute("rx", "13");
-      petalo.setAttribute("ry", "18");
-
-      petalo.setAttribute(
-        "transform",
-        `rotate(${angulo})`
-      );
-
-      petalo.setAttribute("fill", "url(#petaloAzul)");
-      petalo.setAttribute("stroke", "#e5f1ff");
-      petalo.setAttribute("stroke-width", ".8");
-
+    [0,90,180,270].forEach(angulo => {
+      const petalo = document.createElementNS(ns,"ellipse");
+      petalo.setAttribute("cx","0");
+      petalo.setAttribute("cy","-12");
+      petalo.setAttribute("rx","13");
+      petalo.setAttribute("ry","18");
+      petalo.setAttribute("transform",`rotate(${angulo})`);
+      petalo.setAttribute("fill","url(#petaloAzul)");
+      petalo.setAttribute("stroke","#e5f1ff");
+      petalo.setAttribute("stroke-width",".8");
       flor.appendChild(petalo);
     });
 
-    const centro = document.createElementNS(ns, "circle");
-    centro.setAttribute("r", "4");
-    centro.setAttribute("fill", "#fff1ae");
-    centro.setAttribute("class", "brillo");
+    const centro = document.createElementNS(ns,"circle");
+    centro.setAttribute("r","4");
+    centro.setAttribute("fill","#fff1ae");
+    centro.setAttribute("class","brillo");
 
     flor.appendChild(centro);
     posicionFlor.appendChild(flor);
@@ -926,13 +606,8 @@ function crearHortensia() {
 
 crearHortensia();
 
-/* ==========================================
-   ANIMACIÓN DE 20 SEGUNDOS
-========================================== */
-
 function mostrarHortensia() {
   const pantalla = document.getElementById("florPantalla");
-
   pantalla.classList.remove("hidden");
 
   pantalla.style.animation = "none";
@@ -949,44 +624,34 @@ function mostrarHortensia() {
     setTimeout(() => {
       pantalla.classList.add("hidden");
       resolve();
-    }, 20000);
+    },20000);
   });
 }
 
-/* ==========================================
-   CAMBIAR PANTALLAS
-========================================== */
+/* PANTALLAS */
 
 function mostrar(id) {
-  ["bienvenida", "juego", "final"].forEach(seccion => {
+  ["bienvenida","juego","final"].forEach(seccion => {
     document.getElementById(seccion).classList.add("hidden");
   });
 
   document.getElementById(id).classList.remove("hidden");
 }
 
-/* ==========================================
-   MEZCLAR PREGUNTAS
-========================================== */
-
 function mezclar(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-
-    [array[i], array[j]] = [array[j], array[i]];
+  for(let i=array.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [array[i],array[j]]=[array[j],array[i]];
   }
-
   return array;
 }
 
-/* ==========================================
-   COMENZAR TEST
-========================================== */
+/* COMENZAR */
 
 function comenzar() {
   participante = document.getElementById("nombre").value.trim();
 
-  if (!participante) {
+  if(!participante) {
     alert("Escribe tu nombre.");
     return;
   }
@@ -999,18 +664,14 @@ function comenzar() {
   mostrarPregunta();
 }
 
-/* ==========================================
-   MOSTRAR PREGUNTA
-========================================== */
-
 function mostrarPregunta() {
   const indice = orden[posicion];
 
   document.getElementById("contador").textContent =
-    `Pregunta ${posicion + 1} de ${datos.length}`;
+    `Pregunta ${posicion+1} de ${datos.length}`;
 
   document.getElementById("barra").style.width =
-    `${((posicion + 1) / datos.length) * 100}%`;
+    `${((posicion+1)/datos.length)*100}%`;
 
   document.getElementById("pregunta").textContent =
     datos[indice][0];
@@ -1019,58 +680,43 @@ function mostrarPregunta() {
     respuestas[indice];
 
   document.getElementById("siguiente").textContent =
-    posicion === datos.length - 1
-      ? "Terminar"
-      : "Siguiente";
+    posicion===datos.length-1 ? "Terminar" : "Siguiente";
 
   document.getElementById("estado").textContent = "";
 }
-
-/* ==========================================
-   GUARDAR RESPUESTA TEMPORAL
-========================================== */
 
 function guardarTemporal() {
   respuestas[orden[posicion]] =
     document.getElementById("respuesta").value;
 }
 
-/* ==========================================
-   PREGUNTA ANTERIOR
-========================================== */
-
 function anterior() {
-  if (enviando) return;
-
+  if(enviando) return;
   guardarTemporal();
 
-  if (posicion > 0) {
+  if(posicion>0) {
     posicion--;
     mostrarPregunta();
   }
 }
 
-/* ==========================================
-   SIGUIENTE PREGUNTA
-========================================== */
-
 async function siguiente() {
-  if (enviando) return;
+  if(enviando) return;
 
   guardarTemporal();
 
-  if (!respuestas[orden[posicion]].trim()) {
+  if(!respuestas[orden[posicion]].trim()) {
     alert("Responde antes de continuar.");
     return;
   }
 
-  if (posicion < datos.length - 1) {
+  if(posicion<datos.length-1) {
     posicion++;
     mostrarPregunta();
     return;
   }
 
-  if (respuestas.some(r => !r.trim())) {
+  if(respuestas.some(r=>!r.trim())) {
     alert("Faltan preguntas por responder.");
     return;
   }
@@ -1078,181 +724,10 @@ async function siguiente() {
   await finalizar();
 }
 
-/* ==========================================
-   NORMALIZAR TEXTO
-========================================== */
-
-function normalizar(texto) {
-  return String(texto)
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9 ]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-/* ==========================================
-   COMPROBAR FRASES
-========================================== */
-
-function contieneFrase(texto, frase) {
-  const clave = normalizar(frase);
-
-  if (!clave) return false;
-
-  return (` ${texto} `).includes(` ${clave} `);
-}
-
-/* ==========================================
-   CALIFICACIÓN AUTOMÁTICA
-========================================== */
-
-function evaluar(respuesta, opciones, indice) {
-  const texto = normalizar(respuesta);
-
-  if (!texto) return "incorrecta";
-
-  // Respuestas completas.
-  for (const opcion of opciones) {
-    if (texto === normalizar(opcion)) {
-      return "correcta";
-    }
-  }
-
-  // Géneros musicales.
-  if (indice === 4) {
-    const coincideGenero = generosMusicales.some(genero =>
-      contieneFrase(texto, genero)
-    );
-
-    const coincideGeneral = respuestasGeneralesMusica.some(frase =>
-      contieneFrase(texto, frase)
-    );
-
-    if (coincideGenero || coincideGeneral) {
-      return "correcta";
-    }
-  }
-
-  // Palabras clave.
-  const grupos = palabrasClave[indice] || [];
-  const palabras = texto.split(" ");
-
-  for (const grupo of grupos) {
-    const coincide = grupo.every(clave => {
-      const partes = normalizar(clave).split(" ");
-
-      return partes.every(palabra =>
-        palabras.includes(palabra)
-      );
-    });
-
-    if (coincide) {
-      return "correcta";
-    }
-  }
-
-  return "incorrecta";
-}
-
-/* ==========================================
-   CALCULAR PUNTUACIÓN
-========================================== */
-
-function calcularPuntuacion(respuestasUsuario) {
-  if (
-    !Array.isArray(respuestasUsuario) ||
-    respuestasUsuario.length !== datos.length
-  ) {
-    return null;
-  }
-
-  let puntos = 0;
-
-  respuestasUsuario.forEach((respuesta, i) => {
-    if (
-      evaluar(respuesta, datos[i][1], i) === "correcta"
-    ) {
-      puntos++;
-    }
-  });
-
-  return puntos;
-}
-
-/* ==========================================
-   CREAR TARJETA DE RESPUESTA
-========================================== */
-
-function crearTarjetaRespuesta(respuesta, indice) {
-  const evaluacion = evaluar(
-    respuesta,
-    datos[indice][1],
-    indice
-  );
-
-  const esCorrecta = evaluacion === "correcta";
-
-  const tarjeta = document.createElement("div");
-
-  tarjeta.className =
-    "result " + (esCorrecta ? "good" : "incorrect");
-
-  const pregunta = document.createElement("strong");
-
-  pregunta.textContent =
-    `${indice + 1}. ${datos[indice][0]}`;
-
-  const respuestaUsuario = document.createElement("p");
-
-  respuestaUsuario.textContent =
-    "Tu respuesta: " + respuesta;
-
-  const respuestaCorrecta = document.createElement("p");
-
-  respuestaCorrecta.textContent =
-    "Respuesta correcta: " + datos[indice][1][0];
-
-  const calificacion = document.createElement("p");
-
-  calificacion.className = esCorrecta
-    ? "calificacion-correcta"
-    : "calificacion-incorrecta";
-
-  calificacion.textContent = esCorrecta
-    ? "✓ Correcta (+1 punto)"
-    : "✗ Incorrecta (0 puntos)";
-
-  tarjeta.append(
-    pregunta,
-    respuestaUsuario,
-    respuestaCorrecta,
-    calificacion
-  );
-
-  return tarjeta;
-}
-
-/* ==========================================
-   CABECERAS DE SUPABASE
-========================================== */
-
-function headers(token) {
-  return {
-    "apikey": API_KEY,
-    "Authorization": "Bearer " + (token || API_KEY),
-    "Content-Type": "application/json"
-  };
-}
-
-/* ==========================================
-   FINALIZAR TEST
-========================================== */
+/* FINALIZAR Y GUARDAR */
 
 async function finalizar() {
-  if (enviando) return;
-
+  if(enviando) return;
   enviando = true;
 
   const boton = document.getElementById("siguiente");
@@ -1267,71 +742,88 @@ async function finalizar() {
     const response = await fetch(
       URL_BASE + "/rest/v1/resultados_test",
       {
-        method: "POST",
-        headers: {
+        method:"POST",
+        headers:{
           ...headers(),
-          "Prefer": "return=minimal"
+          Prefer:"return=minimal"
         },
-        body: JSON.stringify({
-          nombre: participante,
-          respuestas: respuestas,
-          puntuacion: puntos,
-          pendientes_revision: 0
+        body:JSON.stringify({
+          nombre:participante,
+          respuestas:respuestas,
+          puntuacion:puntos,
+          pendientes_revision:0
         })
       }
     );
 
-    if (!response.ok) {
+    if(!response.ok) {
       throw new Error(await response.text());
     }
 
     const zona = document.getElementById("resultado");
-
     zona.replaceChildren();
 
     const titulo = document.createElement("h2");
-
     titulo.textContent =
       `${participante}: ${puntos}/${datos.length} puntos`;
-
     zona.appendChild(titulo);
 
-    respuestas.forEach((respuesta, i) => {
-      zona.appendChild(
-        crearTarjetaRespuesta(respuesta, i)
-      );
+    respuestas.forEach((respuesta,i) => {
+      zona.appendChild(crearTarjetaRespuesta(respuesta,i));
     });
 
     await mostrarHortensia();
-
     mostrar("final");
 
-  } catch (error) {
+  } catch(error) {
     console.error(error);
-
     estado.textContent =
       "No se pudieron guardar las respuestas. Inténtalo nuevamente.";
-
     alert("Hubo un problema al guardar tus respuestas.");
-
   } finally {
     enviando = false;
     boton.disabled = false;
   }
 }
 
-/* ==========================================
-   ABRIR O CERRAR ADMINISTRACIÓN
-========================================== */
+/* PANEL DE ADMINISTRACIÓN */
 
 function mostrarAdmin() {
-  document.getElementById("admin")
-    .classList.toggle("hidden");
+  const admin = document.getElementById("admin");
+  const abierto = !admin.classList.contains("hidden");
+
+  if(abierto) {
+    admin.classList.add("hidden");
+    admin.classList.remove("admin-pantalla");
+    document.getElementById("bienvenida").classList.toggle(
+      "hidden",!document.getElementById("bienvenida").dataset.visibleAntes
+    );
+    document.getElementById("juego").classList.toggle(
+      "hidden",!document.getElementById("juego").dataset.visibleAntes
+    );
+    document.getElementById("final").classList.toggle(
+      "hidden",!document.getElementById("final").dataset.visibleAntes
+    );
+
+    ["bienvenida","juego","final"].forEach(id => {
+      delete document.getElementById(id).dataset.visibleAntes;
+    });
+  } else {
+    ["bienvenida","juego","final"].forEach(id => {
+      const elemento = document.getElementById(id);
+      if(!elemento.classList.contains("hidden")) {
+        elemento.dataset.visibleAntes = "1";
+      }
+      elemento.classList.add("hidden");
+    });
+
+    admin.classList.remove("hidden");
+    admin.classList.add("admin-pantalla");
+    window.scrollTo(0,0);
+  }
 }
 
-/* ==========================================
-   INICIAR SESIÓN ADMINISTRADOR
-========================================== */
+/* INICIAR SESIÓN */
 
 async function iniciarSesion() {
   const email = document.getElementById("correo").value.trim();
@@ -1345,48 +837,39 @@ async function iniciarSesion() {
     const response = await fetch(
       URL_BASE + "/auth/v1/token?grant_type=password",
       {
-        method: "POST",
-        headers: {
-          "apikey": API_KEY,
-          "Content-Type": "application/json"
+        method:"POST",
+        headers:{
+          apikey:API_KEY,
+          "Content-Type":"application/json"
         },
-        body: JSON.stringify({
-          email,
-          password
-        })
+        body:JSON.stringify({email,password})
       }
     );
 
-    const datosSesion = await response.json();
+    const sesion = await response.json();
 
-    if (!response.ok || !datosSesion.access_token) {
+    if(!response.ok || !sesion.access_token) {
       throw new Error("No se pudo iniciar sesión.");
     }
 
-    tokenAdmin = datosSesion.access_token;
+    tokenAdmin = sesion.access_token;
 
-    document.getElementById("login")
-      .classList.add("hidden");
-
-    document.getElementById("panel")
-      .classList.remove("hidden");
+    document.getElementById("login").classList.add("hidden");
+    document.getElementById("panel").classList.remove("hidden");
 
     estado.textContent = "Sesión iniciada.";
-
     await cargarResultados();
 
-  } catch (error) {
+  } catch(error) {
     estado.textContent = error.message;
     estado.className = "error";
   }
 }
 
-/* ==========================================
-   GUARDAR PUNTUACIÓN CORREGIDA
-========================================== */
+/* ACTUALIZAR PUNTUACIÓN EN SUPABASE */
 
-async function actualizarPuntuacion(registro, puntos) {
-  if (!tokenAdmin) {
+async function actualizarPuntuacion(registro,puntos) {
+  if(!tokenAdmin) {
     throw new Error("No hay sesión de administración.");
   }
 
@@ -1395,25 +878,25 @@ async function actualizarPuntuacion(registro, puntos) {
     "/rest/v1/resultados_test?id=eq." +
     encodeURIComponent(registro.id),
     {
-      method: "PATCH",
-      headers: {
+      method:"PATCH",
+      headers:{
         ...headers(tokenAdmin),
-        "Prefer": "return=representation"
+        Prefer:"return=representation"
       },
-      body: JSON.stringify({
-        puntuacion: puntos,
-        pendientes_revision: 0
+      body:JSON.stringify({
+        puntuacion:puntos,
+        pendientes_revision:0
       })
     }
   );
 
-  if (!response.ok) {
+  if(!response.ok) {
     throw new Error(await response.text());
   }
 
   const filas = await response.json();
 
-  if (!Array.isArray(filas) || filas.length !== 1) {
+  if(!Array.isArray(filas) || filas.length!==1) {
     throw new Error(
       "Supabase no permitió actualizar la puntuación."
     );
@@ -1422,14 +905,12 @@ async function actualizarPuntuacion(registro, puntos) {
   return filas[0];
 }
 
-/* ==========================================
-   CARGAR Y RECALIFICAR RESULTADOS
-========================================== */
+/* CARGAR Y RECALIFICAR PARTICIPACIONES */
 
 async function cargarResultados() {
-  if (cargandoAdmin) return;
+  if(cargandoAdmin) return;
 
-  if (!tokenAdmin) {
+  if(!tokenAdmin) {
     document.getElementById("estadoAdmin").textContent =
       "Primero inicia sesión.";
     return;
@@ -1441,10 +922,7 @@ async function cargarResultados() {
   const estado = document.getElementById("estadoAdmin");
 
   lista.replaceChildren();
-
-  estado.textContent =
-    "Cargando y recalificando resultados...";
-
+  estado.textContent = "Cargando y recalificando resultados...";
   estado.className = "";
 
   try {
@@ -1452,20 +930,17 @@ async function cargarResultados() {
     const limite = 500;
     let offset = 0;
 
-    // Cargar todas las participaciones.
-    while (true) {
+    while(true) {
       const response = await fetch(
         URL_BASE +
         "/rest/v1/resultados_test" +
         "?select=*&order=creado_en.desc,id.desc" +
         "&limit=" + limite +
         "&offset=" + offset,
-        {
-          headers: headers(tokenAdmin)
-        }
+        {headers:headers(tokenAdmin)}
       );
 
-      if (!response.ok) {
+      if(!response.ok) {
         throw new Error(
           "No se pudieron consultar los resultados: " +
           await response.text()
@@ -1473,190 +948,142 @@ async function cargarResultados() {
       }
 
       const pagina = await response.json();
-
       registros.push(...pagina);
 
-      if (pagina.length < limite) break;
-
+      if(pagina.length<limite) break;
       offset += pagina.length;
     }
 
     const titulo = document.createElement("h3");
-
-    titulo.textContent =
-      "Participaciones: " + registros.length;
-
+    titulo.textContent = "Participaciones: " + registros.length;
     lista.appendChild(titulo);
 
     let actualizados = 0;
     let errores = 0;
+    let incompletos = 0;
 
-    for (const registro of registros) {
+    for(const registro of registros) {
       const div = document.createElement("div");
       div.className = "registro";
 
       const nombre = document.createElement("h3");
-
-      nombre.textContent =
-        registro.nombre || "Sin nombre";
+      nombre.textContent = registro.nombre || "Sin nombre";
 
       const respuestasGuardadas =
         Array.isArray(registro.respuestas)
           ? registro.respuestas
           : [];
 
-      const puntuacionCorregida =
-        calcularPuntuacion(respuestasGuardadas);
+      const corregida = calcularPuntuacion(respuestasGuardadas);
 
       const puntos = document.createElement("p");
-      const mensajeGuardado = document.createElement("p");
+      const mensaje = document.createElement("p");
+      mensaje.className = "small";
 
-      mensajeGuardado.className = "small";
-
-      if (puntuacionCorregida === null) {
+      if(corregida===null) {
+        incompletos++;
         puntos.textContent =
-          "No se puede recalificar: faltan respuestas.";
-
-        mensajeGuardado.textContent =
-          "Se conserva la puntuación anterior.";
-
+          `Puntuación guardada: ${registro.puntuacion}/20`;
+        mensaje.textContent =
+          "No se recalificó porque faltan respuestas.";
       } else {
         puntos.textContent =
-          `Puntuación corregida: ${puntuacionCorregida}/20`;
+          `Puntuación corregida: ${corregida}/20`;
 
         const necesitaActualizar =
-          Number(registro.puntuacion) !== puntuacionCorregida ||
-          Number(registro.pendientes_revision) !== 0;
+          Number(registro.puntuacion)!==corregida ||
+          Number(registro.pendientes_revision)!==0;
 
-        if (necesitaActualizar) {
+        if(necesitaActualizar) {
           try {
-            await actualizarPuntuacion(
-              registro,
-              puntuacionCorregida
-            );
-
+            await actualizarPuntuacion(registro,corregida);
             actualizados++;
-
-            mensajeGuardado.textContent =
-              "Puntuación actualizada en Supabase.";
-
-            mensajeGuardado.className = "success";
-
-          } catch (error) {
+            mensaje.textContent =
+              "Puntuación corregida y guardada en Supabase.";
+            mensaje.className = "success";
+          } catch(error) {
             errores++;
-
-            mensajeGuardado.textContent =
+            mensaje.textContent =
               "No se pudo guardar la puntuación corregida. " +
-              "Puntuación anterior en Supabase: " +
-              registro.puntuacion + "/20.";
-
-            mensajeGuardado.className = "error";
-
-            console.error(
-              "Error al actualizar registro:",
-              registro.id,
-              error
-            );
+              `En Supabase sigue: ${registro.puntuacion}/20.`;
+            mensaje.className = "error";
+            console.error("Error en registro",registro.id,error);
           }
-
         } else {
-          mensajeGuardado.textContent =
+          mensaje.textContent =
             "La puntuación guardada coincide con la corregida.";
         }
       }
 
       const fecha = document.createElement("p");
       fecha.className = "small";
-
       fecha.textContent = registro.creado_en
         ? new Date(registro.creado_en).toLocaleString("es-EC")
         : "Fecha no disponible";
 
       const detalles = document.createElement("details");
-
       const resumen = document.createElement("summary");
-
       resumen.textContent = "Ver las 20 respuestas";
-
       detalles.appendChild(resumen);
 
-      respuestasGuardadas.forEach((respuesta, i) => {
-        if (!datos[i]) return;
-
-        detalles.appendChild(
-          crearTarjetaRespuesta(respuesta, i)
-        );
+      respuestasGuardadas.forEach((respuesta,i) => {
+        if(i<datos.length) {
+          detalles.appendChild(
+            crearTarjetaRespuesta(respuesta,i)
+          );
+        }
       });
 
       const eliminar = document.createElement("button");
-
       eliminar.type = "button";
       eliminar.className = "danger";
       eliminar.textContent = "Eliminar registro";
-
-      eliminar.addEventListener("click", () => {
-        eliminarRegistro(registro, eliminar);
+      eliminar.addEventListener("click",() => {
+        eliminarRegistro(registro,eliminar);
       });
 
       div.append(
-        nombre,
-        puntos,
-        fecha,
-        detalles,
-        mensajeGuardado,
-        eliminar
+        nombre,puntos,fecha,detalles,mensaje,eliminar
       );
-
       lista.appendChild(div);
     }
 
     estado.textContent =
       `Participaciones: ${registros.length}. ` +
-      `Puntuaciones actualizadas: ${actualizados}. ` +
+      `Actualizadas: ${actualizados}. ` +
+      `Incompletas: ${incompletos}. ` +
       `Errores: ${errores}.`;
 
-    if (errores > 0) {
-      estado.className = "error";
-    }
+    if(errores>0) estado.className = "error";
 
-  } catch (error) {
+  } catch(error) {
     console.error(error);
-
     estado.textContent =
       "Error al cargar resultados: " + error.message;
-
     estado.className = "error";
-
   } finally {
     cargandoAdmin = false;
   }
 }
 
-/* ==========================================
-   ELIMINAR REGISTRO
-========================================== */
+/* ELIMINAR REGISTRO */
 
-async function eliminarRegistro(registro, boton) {
-  if (!tokenAdmin) {
+async function eliminarRegistro(registro,boton) {
+  if(!tokenAdmin) {
     alert("Inicia sesión como administradora.");
     return;
   }
 
-  if (cargandoAdmin) {
+  if(cargandoAdmin) {
     alert("Espera a que termine la actualización.");
     return;
   }
 
-  const nombre = String(
-    registro.nombre || "Sin nombre"
-  );
+  const nombre = String(registro.nombre || "Sin nombre");
 
-  const confirmar = confirm(
-    `¿Eliminar definitivamente las respuestas de "${nombre}"? ` +
-    "Esta acción no se puede deshacer."
-  );
-
-  if (!confirmar) return;
+  if(!confirm(
+    `¿Eliminar definitivamente las respuestas de "${nombre}"?`
+  )) return;
 
   boton.disabled = true;
   boton.textContent = "Eliminando...";
@@ -1669,102 +1096,77 @@ async function eliminarRegistro(registro, boton) {
       "/rest/v1/resultados_test?id=eq." +
       encodeURIComponent(registro.id),
       {
-        method: "DELETE",
-        headers: {
+        method:"DELETE",
+        headers:{
           ...headers(tokenAdmin),
-          "Prefer": "return=representation"
+          Prefer:"return=representation"
         }
       }
     );
 
-    if (!response.ok) {
-      throw new Error(
-        "Supabase rechazó la eliminación: " +
-        await response.text()
-      );
+    if(!response.ok) {
+      throw new Error(await response.text());
     }
 
     const eliminados = await response.json();
 
-    if (
-      !Array.isArray(eliminados) ||
-      eliminados.length !== 1
-    ) {
+    if(!Array.isArray(eliminados) || eliminados.length!==1) {
       throw new Error(
-        "No se eliminó el registro. " +
-        "Revisa los permisos DELETE de Supabase."
+        "No se eliminó el registro. Revisa los permisos DELETE."
       );
     }
 
     await cargarResultados();
-
     estado.textContent =
       `Registro de "${nombre}" eliminado correctamente.`;
 
-  } catch (error) {
+  } catch(error) {
     console.error(error);
-
     estado.textContent = error.message;
     estado.className = "error";
-
     boton.disabled = false;
     boton.textContent = "Eliminar registro";
   }
 }
 
-/* ==========================================
-   CERRAR SESIÓN
-========================================== */
+/* CERRAR SESIÓN */
 
 function cerrarSesion() {
-  if (cargandoAdmin) {
+  if(cargandoAdmin) {
     alert("Espera a que termine la actualización.");
     return;
   }
 
   tokenAdmin = null;
-
-  document.getElementById("panel")
-    .classList.add("hidden");
-
-  document.getElementById("login")
-    .classList.remove("hidden");
-
+  document.getElementById("panel").classList.add("hidden");
+  document.getElementById("login").classList.remove("hidden");
   document.getElementById("lista").replaceChildren();
-
   document.getElementById("clave").value = "";
-
   document.getElementById("estadoAdmin").textContent =
     "Sesión cerrada.";
 }
 
-/* ==========================================
-   ATAJOS DEL TECLADO
-========================================== */
+/* ATAJOS */
 
-document.addEventListener("keydown", function(event) {
-
-  // Enter para avanzar de pregunta.
-  if (
-    event.key === "Enter" &&
+document.addEventListener("keydown",event => {
+  if(
+    event.key==="Enter" &&
     !event.repeat &&
     !event.ctrlKey &&
     !event.altKey &&
     !document.getElementById("juego").classList.contains("hidden") &&
-    document.activeElement === document.getElementById("respuesta")
+    document.getElementById("admin").classList.contains("hidden") &&
+    document.activeElement===document.getElementById("respuesta")
   ) {
     event.preventDefault();
     siguiente();
     return;
   }
 
-  // Ctrl + A para abrir o cerrar administración.
-  if (
+  if(
     (event.ctrlKey || event.metaKey) &&
-    event.key.toLowerCase() === "a" &&
-    !event.target.closest(
-      "input, textarea, [contenteditable]"
-    )
+    event.key.toLowerCase()==="a" &&
+    !event.target.closest("input,textarea,[contenteditable]")
   ) {
     event.preventDefault();
     mostrarAdmin();
@@ -1772,6 +1174,5 @@ document.addEventListener("keydown", function(event) {
 });
 
 </script>
-
 </body>
 </html>
